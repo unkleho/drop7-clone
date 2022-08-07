@@ -16,6 +16,16 @@ export const emptyGrid: Grid = [
   [null, null, null, null, null, null, null],
 ];
 
+const discs: Disc[] = [1, 2, 3, 4, 5, 6, 7, 'blank', 'cracked'];
+
+/**
+ * Get random disc
+ */
+export const getRandomDisc = () => {
+  const randomInt = Math.floor(Math.random() * discs.length);
+  return discs[randomInt];
+};
+
 /**
  * Drop disc into grid based on column
  */
@@ -45,6 +55,7 @@ export const addDiscToGrid = (grid: Grid, column: number, id: string) => {
 
 /**
  * Check grid for disc numbers that match row or column length, then return positions.
+ * TODO: Consider returning IDs
  */
 export function getMatchingGroups(
   grid: Grid,
