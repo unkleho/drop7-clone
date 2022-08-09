@@ -1,14 +1,30 @@
 import { isContext } from 'vm';
 import { assign, createMachine } from 'xstate';
-import { addDiscToGrid, DiscMap, emptyGrid, getRandomDisc } from './drop7';
+import {
+  addDiscToGrid,
+  crackAdjacentDiscs,
+  Disc,
+  DiscMap,
+  emptyGrid,
+  getMatchingGroups,
+  getRandomDisc,
+} from './drop7';
 
-import type { Grid } from './grid';
+import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoJADKFAAyFADCACo0iwDycwCqTGTxnAPJSKKIZpo4juJ1StJOuSUmqhaV1oV5Ncpmqm0g3p3dYBwfwwg0iEC4sAAxnFjglDkJjqkri0cLdpI4zBpLHJpGZLGYHmUsBY6tZHNJlHI8eYfn9fAFAZCADZgPwoUERQh+HiQvCQCLgqGwGHsA5JBGgVJPWRyHS42zKSQyWqEpS4Swa6pqjVKcS0jr0wKQtBMpl+DDcIaCyHC-aJfgSk4IHRYnAZSlYFrKFziRSq1SSHCqTUufGWT1mZT6nxdBk4XlgSEAaw5UHZEBFIDh4pSEikqhwWMsdw0Vy+0kJAYsRUklg09acwZy0f+cYTyY5LIAbmAmZnsw7c866hZcpYdFIihk64Scrg8ZHx9ZVEWNC3DYDBpCUGBiAIwpFu73+2LB4iJHYC4rLJTizJa3I5KrlMo3VhZfU8hpcV917HAn4EDgkMzKsjuEARAARoIUS2rCp5HJKEiuK+0juiutbWMSFZGIgLiBnkyjWNklKaJof4AjgYACBBAIkBQAAaACSyx2vCQ6OLg0rjkUariLUqiElg6TyDiUiKDepb1hRDL0cxrHwfaiFOqosjCdUMhKJUVLUoSSqBlg4bmOO6QkR4nggAIaAQHAwh0vgRBgGxObnggGSFnWVLfukdbvoSCiBqZ+SKMJj55DJgTBKEHIxM5Z5IUS4iosJMjjg247iP57mkph3pmEov4WfZlF9AMQyjOMsFgCgcXKak5gFnkGT1OOeWYoSGhfFk+K5C4OLelSrRFQa-6AsCHLWrVjpIsWmSdcJvp2I4MgErhRKZDl+KSMoWiRmYEWMiybIclyPJ8hB1rwIp7GuaYmTOIq+T5Jo0jYpI-pJZqdYUi0vrolgB3xiaZoWhNEI2lNHHYrI+X1uINR1KSglrUUlhBiGOieuY-HfMNMaUe2KZDGmXAQJDrl1M4ViKDYjhqJUUjPnIb4fhq2gKFIgOE52YA9ky5MJZOzyRi+ShVlgOh6S4hbbS+WjYgo2KA1uO57geERHvz10uYL20khkjQaBkTifKtpR3IW76cWcwbLgDeOtgBQEcqBbL8tBAiwQLTqOCJwkS7kL0-e9a2hqiAbFq4GTONIa4OxuVE0REALe6kZxJWhso6LKz3mEJNSFvDpY3uYpFx+0+MMqnJhUjgD1KgG6jfm9s7w91i43v9GTl78BrV2UaPqQGtymGFuko8zC5EfiOQ4v95luEAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoJADKFAAyFADCACo0iwDycwCqTGTxnAPJSKKIWGa49cpm1tc6lZIliNI6OC3Syhrn6ZZYdaptIG8nW6YBwQIwg0iEC4sAAxiQRLAeH4eKC-MNUSgABRVSwAShIQN8AVB4MhEWhcP2iX4QmOqTuyhw90qeSKGkcZkeCB0lleykslmyGlc4hycgBRK6JJwGHQsLg3CGhBRsLwkApMNhsARSJRaIxYGxqkFBKlINl8sV5JVPDVGsp2uphzpoFSLSZnzkKneChN0m5Jr5YukXssVwy4klHWJgXtsIA1uSoCguBBdcjUTh0ZisUGzTHpXH1Ynk6mIM6kq6TjypKocBpBU4zBycqoA0ZEKpzDgipJLBpB04TTloz4i6D40mhgAbMAANzAM7ixwSLpSiDMclkjd+byujVUXM7PLkrxFTne-YPW6wY+BMsGsJQYGIAjCkTni+XldpG55dj1so15VJe-bety7xMi4ch-HkGjSLk-yeIChYWn4EDQkMsJzn4L4QBEABGghRDqv5HG6EiuEy0gZGoWiCs4ZgdqULiSFkkgCuY4jKN6GiaPesagmAAgESCJAUAAGgAkss5HVgytE4Ee0iWI47YKDx4iqNyWDpPI25SIo4YcoOgkThJMlyauBxVv+7Y4Hp1QyEolRyLk1jcpI3mOT85hqek2TKB4KECGgEBwMIUoEMQ8n-hkDYDu5CHfCKcjcgo7GBfkih6d6eTmRawShOSMRxfSJi-L2ekyGpQ5qeIGUJXU1iCsoZxKGYyHtOOFp9AMQyjOMpFGuVlEIOY9Z5Bk9Rqe1uQaNynxTUKuQwe8WDua0KHmjKZJDI6Y01o0oYNl84h6Q0l7HqUCiZC1-Z5B85hXIVMpymgCqwEqkS2vaBGOvANk0hRNamJkzjAfk+SaKppiQQ0ViCgOUHPIoF1vcWYClkMKZpkdDKmLgPxOBy7zdrBDwnr6jmbS11h1L87g7WhMpTuSX5LgTEgyBYL3KC09TmL8i0ns4uBaALz2WN6WAy5joJPi+b4fhEnMztzPKcRYF0cgOGROFcN1PD2aWOGcs3WOkCvZph5I4WAeEasRAikZr6m4Hpvy5LDUFU6xcu9t2li0c4WiKBoNsiWJJKa1u4jVbBOiU+o5i6TUDbaXrwFmLxAks71sfA+uFVlO5zJYFD3bqAhMv+4gESNEyPy2N60iIS4HLdahPia1Ujkmt27emPl1z1wgjfZFYGTqLBQqCg0EohUAA */
   createMachine(
     {
-      context: { score: 0, level: 1, grid: [], discMap: {}, moves: 30 },
+      context: {
+        score: 0,
+        level: 1,
+        grid: [],
+        discMap: {},
+        nextDisc: null,
+        moves: 30,
+        discCount: 0,
+      },
       tsTypes: {} as import('./machine.typegen').Typegen0,
       schema: {
         context: {} as {
@@ -16,7 +32,9 @@ export const drop7Machine =
           level: number;
           grid: Grid;
           discMap: DiscMap;
+          nextDisc: { value: Disc; id: string } | null;
           moves: number;
+          discCount: number;
         },
         events: {} as
           | { type: 'NEW_GAME' }
@@ -42,8 +60,8 @@ export const drop7Machine =
           },
         },
         game: {
-          initial: 'setting-up',
           entry: 'setupGrid',
+          initial: 'setting-up',
           states: {
             'setting-up': {
               always: {
@@ -51,6 +69,7 @@ export const drop7Machine =
               },
             },
             'waiting-for-user': {
+              entry: 'getRandomDisc',
               on: {
                 SELECT_COLUMN: {
                   actions: 'dropDisc',
@@ -59,40 +78,43 @@ export const drop7Machine =
               },
             },
             'dropping-disc': {
-              always: {
-                target: 'checking-grid',
+              after: {
+                '300': {
+                  actions: 'collapseDiscs',
+                  target: 'checking-grid',
+                },
               },
             },
-            'clearing-matched-discs': {
-              always: {
-                actions: 'incrementScore',
-                target: 'collapsing-discs',
-              },
-            },
-            'collapsing-discs': {
-              always: {
-                target: 'checking-grid',
+            'processing-matched-discs': {
+              entry: ['incrementScore', 'clearMatchedDiscs'],
+              after: {
+                '500': {
+                  actions: 'collapseDiscs',
+                  target: 'checking-grid',
+                },
               },
             },
             'checking-grid': {
-              always: [
-                {
-                  cond: 'NO_DISC_MATCHES',
-                  target: 'checking-level',
-                },
-                {
-                  cond: 'DISC_MATCHES',
-                  target: 'clearing-matched-discs',
-                },
-                {
-                  cond: 'GRID_CLEARED',
-                  target: 'adding-cleared-bonus',
-                },
-                {
-                  cond: 'GRID_OVER',
-                  target: 'end-game',
-                },
-              ],
+              after: {
+                '500': [
+                  {
+                    cond: 'NO_DISC_MATCHES',
+                    target: 'checking-level',
+                  },
+                  {
+                    cond: 'DISC_MATCHES',
+                    target: 'processing-matched-discs',
+                  },
+                  {
+                    cond: 'GRID_CLEARED',
+                    target: 'adding-cleared-bonus',
+                  },
+                  {
+                    cond: 'GRID_OVER',
+                    target: 'end-game',
+                  },
+                ],
+              },
             },
             'checking-level': {
               always: [
@@ -140,36 +162,107 @@ export const drop7Machine =
             return emptyGrid;
           },
         }),
-        dropDisc: assign((context, event) => {
-          const discTotal = Object.keys(context.discMap).length;
-          const discId = 'disc-' + discTotal;
+        getRandomDisc: assign((context) => {
+          const discId = 'disc-' + context.discCount;
+          // TODO: Rename type and function to DiscValue?
+          const discValue = getRandomDisc();
 
           return {
-            grid: addDiscToGrid(context.grid, event.column, discId),
+            nextDisc: {
+              id: discId,
+              value: discValue,
+            },
             discMap: {
               ...context.discMap,
-              [discId]: getRandomDisc(),
+              [discId]: discValue,
             },
-            moves: context.moves - 1,
+            discCount: context.discCount + 1,
+          };
+        }),
+        dropDisc: assign((context, event) => {
+          if (!context.nextDisc) {
+            return {};
+          }
+
+          // const grid = addDiscToGrid(
+          //   context.grid,
+          //   event.column,
+          //   context.nextDisc.id
+          // );
+
+          // Put disc on first row
+          // TODO: Check if enough space
+          const grid = cloneGrid(context.grid);
+          grid[0][event.column] = context.nextDisc.id;
+
+          console.log(
+            '--- dropDisc',
+            event.column,
+            context.discMap,
+            // discId,
+            grid
+          );
+
+          if (context.nextDisc) {
+            return {
+              grid,
+              moves: context.moves - 1,
+              nextDisc: null,
+            };
+          }
+
+          return {};
+        }),
+        clearMatchedDiscs: assign((context, event) => {
+          // Get matched disc ids
+          const matchedIds = getMatchingGroups(context.grid, context.discMap);
+
+          // Crack or destroy adjacent discs
+          const [crackedGrid, discMap] = crackAdjacentDiscs(
+            context.grid,
+            context.discMap,
+            matchedIds
+          );
+
+          // Clear grid of matched ids
+          const clearedGrid = removeByIds(crackedGrid, matchedIds);
+
+          console.log('clearMatchedDiscs', clearedGrid, matchedIds);
+
+          return {
+            grid: clearedGrid,
+            discMap,
+          };
+        }),
+        collapseDiscs: assign((context) => {
+          console.log('collapseDiscs', context.grid);
+
+          return {
+            grid: collapseGrid(context.grid),
           };
         }),
         incrementScore: assign({
           score: (context, event) => {
-            console.log('incrementScore', context);
+            const matchedIds = getMatchingGroups(context.grid, context.discMap);
+            console.log('incrementScore', matchedIds);
 
-            return context.score + 10;
+            // TODO: Keep track of chains and increase multiplier
+            const score = matchedIds.length * 7;
+
+            return context.score + score;
           },
         }),
-        incrementLevel: assign({
-          level: (context, event) => {
-            console.log('incrementLevel', context);
+        incrementLevel: assign((context, event) => {
+          console.log('incrementLevel');
 
-            return context.level + 1;
-          },
+          return {
+            level: context.level + 1,
+            moves: 30,
+          };
         }),
         consoleLogValue: (context, event) => {
           // Wow! event is typed to { type: 'FOO' }
-          console.log(event);
+          // console.log(event);
           // raise('START_GAME');
         },
       },
@@ -178,16 +271,27 @@ export const drop7Machine =
     actions: {},
     guards: {
       NO_DISC_MATCHES: (context) => {
-        console.log('NO_DISC_MATCHES', context.grid);
+        const groups = getMatchingGroups(context.grid, context.discMap);
+        const noDiscMatches = groups.length === 0;
 
-        return true;
+        if (noDiscMatches) {
+          console.log('NO_DISC_MATCHES', groups);
+        }
+
+        return noDiscMatches;
       },
-      DISC_MATCHES: () => {
-        console.log('DISC_MATCHES');
-        return false;
+      DISC_MATCHES: (context) => {
+        const groups = getMatchingGroups(context.grid, context.discMap);
+        const hasDiscMatches = groups.length > 0;
+
+        if (hasDiscMatches) {
+          console.log('DISC_MATCHES', groups);
+        }
+
+        return hasDiscMatches;
       },
       GRID_CLEARED: () => {
-        return true;
+        return false;
       },
       GRID_OVER: () => {
         return true;

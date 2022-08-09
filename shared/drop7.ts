@@ -14,6 +14,7 @@ export const emptyGrid: Grid = [
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null],
 ];
 
 const discs: Disc[] = [1, 2, 3, 4, 5, 6, 7, 'blank', 'cracked'];
@@ -55,12 +56,8 @@ export const addDiscToGrid = (grid: Grid, column: number, id: string) => {
 
 /**
  * Check grid for disc numbers that match row or column length, then return positions.
- * TODO: Consider returning IDs
  */
-export function getMatchingGroups(
-  grid: Grid,
-  discMap: DiscMap
-): [number | null, number | null][] {
+export function getMatchingGroups(grid: Grid, discMap: DiscMap): string[] {
   const rowGroups = getRowGroups(grid);
   const columnGroups = getColumnGroups(grid);
 
@@ -88,7 +85,8 @@ export function getMatchingGroups(
   // console.log('columnGroups', columnGroups);
   // console.log('discIdsToRemove', discIdsToRemove);
 
-  return dedupedDiscIdsToRemove.map((id) => getPosition(grid, id));
+  return dedupedDiscIdsToRemove;
+  // return dedupedDiscIdsToRemove.map((id) => getPosition(grid, id));
 }
 
 /**
@@ -221,7 +219,7 @@ export function crackAdjacentDiscs(
  * @param position [column, row]
  * @returns
  */
-function isValidPosition(
+export function isValidPosition(
   position: [number | null, number | null]
 ): position is [number, number] {
   const [column, row] = position;
