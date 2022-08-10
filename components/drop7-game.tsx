@@ -2,22 +2,42 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { isValidPosition } from '../shared/drop7';
 import { getPosition } from '../shared/grid';
+import { useKeyPress } from '../shared/hooks/use-key-press';
 import { useStore } from '../shared/store';
 import { Drop7Disc } from './drop7-disc';
 
 export const Drop7Game = () => {
-  // const [state, send] = useMachine(drop7Machine);
-  // console.log(state.value);
   const { state, send } = useStore();
-  const [nextDiscColumn, setNextDiscColumn] = useState(4);
+  const { context } = state;
+
+  // Find disc in first row. This row is always for the next disc.
+  const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
+
+  useKeyPress('ArrowLeft', [nextDiscColumn], undefined, () => {
+    if (nextDiscColumn > 0) {
+      // setNextDiscColumn(nextDiscColumn - 1);
+      send({ type: 'HOVER_COLUMN', column: nextDiscColumn - 1 });
+    }
+  });
+
+  useKeyPress('ArrowRight', [nextDiscColumn], undefined, () => {
+    if (nextDiscColumn < 6) {
+      // setNextDiscColumn(nextDiscColumn + 1);
+      send({ type: 'HOVER_COLUMN', column: nextDiscColumn + 1 });
+    }
+  });
+
+  useKeyPress('Enter', [nextDiscColumn], undefined, () => {
+    send({ type: 'SELECT_COLUMN', column: nextDiscColumn });
+  });
 
   return (
     <div className="my-4 max-w-sm mx-auto">
       {/* @ts-ignore */}
-      <p>{state.value?.game ? state.value.game : state.value}</p>
-      <p>{state.context.score}</p>
-      <p>{state.context.moves}</p>
-      <p>Next disc: {state.context.nextDisc?.value}</p>
+      {/* <p>{state.value?.game ? state.value.game : state.value}</p> */}
+      <p>{context.score}</p>
+      <p>{context.moves}</p>
+
       {state.matches('home') && (
         <button onClick={() => send('NEW_GAME')}>New Game</button>
       )}
@@ -29,7 +49,8 @@ export const Drop7Game = () => {
             style={{ gridTemplateRows: 'repeat(8, minmax(0, 1fr)' }}
           >
             {/* Grid Lines */}
-            {state.context.grid.map((row, rowIndex) => {
+            {/* TODO: Move this to component */}
+            {context.grid.map((row, rowIndex) => {
               return row.map((_, columnIndex) => {
                 return (
                   <div
@@ -38,6 +59,9 @@ export const Drop7Game = () => {
                       rowIndex !== 0 ? 'border-t border-l' : '',
                       columnIndex === row.length - 1 && rowIndex !== 0
                         ? 'border-r'
+                        : '',
+                      nextDiscColumn === columnIndex && rowIndex !== 0
+                        ? 'bg-gray-900'
                         : '',
                     ].join(' ')}
                     style={{
@@ -54,10 +78,10 @@ export const Drop7Game = () => {
               {/* Column Selector */}
               {state.matches('game.waiting-for-user') && (
                 <div className="absolute top-0 grid grid-cols-7 w-full h-full">
-                  {state.context.grid[0].map((_, column) => {
+                  {context.grid[0].map((_, column) => {
                     return (
                       <button
-                        className="aspect-square"
+                        // className="aspect-square"
                         style={{
                           gridRow: 1,
                           gridColumn: column + 1,
@@ -65,7 +89,9 @@ export const Drop7Game = () => {
                         key={column}
                         onClick={() => send({ type: 'SELECT_COLUMN', column })}
                         onMouseOver={() => {
-                          setNextDiscColumn(column);
+                          console.log('>>> hover', column);
+                          // setNextDiscColumn(column);
+                          send({ type: 'HOVER_COLUMN', column });
                         }}
                       >
                         {/* {column} */}
@@ -73,22 +99,29 @@ export const Drop7Game = () => {
                     );
                   })}
 
-                  {state.context.nextDisc && (
+                  {/* Next Disc */}
+                  {/* {context.nextDisc && (
                     <Drop7Disc
-                      value={state.context.nextDisc.value}
+                      id={context.nextDisc.id}
+                      value={context.nextDisc.value}
                       column={nextDiscColumn}
                       row={0}
                     />
-                  )}
+                  )} */}
                 </div>
               )}
 
               {/* Discs */}
-              {Object.entries(state.context.discMap).map(([id, disc]) => {
-                const position = getPosition(state.context.grid, id);
+              {Object.entries(context.discMap).map(([id, disc]) => {
+                const position = getPosition(context.grid, id);
 
                 if (isValidPosition(position)) {
                   const [column, row] = position;
+                  const discState =
+                    state.matches('game.clearing-matched-discs') ||
+                    state.matches('game.waiting-for-user')
+                      ? 'waiting' // spring
+                      : 'dropping'; // tween bounce
 
                   return (
                     <Drop7Disc
@@ -96,7 +129,7 @@ export const Drop7Game = () => {
                       value={disc}
                       column={column}
                       row={row}
-                      state="dropping"
+                      state={discState}
                       key={id}
                     />
                   );

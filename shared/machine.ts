@@ -13,7 +13,7 @@ import {
 import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoJADKFAAyFADCACo0iwDycwCqTGTxnAPJSKKIWGa49cpm1tc6lZIliNI6OC3Syhrn6ZZYdaptIG8nW6YBwQIwg0iEC4sAAxiQRLAeH4eKC-MNUSgABRVSwAShIQN8AVB4MhEWhcP2iX4QmOqTuyhw90qeSKGkcZkeCB0lleykslmyGlc4hycgBRK6JJwGHQsLg3CGhBRsLwkApMNhsARSJRaIxYGxqkFBKlINl8sV5JVPDVGsp2uphzpoFSLSZnzkKneChN0m5Jr5YukXssVwy4klHWJgXtsIA1uSoCguBBdcjUTh0ZisUGzTHpXH1Ynk6mIM6kq6TjypKocBpBU4zBycqoA0ZEKpzDgipJLBpB04TTloz4i6D40mhgAbMAANzAM7ixwSLpSiDMclkjd+byujVUXM7PLkrxFTne-YPW6wY+BMsGsJQYGIAjCkTni+XldpG55dj1so15VJe-bety7xMi4ch-HkGjSLk-yeIChYWn4EDQkMsJzn4L4QBEABGghRDqv5HG6EiuEy0gZGoWiCs4ZgdqULiSFkkgCuY4jKN6GiaPesagmAAgESCJAUAAGgAkss5HVgytE4Ee0iWI47YKDx4iqNyWDpPI25SIo4YcoOgkThJMlyauBxVv+7Y4Hp1QyEolRyLk1jcpI3mOT85hqek2TKB4KECGgEBwMIUoEMQ8n-hkDYDu5CHfCKcjcgo7GBfkih6d6eTmRawShOSMRxfSJi-L2ekyGpQ5qeIGUJXU1iCsoZxKGYyHtOOFp9AMQyjOMpFGuVlEIOY9Z5Bk9Rqe1uQaNynxTUKuQwe8WDua0KHmjKZJDI6Y01o0oYNl84h6Q0l7HqUCiZC1-Z5B85hXIVMpymgCqwEqkS2vaBGOvANk0hRNamJkzjAfk+SaKppiQQ0ViCgOUHPIoF1vcWYClkMKZpkdDKmLgPxOBy7zdrBDwnr6jmbS11h1L87g7WhMpTuSX5LgTEgyBYL3KC09TmL8i0ns4uBaALz2WN6WAy5joJPi+b4fhEnMztzPKcRYF0cgOGROFcN1PD2aWOGcs3WOkCvZph5I4WAeEasRAikZr6m4Hpvy5LDUFU6xcu9t2li0c4WiKBoNsiWJJKa1u4jVbBOiU+o5i6TUDbaXrwFmLxAks71sfA+uFVlO5zJYFD3bqAhMv+4gESNEyPy2N60iIS4HLdahPia1Ujkmt27emPl1z1wgjfZFYGTqLBQqCg0EohUAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHEkESwHh+HgwvzDSMoAAUjUsAEoSJ6uhKcD6-QGg0dEvwDecEDpbFyNJZLICzZJJGazGz6hZKtVlLY7opxHYPWL04EMOgcXBuENCBGcXhIP7AzjYCGwxGozHMXHk6me9CcP20IPYMPIqOeOPJzmZ3mKSlEDJJPIpICMp3NDY2fzOf8WbVW5YWZpuz5ezCcXxMA-CxEcxwnCApyDWdQ3DSMcGjWM41UCsUzTDdAOA0D93A49p3gXV81OQ0JB0TlVGkS4v3MVRJGsesjEQZkrArSwNFsf5Pko1oRXQjMjxxABrP0oCxCA5zgxckJQ1c+MCAThKGUSuAgM99QvYspFUHBy0rcxPhyCjn3MHAijo9iBXyV4wV49d+InIS-SAjF8VJdg9QLDSvjNLIpDMFCBUsVtHgbSwsmcDRFHML5qiCmz2j-DdBhxFAwGIARpWcsBXLUzyqQkOxtOUOjlCqJwnC-VlGIQJ5lC5IE6lUPIBVyVRfyhDM-AgAMhkwkDJwAI0EZE3JAcl1Py4tXDqwE+S0CtnAeNkXGvPIXmi0rNB-WzEozMABEg6ESAoAANABJNVcuIotHFwJrpFeIolFuWpVGW9J5DkW1nAe1sS3ar1SFOi6rsLVIKK5FDaMeUwWVyaw2Rra8sFdC1O25cRlA8EUBDQCA4GENMCGIUGNIyHS2NBAUXUiqrSgUa90jydJAXUUFhQSjrAmCUI-RiUnJoUb5WZkS1Aq+BtybqawK2UbklH8gH-1hAYhkROUpilAWSIQDJcErB6tDZ1trWqqQ7tlvX8kx9isCVjcpT9dXkUxVEMWwiI8UJYltaLMwNE5cxiudO5GiKNlmgqS4KKs2t1HEe2M0dtXZRdlBfepCsuUonRGSvFkbVkGS600SsvgFRPvQ6X0hhPDOJErTInQaZ0GnKhj6alqo6LWrR-ni0Vdr7Achz9A8j0gk8CPcoiwZMGwcGcYr8nyTQHtN0oim+Vi2Nq20OztnauYAoCQLH3DJ-w+uEH9sLKgyTRLnN11n3LHApAFbk+VtHlK4AhzFKRGUqpQi55Jp1GcFYKKXE1CVCkDaUq9VgRVGsDcKQf8cAKScmAFy19bxNn+ACeo5hbgaERi4HStZnjzRZCjOQGDkqpXSplHB2U8G1muPeNiNIOEdyYiZWmt0eQyXyIfTmgMELdT9H1VKkEhoCGRHgoouBnS3FyGvWqkhloo1MrRSsrgMg-Q0Bg-ah0JTXx5MLBqZEtKmD4brGoOlOyfCCkHFkxij6A2vnDReWBl60XUIFDeiAIitnfpoNRLIUI1krADbxYVnTVBkEoSooJzRsgiLecJkU7gMhrJjK42M3BAA */
   createMachine(
     {
       context: {
@@ -39,6 +39,7 @@ export const drop7Machine =
         events: {} as
           | { type: 'NEW_GAME' }
           | { type: 'START_GAME' }
+          | { type: 'HOVER_COLUMN'; column: number }
           | { type: 'SELECT_COLUMN'; column: number }
           | { type: 'RESTART' }
           | { type: 'COLLAPSE_DISCS' }
@@ -70,6 +71,22 @@ export const drop7Machine =
             },
             'waiting-for-user': {
               entry: 'getRandomDisc',
+              initial: 'wait',
+              states: {
+                wait: {
+                  on: {
+                    HOVER_COLUMN: {
+                      actions: 'hoverColumn',
+                      target: 'hovering-column',
+                    },
+                  },
+                },
+                'hovering-column': {
+                  always: {
+                    target: 'wait',
+                  },
+                },
+              },
               on: {
                 SELECT_COLUMN: {
                   actions: 'dropDisc',
@@ -79,14 +96,22 @@ export const drop7Machine =
             },
             'dropping-disc': {
               after: {
-                '300': {
+                '100': {
                   actions: 'collapseDiscs',
                   target: 'checking-grid',
                 },
               },
             },
             'processing-matched-discs': {
-              entry: ['incrementScore', 'clearMatchedDiscs'],
+              entry: 'incrementScore',
+              after: {
+                '0': {
+                  target: 'clearing-matched-discs',
+                },
+              },
+            },
+            'clearing-matched-discs': {
+              exit: 'clearMatchedDiscs',
               after: {
                 '500': {
                   actions: 'collapseDiscs',
@@ -166,17 +191,40 @@ export const drop7Machine =
           const discId = 'disc-' + context.discCount;
           // TODO: Rename type and function to DiscValue?
           const discValue = getRandomDisc();
+          const grid = cloneGrid(context.grid);
+          grid[0][3] = discId;
 
           return {
             nextDisc: {
               id: discId,
               value: discValue,
+              // value: 1,
             },
             discMap: {
               ...context.discMap,
               [discId]: discValue,
+              // [discId]: 1,
             },
             discCount: context.discCount + 1,
+            grid,
+          };
+        }),
+        hoverColumn: assign((context, event) => {
+          const nextGrid = cloneGrid(context.grid);
+          const nextDiscId = context.nextDisc?.id;
+
+          if (nextDiscId) {
+            nextGrid[0] = nextGrid[0].map((value, column) => {
+              if (column === event.column) {
+                return nextDiscId;
+              }
+
+              return null;
+            });
+          }
+
+          return {
+            grid: nextGrid,
           };
         }),
         dropDisc: assign((context, event) => {

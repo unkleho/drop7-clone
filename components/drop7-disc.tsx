@@ -51,7 +51,7 @@ export const Drop7Disc: React.FC<Props> = ({
       layout
       layoutId={id}
       className={[
-        'flex items-center justify-center m-1 aspect-square text-center rounded-full text-xl pointer-events-none',
+        'flex items-center justify-center m-1 aspect-square text-center rounded-full text-xl pointer-events-none font-semibold',
         colourMap[value].bg,
       ].join(' ')}
       transition={transition}
@@ -65,6 +65,7 @@ export const Drop7Disc: React.FC<Props> = ({
     >
       {value === 'cracked' ? 'CR' : null}
       {typeof value === 'number' ? value : null}
+      {/* {id} */}
     </motion.div>
   );
 };

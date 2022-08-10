@@ -4,16 +4,20 @@ export interface Typegen0 {
   "@@xstate/typegen": true;
   internalEvents: {
     "": { type: "" };
-    "xstate.after(300)#drop7.game.dropping-disc": {
-      type: "xstate.after(300)#drop7.game.dropping-disc";
+    "xstate.after(0)#drop7.game.processing-matched-discs": {
+      type: "xstate.after(0)#drop7.game.processing-matched-discs";
+    };
+    "xstate.after(100)#drop7.game.dropping-disc": {
+      type: "xstate.after(100)#drop7.game.dropping-disc";
     };
     "xstate.after(500)#drop7.game.checking-grid": {
       type: "xstate.after(500)#drop7.game.checking-grid";
     };
-    "xstate.after(500)#drop7.game.processing-matched-discs": {
-      type: "xstate.after(500)#drop7.game.processing-matched-discs";
+    "xstate.after(500)#drop7.game.clearing-matched-discs": {
+      type: "xstate.after(500)#drop7.game.clearing-matched-discs";
     };
     "xstate.init": { type: "xstate.init" };
+    "xstate.stop": { type: "xstate.stop" };
   };
   invokeSrcNameMap: {};
   missingImplementations: {
@@ -29,13 +33,17 @@ export interface Typegen0 {
     delays: never;
   };
   eventsCausingActions: {
-    clearMatchedDiscs: "xstate.after(500)#drop7.game.checking-grid";
+    clearMatchedDiscs:
+      | "EXIT"
+      | "xstate.after(500)#drop7.game.clearing-matched-discs"
+      | "xstate.stop";
     collapseDiscs:
-      | "xstate.after(300)#drop7.game.dropping-disc"
-      | "xstate.after(500)#drop7.game.processing-matched-discs";
+      | "xstate.after(100)#drop7.game.dropping-disc"
+      | "xstate.after(500)#drop7.game.clearing-matched-discs";
     consoleLogValue: "NEW_GAME";
     dropDisc: "SELECT_COLUMN";
     getRandomDisc: "";
+    hoverColumn: "HOVER_COLUMN";
     incrementLevel: "";
     incrementScore: "xstate.after(500)#drop7.game.checking-grid";
     setupGrid: "NEW_GAME";
@@ -55,24 +63,29 @@ export interface Typegen0 {
     | "game.adding-cleared-bonus"
     | "game.checking-grid"
     | "game.checking-level"
+    | "game.clearing-matched-discs"
     | "game.dropping-disc"
     | "game.end-game"
     | "game.incrementing-level"
     | "game.processing-matched-discs"
     | "game.setting-up"
     | "game.waiting-for-user"
+    | "game.waiting-for-user.hovering-column"
+    | "game.waiting-for-user.wait"
     | "home"
     | {
         game?:
           | "adding-cleared-bonus"
           | "checking-grid"
           | "checking-level"
+          | "clearing-matched-discs"
           | "dropping-disc"
           | "end-game"
           | "incrementing-level"
           | "processing-matched-discs"
           | "setting-up"
-          | "waiting-for-user";
+          | "waiting-for-user"
+          | { "waiting-for-user"?: "hovering-column" | "wait" };
       };
   tags: never;
 }
