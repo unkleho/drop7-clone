@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { isValidPosition } from '../shared/drop7';
 import { getPosition } from '../shared/grid';
 import { useStore } from '../shared/store';
+import { Drop7Disc } from './drop7-disc';
 
 export const Drop7Game = () => {
   // const [state, send] = useMachine(drop7Machine);
@@ -72,32 +73,15 @@ export const Drop7Game = () => {
                     );
                   })}
 
-                  <motion.div
-                    layout
-                    className="flex items-center justify-center pointer-events-none aspect-square"
-                    style={{
-                      gridRow: 1,
-                      gridColumn: nextDiscColumn + 1,
-                    }}
-                  >
-                    {state.context.nextDisc?.value}
-                  </motion.div>
+                  {state.context.nextDisc && (
+                    <Drop7Disc
+                      value={state.context.nextDisc.value}
+                      column={nextDiscColumn}
+                      row={0}
+                    />
+                  )}
                 </div>
               )}
-
-              {/* Next Disc */}
-              {/* {state.matches('game.waiting-for-user') && (
-                <motion.div
-                  layout
-                  className="flex items-center justify-center pointer-events-none aspect-square"
-                  style={{
-                    gridRow: 1,
-                    gridColumn: nextDiscColumn + 1,
-                  }}
-                >
-                  {state.context.nextDisc?.value}
-                </motion.div>
-              )} */}
 
               {/* Discs */}
               {Object.entries(state.context.discMap).map(([id, disc]) => {
@@ -107,31 +91,14 @@ export const Drop7Game = () => {
                   const [column, row] = position;
 
                   return (
-                    <motion.div
-                      layoutId={id}
-                      className="flex items-center justify-center aspect-square text-center "
-                      transition={{
-                        type: 'tween',
-                        // duration: 100,
-                        // mass: 1,
-                        // damping: 5,
-                        // stiffness: 100,
-                      }}
-                      style={{
-                        gridRow: row + 1,
-                        gridColumn: column + 1,
-                      }}
-                      // initial={{
-                      //   gridRow: 0,
-                      //   gridColumn: column + 1,
-                      // }}
-                      exit={{
-                        opacity: 0,
-                      }}
+                    <Drop7Disc
+                      id={id}
+                      value={disc}
+                      column={column}
+                      row={row}
+                      state="dropping"
                       key={id}
-                    >
-                      {disc}
-                    </motion.div>
+                    />
                   );
                 }
               })}
