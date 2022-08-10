@@ -17,12 +17,12 @@ export const emptyGrid: Grid = [
   [null, null, null, null, null, null, null],
 ];
 
-const discs: Disc[] = [1, 2, 3, 4, 5, 6, 7, 'blank', 'cracked'];
-
 /**
  * Get random disc
  */
 export const getRandomDisc = () => {
+  const discs: Disc[] = [1, 2, 3, 4, 5, 6, 7, 'blank'];
+
   const randomInt = Math.floor(Math.random() * discs.length);
   return discs[randomInt];
 };

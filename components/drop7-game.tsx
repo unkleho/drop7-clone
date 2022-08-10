@@ -35,8 +35,9 @@ export const Drop7Game = () => {
     <div className="my-4 max-w-sm mx-auto">
       {/* @ts-ignore */}
       {/* <p>{state.value?.game ? state.value.game : state.value}</p> */}
-      <p>{context.score}</p>
-      <p>{context.moves}</p>
+      <p>Score: {context.score}</p>
+      <p>Moves: {context.moves}</p>
+      <p>Level: {context.level}</p>
 
       {state.matches('home') && (
         <button onClick={() => send('NEW_GAME')}>New Game</button>
@@ -89,7 +90,7 @@ export const Drop7Game = () => {
                         key={column}
                         onClick={() => send({ type: 'SELECT_COLUMN', column })}
                         onMouseOver={() => {
-                          console.log('>>> hover', column);
+                          // console.log('>>> hover', column);
                           // setNextDiscColumn(column);
                           send({ type: 'HOVER_COLUMN', column });
                         }}

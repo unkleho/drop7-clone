@@ -12,6 +12,8 @@ import {
 
 import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
+const movesPerLevel = 5;
+
 export const drop7Machine =
   /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHEkESwHh+HgwvzDSMoAAUjUsAEoSJ6uhKcD6-QGg0dEvwDecEDpbFyNJZLICzZJJGazGz6hZKtVlLY7opxHYPWL04EMOgcXBuENCBGcXhIP7AzjYCGwxGozHMXHk6me9CcP20IPYMPIqOeOPJzmZ3mKSlEDJJPIpICMp3NDY2fzOf8WbVW5YWZpuz5ezCcXxMA-CxEcxwnCApyDWdQ3DSMcGjWM41UCsUzTDdAOA0D93A49p3gXV81OQ0JB0TlVGkS4v3MVRJGsesjEQZkrArSwNFsf5Pko1oRXQjMjxxABrP0oCxCA5zgxckJQ1c+MCAThKGUSuAgM99QvYspFUHBy0rcxPhyCjn3MHAijo9iBXyV4wV49d+InIS-SAjF8VJdg9QLDSvjNLIpDMFCBUsVtHgbSwsmcDRFHML5qiCmz2j-DdBhxFAwGIARpWcsBXLUzyqQkOxtOUOjlCqJwnC-VlGIQJ5lC5IE6lUPIBVyVRfyhDM-AgAMhkwkDJwAI0EZE3JAcl1Py4tXDqwE+S0CtnAeNkXGvPIXmi0rNB-WzEozMABEg6ESAoAANABJNVcuIotHFwJrpFeIolFuWpVGW9J5DkW1nAe1sS3ar1SFOi6rsLVIKK5FDaMeUwWVyaw2Rra8sFdC1O25cRlA8EUBDQCA4GENMCGIUGNIyHS2NBAUXUiqrSgUa90jydJAXUUFhQSjrAmCUI-RiUnJoUb5WZkS1Aq+BtybqawK2UbklH8gH-1hAYhkROUpilAWSIQDJcErB6tDZ1trWqqQ7tlvX8kx9isCVjcpT9dXkUxVEMWwiI8UJYltaLMwNE5cxiudO5GiKNlmgqS4KKs2t1HEe2M0dtXZRdlBfepCsuUonRGSvFkbVkGS600SsvgFRPvQ6X0hhPDOJErTInQaZ0GnKhj6alqo6LWrR-ni0Vdr7Achz9A8j0gk8CPcoiwZMGwcGcYr8nyTQHtN0oim+Vi2Nq20OztnauYAoCQLH3DJ-w+uEH9sLKgyTRLnN11n3LHApAFbk+VtHlK4AhzFKRGUqpQi55Jp1GcFYKKXE1CVCkDaUq9VgRVGsDcKQf8cAKScmAFy19bxNn+ACeo5hbgaERi4HStZnjzRZCjOQGDkqpXSplHB2U8G1muPeNiNIOEdyYiZWmt0eQyXyIfTmgMELdT9H1VKkEhoCGRHgoouBnS3FyGvWqkhloo1MrRSsrgMg-Q0Bg-ah0JTXx5MLBqZEtKmD4brGoOlOyfCCkHFkxij6A2vnDReWBl60XUIFDeiAIitnfpoNRLIUI1krADbxYVnTVBkEoSooJzRsgiLecJkU7gMhrJjK42M3BAA */
   createMachine(
@@ -22,7 +24,7 @@ export const drop7Machine =
         grid: [],
         discMap: {},
         nextDisc: null,
-        moves: 30,
+        moves: movesPerLevel,
         discCount: 0,
       },
       tsTypes: {} as import('./machine.typegen').Typegen0,
@@ -301,11 +303,38 @@ export const drop7Machine =
           },
         }),
         incrementLevel: assign((context, event) => {
-          console.log('incrementLevel');
+          const grid = cloneGrid(context.grid);
+          let discMap = context.discMap;
+
+          // Remove top row of grid
+          grid.shift();
+
+          if (grid.length) {
+            const lastRow = grid.length;
+            // Add new last row
+            grid[lastRow] = [];
+
+            // Create last row on grid and fill in disc map
+            [...new Array(7)].forEach((_, column) => {
+              const discId = 'disc-' + context.discCount + column;
+              grid[lastRow][column] = discId;
+
+              discMap = {
+                ...discMap,
+                [discId]: 'blank',
+              };
+            });
+          }
+
+          console.log('incrementLevel', grid);
 
           return {
             level: context.level + 1,
-            moves: 30,
+            moves: movesPerLevel,
+            grid,
+            discMap,
+            // Increment count by 7 as we added 7 new discs
+            discCount: context.discCount + 7,
           };
         }),
         consoleLogValue: (context, event) => {
