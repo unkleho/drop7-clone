@@ -24,12 +24,14 @@ export interface Typegen0 {
     actions: never;
     services: never;
     guards:
+      | "GRID_CLEARED"
       | "NO_DISC_MATCHES"
       | "DISC_MATCHES"
-      | "GRID_CLEARED"
-      | "GRID_OVER"
+      | "GRID_FULL"
+      | "MOVES_LEFT_IN_LEVEL"
       | "NO_MOVES_LEFT_IN_LEVEL"
-      | "MOVES_LEFT_IN_LEVEL";
+      | "GRID_OVER"
+      | "GRID_NOT_OVER";
     delays: never;
   };
   eventsCausingActions: {
@@ -52,7 +54,9 @@ export interface Typegen0 {
   eventsCausingGuards: {
     DISC_MATCHES: "xstate.after(500)#drop7.game.checking-grid";
     GRID_CLEARED: "xstate.after(500)#drop7.game.checking-grid";
-    GRID_OVER: "xstate.after(500)#drop7.game.checking-grid";
+    GRID_FULL: "";
+    GRID_NOT_OVER: "";
+    GRID_OVER: "";
     MOVES_LEFT_IN_LEVEL: "";
     NO_DISC_MATCHES: "xstate.after(500)#drop7.game.checking-grid";
     NO_MOVES_LEFT_IN_LEVEL: "";

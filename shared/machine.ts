@@ -15,7 +15,7 @@ import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 const movesPerLevel = 5;
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHEkESwHh+HgwvzDSMoAAUjUsAEoSJ6uhKcD6-QGg0dEvwDecEDpbFyNJZLICzZJJGazGz6hZKtVlLY7opxHYPWL04EMOgcXBuENCBGcXhIP7AzjYCGwxGozHMXHk6me9CcP20IPYMPIqOeOPJzmZ3mKSlEDJJPIpICMp3NDY2fzOf8WbVW5YWZpuz5ezCcXxMA-CxEcxwnCApyDWdQ3DSMcGjWM41UCsUzTDdAOA0D93A49p3gXV81OQ0JB0TlVGkS4v3MVRJGsesjEQZkrArSwNFsf5Pko1oRXQjMjxxABrP0oCxCA5zgxckJQ1c+MCAThKGUSuAgM99QvYspFUHBy0rcxPhyCjn3MHAijo9iBXyV4wV49d+InIS-SAjF8VJdg9QLDSvjNLIpDMFCBUsVtHgbSwsmcDRFHML5qiCmz2j-DdBhxFAwGIARpWcsBXLUzyqQkOxtOUOjlCqJwnC-VlGIQJ5lC5IE6lUPIBVyVRfyhDM-AgAMhkwkDJwAI0EZE3JAcl1Py4tXDqwE+S0CtnAeNkXGvPIXmi0rNB-WzEozMABEg6ESAoAANABJNVcuIotHFwJrpFeIolFuWpVGW9J5DkW1nAe1sS3ar1SFOi6rsLVIKK5FDaMeUwWVyaw2Rra8sFdC1O25cRlA8EUBDQCA4GENMCGIUGNIyHS2NBAUXUiqrSgUa90jydJAXUUFhQSjrAmCUI-RiUnJoUb5WZkS1Aq+BtybqawK2UbklH8gH-1hAYhkROUpilAWSIQDJcErB6tDZ1trWqqQ7tlvX8kx9isCVjcpT9dXkUxVEMWwiI8UJYltaLMwNE5cxiudO5GiKNlmgqS4KKs2t1HEe2M0dtXZRdlBfepCsuUonRGSvFkbVkGS600SsvgFRPvQ6X0hhPDOJErTInQaZ0GnKhj6alqo6LWrR-ni0Vdr7Achz9A8j0gk8CPcoiwZMGwcGcYr8nyTQHtN0oim+Vi2Nq20OztnauYAoCQLH3DJ-w+uEH9sLKgyTRLnN11n3LHApAFbk+VtHlK4AhzFKRGUqpQi55Jp1GcFYKKXE1CVCkDaUq9VgRVGsDcKQf8cAKScmAFy19bxNn+ACeo5hbgaERi4HStZnjzRZCjOQGDkqpXSplHB2U8G1muPeNiNIOEdyYiZWmt0eQyXyIfTmgMELdT9H1VKkEhoCGRHgoouBnS3FyGvWqkhloo1MrRSsrgMg-Q0Bg-ah0JTXx5MLBqZEtKmD4brGoOlOyfCCkHFkxij6A2vnDReWBl60XUIFDeiAIitnfpoNRLIUI1krADbxYVnTVBkEoSooJzRsgiLecJkU7gMhrJjK42M3BAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHEkESwHh+HgwvzDSMoAAUjUsAEoSJ6uhKcD6-QGg0dEvwDecEDoNLhqv81OI7HYbGzmt9JFccmbQVogR6xenAhh0Di4NwhoQIzi8JB-YGcbAQ2GI1GY5i48nU53oTge2g+7AB5EhzwR2Oc5O8xSUogZJJ5FJARkq5pa0ZEPzOf8WbVlBpLCzNB2fF2YTj8TAPwsUHYdRwgccgynUNw0jHBo1jONVEsJc01XACgJAncwIPCd4F1fNTkNCRGlUHBpArF5VFtV5tBtORZCrZQWWddQzFsYV2l-dDRxxABrP0oCxCBp1gudEOQ1CVwzfd+ME4Tj31U9iyrTJ1CkRtnjUNk7G+Z1nEsQFqKudQfyhGTeIEoZAIxfFSXYPUC2U1TZCuGxxDUdRTB0NkVB+d8qycEEtFMkU0IzQYcRQMBiAEaUbLAOzFKcqkJG0b5GmkDQBWcY1LGUG1uX8iinGNZ0tA0MyvSjCAAyGDDgLHAAjQRkXskBySU1Lix5NSWUuNQtDyGQ2WyMjHkUXT+QaLQqr-HAwAECDoRICgAA0AEk1WSoii0cXBVAeV4iiUW5alUNlnRNBipEUfLPmyuaVvWradsLVJqK5ZDVBkJRKlBc02UkYGuVdC0q25DyPBFAQ0AgOBhDTAhiDe5SMhwD8NFbIosEsUtWQfMpXB+bl8kUZ1+s40VuIzYJQj9GJUe6hRviMmRLQFV43kJhRMjqawUOUbklDMVQnozKU-UROUpilJniIQDIy0ePH8lfLHJDZW6fkFpX8g87KsHF3o4Sl2VkUxVEMSwiI8UJYl5aLdjOXMZRnAaW5DIuwnmgqS5qPyaw1GBY3JVNoZpYtlBHepFCuQonRGXPFkbVkSShfyoXcnMcRQ8zDpfSGQ8Y4kQy1KwIXKy9iizDrIWcC+CvJDd-7nFmsLpO7Xt+z9Xd9wgw98Icwj3pMGwcGcFufvUTnrUJopvhQlCBQBO5bSNjuacCBqbb78DIKPAiT269jLAn3nNEuW7XR0j8G5sQF2LUW0eTz2SrMiISuAgEviwY3AigyEhs3T875CpqRaKLfI-IXAby4uZbelk-QJXxL-QKZ9n5fAeDeFQQM3bkWyMCW4QIZDfk3ggmEkVoqxXimAWyaDDoWGBgyewjRXBC18vlLIwtTSSUMsoPOfhap+h3s1VqQ8OqOV2qkRwjYrD6UbCFUWjxRpcImkUYEmggQUTzotZaEo0EtDPjkQBWjPYMiBo4cidhmKuHMMCT4odf79Qnk3fIatZ6a0JhEHk5FXTYKrM3bkzEqrOLPs6aov1TD9UBt4qs41-FGXqOYGk0M3BAA */
   createMachine(
     {
       context: {
@@ -125,6 +125,10 @@ export const drop7Machine =
               after: {
                 '500': [
                   {
+                    cond: 'GRID_CLEARED',
+                    target: 'adding-cleared-bonus',
+                  },
+                  {
                     cond: 'NO_DISC_MATCHES',
                     target: 'checking-level',
                   },
@@ -132,34 +136,37 @@ export const drop7Machine =
                     cond: 'DISC_MATCHES',
                     target: 'processing-matched-discs',
                   },
-                  {
-                    cond: 'GRID_CLEARED',
-                    target: 'adding-cleared-bonus',
-                  },
-                  {
-                    cond: 'GRID_OVER',
-                    target: 'end-game',
-                  },
                 ],
               },
             },
             'checking-level': {
               always: [
                 {
-                  cond: 'NO_MOVES_LEFT_IN_LEVEL',
-                  target: 'incrementing-level',
+                  cond: 'GRID_FULL',
+                  target: 'end-game',
                 },
                 {
                   cond: 'MOVES_LEFT_IN_LEVEL',
                   target: 'waiting-for-user',
                 },
+                {
+                  cond: 'NO_MOVES_LEFT_IN_LEVEL',
+                  target: 'incrementing-level',
+                },
               ],
             },
             'incrementing-level': {
               entry: 'incrementLevel',
-              always: {
-                target: 'checking-grid',
-              },
+              always: [
+                {
+                  cond: 'GRID_OVER',
+                  target: 'end-game',
+                },
+                {
+                  cond: 'GRID_NOT_OVER',
+                  target: 'checking-grid',
+                },
+              ],
             },
             'adding-cleared-bonus': {
               always: {
@@ -292,7 +299,7 @@ export const drop7Machine =
           };
         }),
         incrementScore: assign({
-          score: (context, event) => {
+          score: (context) => {
             const matchedIds = getMatchingGroups(context.grid, context.discMap);
             console.log('incrementScore', matchedIds);
 
@@ -347,6 +354,30 @@ export const drop7Machine =
   ).withConfig({
     actions: {},
     guards: {
+      GRID_CLEARED: () => {
+        return false;
+      },
+      GRID_OVER: (context) => {
+        // Get top row where next disc starts. This should be empty during the check states.
+        const topRow = context.grid[0];
+        const isClear = topRow.every((value) => value === null);
+
+        console.log('GRID_OVER', topRow, !isClear);
+
+        return !isClear;
+      },
+      GRID_NOT_OVER: () => {
+        return true;
+      },
+      GRID_FULL: (context) => {
+        // Get top row of game grid. Actual top row is for next disc.
+        const gameGridTopRow = context.grid[1];
+        const isFull = gameGridTopRow.every((value) => value !== null);
+
+        console.log('GRID_FULL', gameGridTopRow, isFull);
+
+        return isFull;
+      },
       NO_DISC_MATCHES: (context) => {
         const groups = getMatchingGroups(context.grid, context.discMap);
         const noDiscMatches = groups.length === 0;
@@ -366,12 +397,6 @@ export const drop7Machine =
         }
 
         return hasDiscMatches;
-      },
-      GRID_CLEARED: () => {
-        return false;
-      },
-      GRID_OVER: () => {
-        return true;
       },
       MOVES_LEFT_IN_LEVEL: (context) => {
         return Boolean(context.moves);

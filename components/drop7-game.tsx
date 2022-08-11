@@ -138,6 +138,10 @@ export const Drop7Game = () => {
               })}
             </AnimatePresence>
           </div>
+
+          {state.matches('game.end-game') && (
+            <button onClick={() => send('EXIT')}>Home</button>
+          )}
         </>
       )}
     </div>
