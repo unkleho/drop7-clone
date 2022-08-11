@@ -7,14 +7,14 @@ export interface Typegen0 {
     "xstate.after(0)#drop7.game.processing-matched-discs": {
       type: "xstate.after(0)#drop7.game.processing-matched-discs";
     };
-    "xstate.after(100)#drop7.game.dropping-disc": {
-      type: "xstate.after(100)#drop7.game.dropping-disc";
-    };
     "xstate.after(500)#drop7.game.checking-grid": {
       type: "xstate.after(500)#drop7.game.checking-grid";
     };
-    "xstate.after(500)#drop7.game.clearing-matched-discs": {
-      type: "xstate.after(500)#drop7.game.clearing-matched-discs";
+    "xstate.after(500)#drop7.game.checking-level": {
+      type: "xstate.after(500)#drop7.game.checking-level";
+    };
+    "xstate.after(800)#drop7.game.clearing-matched-discs": {
+      type: "xstate.after(800)#drop7.game.clearing-matched-discs";
     };
     "xstate.init": { type: "xstate.init" };
     "xstate.stop": { type: "xstate.stop" };
@@ -37,16 +37,14 @@ export interface Typegen0 {
   eventsCausingActions: {
     clearMatchedDiscs:
       | "EXIT"
-      | "xstate.after(500)#drop7.game.clearing-matched-discs"
+      | "xstate.after(800)#drop7.game.clearing-matched-discs"
       | "xstate.stop";
-    collapseDiscs:
-      | "xstate.after(100)#drop7.game.dropping-disc"
-      | "xstate.after(500)#drop7.game.clearing-matched-discs";
+    collapseDiscs: "" | "xstate.after(800)#drop7.game.clearing-matched-discs";
     consoleLogValue: "NEW_GAME";
     dropDisc: "SELECT_COLUMN";
-    getRandomDisc: "";
+    getRandomDisc: "" | "xstate.after(500)#drop7.game.checking-level";
     hoverColumn: "HOVER_COLUMN";
-    incrementLevel: "";
+    incrementLevel: "xstate.after(500)#drop7.game.checking-level";
     incrementScore: "xstate.after(500)#drop7.game.checking-grid";
     setupGrid: "NEW_GAME";
   };
@@ -54,12 +52,12 @@ export interface Typegen0 {
   eventsCausingGuards: {
     DISC_MATCHES: "xstate.after(500)#drop7.game.checking-grid";
     GRID_CLEARED: "xstate.after(500)#drop7.game.checking-grid";
-    GRID_FULL: "";
+    GRID_FULL: "xstate.after(500)#drop7.game.checking-level";
     GRID_NOT_OVER: "";
     GRID_OVER: "";
-    MOVES_LEFT_IN_LEVEL: "";
+    MOVES_LEFT_IN_LEVEL: "xstate.after(500)#drop7.game.checking-level";
     NO_DISC_MATCHES: "xstate.after(500)#drop7.game.checking-grid";
-    NO_MOVES_LEFT_IN_LEVEL: "";
+    NO_MOVES_LEFT_IN_LEVEL: "xstate.after(500)#drop7.game.checking-level";
   };
   eventsCausingDelays: {};
   matchesStates:

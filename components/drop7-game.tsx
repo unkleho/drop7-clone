@@ -118,11 +118,12 @@ export const Drop7Game = () => {
 
                 if (isValidPosition(position)) {
                   const [column, row] = position;
-                  const discState =
-                    state.matches('game.clearing-matched-discs') ||
-                    state.matches('game.waiting-for-user')
-                      ? 'waiting' // spring
-                      : 'dropping'; // tween bounce
+                  const discState = [
+                    'game.clearing-matched-discs',
+                    'game.waiting-for-user',
+                  ].some(state.matches)
+                    ? 'waiting' // spring
+                    : 'dropping'; // tween bounce
 
                   return (
                     <Drop7Disc

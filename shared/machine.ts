@@ -15,7 +15,7 @@ import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 const movesPerLevel = 5;
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHEkESwHh+HgwvzDSMoAAUjUsAEoSJ6uhKcD6-QGg0dEvwDecEDoNLhqv81OI7HYbGzmt9JFccmbQVogR6xenAhh0Di4NwhoQIzi8JB-YGcbAQ2GI1GY5i48nU53oTge2g+7AB5EhzwR2Oc5O8xSUogZJJ5FJARkq5pa0ZEPzOf8WbVlBpLCzNB2fF2YTj8TAPwsUHYdRwgccgynUNw0jHBo1jONVEsJc01XACgJAncwIPCd4F1fNTkNCRGlUHBpArF5VFtV5tBtORZCrZQWWddQzFsYV2l-dDRxxABrP0oCxCBp1gudEOQ1CVwzfd+ME4Tj31U9iyrTJ1CkRtnjUNk7G+Z1nEsQFqKudQfyhGTeIEoZAIxfFSXYPUC2U1TZCuGxxDUdRTB0NkVB+d8qycEEtFMkU0IzQYcRQMBiAEaUbLAOzFKcqkJG0b5GmkDQBWcY1LGUG1uX8iinGNZ0tA0MyvSjCAAyGDDgLHAAjQRkXskBySU1Lix5NSWUuNQtDyGQ2WyMjHkUXT+QaLQqr-HAwAECDoRICgAA0AEk1WSoii0cXBVAeV4iiUW5alUNlnRNBipEUfLPmyuaVvWradsLVJqK5ZDVBkJRKlBc02UkYGuVdC0q25DyPBFAQ0AgOBhDTAhiDe5SMhwD8NFbIosEsUtWQfMpXB+bl8kUZ1+s40VuIzYJQj9GJUe6hRviMmRLQFV43kJhRMjqawUOUbklDMVQnozKU-UROUpilJniIQDIy0ePH8lfLHJDZW6fkFpX8g87KsHF3o4Sl2VkUxVEMSwiI8UJYl5aLdjOXMZRnAaW5DIuwnmgqS5qPyaw1GBY3JVNoZpYtlBHepFCuQonRGXPFkbVkSShfyoXcnMcRQ8zDpfSGQ8Y4kQy1KwIXKy9iizDrIWcC+CvJDd-7nFmsLpO7Xt+z9Xd9wgw98Icwj3pMGwcGcFufvUTnrUJopvhQlCBQBO5bSNjuacCBqbb78DIKPAiT269jLAn3nNEuW7XR0j8G5sQF2LUW0eTz2SrMiISuAgEviwY3AigyEhs3T875CpqRaKLfI-IXAby4uZbelk-QJXxL-QKZ9n5fAeDeFQQM3bkWyMCW4QIZDfk3ggmEkVoqxXimAWyaDDoWGBgyewjRXBC18vlLIwtTSSUMsoPOfhap+h3s1VqQ8OqOV2qkRwjYrD6UbCFUWjxRpcImkUYEmggQUTzotZaEo0EtDPjkQBWjPYMiBo4cidhmKuHMMCT4odf79Qnk3fIatZ6a0JhEHk5FXTYKrM3bkzEqrOLPs6aov1TD9UBt4qs41-FGXqOYGk0M3BAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnAYdA4uDcIaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACksAEoSJ7C4ES2gy7AK5EqzW6xAG0H4LrEuGUogZJJ5FJARlE5oU0ZEPzOf8WbVlBpLCzNPmfKOYTj8WA-FjK9Xa-WA0uW22Ozgux7FBe0uQdhwLaEcCfF83xnD950XJsjlXU5DQkRpVBwaR4xeVRbVebQbTkWRE2UFlnXUMxbGFdp70gz8cQAaz9KAsQgX92x7ADuz7VRLDAkd6LrJiWLY5CKXXKNE0ydQpAzZ41DZOxvmdZxLEBPCrnUO8oSLBjmKGZ8MXxDj-0A3j+KHQS9OEgzIiMsB8XE-VJOk2QrhscQ1HUUwdDZFQfkvRMnBBLRtJFazAkGHEUDAYgBGlByTOctcqQkbRvkaaQNAFZxjUsZQbW5QLsKcY1nS0DQdK9TsIADIZoNfesACNBGREMQHJFy0qjHkZJZS41C0PIZDZbJMMeRRlP5BotGqh8cDAAQF2hEgKAADQASTVFLUMjRxcFUB5XiKJRblqVQ2WdE1iKkRQCs+HL5tWjbtt2iNUjwrk+NUGQlEqUFzTZSQQa5V0LUTbkvI8EUBDQCA4GEEcCGId7JIyHArw0HMiiwSwY1ZI8ylcH5uXyRRnQGmjRTootglCP0YjRnqFG+DSZEtAVXjeImFEyOprH45RuSUMxVGeospT9RE5SmKVmbQhAMljR58fyc9sckNk7p+IXlfyLycqwCXejhaXZWRTFUQxWCIjxQliQVyMqM5cxlGcBpbnUy6ieaCpLjw-JrDUYETclM2hhly2UCd6l+K5bCdEZTcWRtWQ+IKvHnm5PJsjDnAfT9b8cVjiR1JkrBhYTb3sLMVNhZwL5K8kd2AecOaIogotx0nacIlnT8F2L5dQxQj6TBsHBnFb371C560iaKb5+P4gUATuW1jc72nAka22B4Q4fS4QKjLCnvnNEuO7XSUq9G5sQEqLUW0eXz-TRK4CBj7qQEsN+x+pAvF5EVGSLQxb5H5C4LetFdK71sn6JK39NL2jwl8B4e4VDA3dlhbIwJbhAhkLebesCYTRVivFRKYBjJINyFPGwYt+SNFcMLfyBUsgi1NBndSyh85+Dqn6PeLU2oj06mGPaqRHAZisKpDMYUxaPDGmwyaRRgSaCBNhfOS0VoSm-i0M+OQiiVBjF7BkwNHB-xqAoEGPIdDiDDsfAaU9m75HVvPLWRMIg8iwq6dBiYW7cjItVBxZ9nTVD+qYAaQMPGJgmj4jS9RzAZBhm4IAA */
   createMachine(
     {
       context: {
@@ -97,11 +97,9 @@ export const drop7Machine =
               },
             },
             'dropping-disc': {
-              after: {
-                '100': {
-                  actions: 'collapseDiscs',
-                  target: 'checking-grid',
-                },
+              always: {
+                actions: 'collapseDiscs',
+                target: 'checking-grid',
               },
             },
             'processing-matched-discs': {
@@ -115,7 +113,7 @@ export const drop7Machine =
             'clearing-matched-discs': {
               exit: 'clearMatchedDiscs',
               after: {
-                '500': {
+                '800': {
                   actions: 'collapseDiscs',
                   target: 'checking-grid',
                 },
@@ -140,20 +138,22 @@ export const drop7Machine =
               },
             },
             'checking-level': {
-              always: [
-                {
-                  cond: 'GRID_FULL',
-                  target: 'end-game',
-                },
-                {
-                  cond: 'MOVES_LEFT_IN_LEVEL',
-                  target: 'waiting-for-user',
-                },
-                {
-                  cond: 'NO_MOVES_LEFT_IN_LEVEL',
-                  target: 'incrementing-level',
-                },
-              ],
+              after: {
+                '500': [
+                  {
+                    cond: 'GRID_FULL',
+                    target: 'end-game',
+                  },
+                  {
+                    cond: 'MOVES_LEFT_IN_LEVEL',
+                    target: 'waiting-for-user',
+                  },
+                  {
+                    cond: 'NO_MOVES_LEFT_IN_LEVEL',
+                    target: 'incrementing-level',
+                  },
+                ],
+              },
             },
             'incrementing-level': {
               entry: 'incrementLevel',
