@@ -36,7 +36,7 @@ export const Drop7Game = () => {
   });
 
   return (
-    <div className="my-4 max-w-sm mx-auto">
+    <div className="max-w-sm mx-auto">
       {/* @ts-ignore */}
       {/* <p>{state.value?.game ? state.value.game : state.value}</p> */}
       <p>Score: {context.score}</p>
