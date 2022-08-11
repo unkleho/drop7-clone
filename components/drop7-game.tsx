@@ -2,13 +2,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { isValidPosition } from '../shared/drop7';
 import { getPosition } from '../shared/grid';
+import useDeviceDetect from '../shared/hooks/use-device-detect';
 import { useKeyPress } from '../shared/hooks/use-key-press';
 import { useStore } from '../shared/store';
 import { Drop7Disc } from './drop7-disc';
 
 export const Drop7Game = () => {
+  const { isMobile } = useDeviceDetect();
   const { state, send } = useStore();
   const { context } = state;
+
+  console.log('isMobile', isMobile);
 
   // Find disc in first row. This row is always for the next disc.
   const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
@@ -88,11 +92,24 @@ export const Drop7Game = () => {
                           gridColumn: column + 1,
                         }}
                         key={column}
-                        onClick={() => send({ type: 'SELECT_COLUMN', column })}
+                        onClick={() => {
+                          if (isMobile) {
+                            return;
+                          }
+
+                          send({ type: 'SELECT_COLUMN', column });
+                        }}
                         onMouseOver={() => {
                           // console.log('>>> hover', column);
                           // setNextDiscColumn(column);
                           send({ type: 'HOVER_COLUMN', column });
+                        }}
+                        onTouchStart={() => {
+                          send({ type: 'HOVER_COLUMN', column });
+
+                          setTimeout(() => {
+                            send({ type: 'SELECT_COLUMN', column });
+                          }, 300);
                         }}
                       >
                         {/* {column} */}
