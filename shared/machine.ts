@@ -190,10 +190,28 @@ export const drop7Machine =
     },
     {
       actions: {
-        setupGrid: assign({
-          grid: (context) => {
-            return emptyGrid;
-          },
+        setupGrid: assign((context) => {
+          let grid = cloneGrid(emptyGrid);
+          let discMap = {};
+          const discCount = 9;
+
+          [...new Array(discCount)].forEach((_, i) => {
+            const discValue = getRandomDisc();
+            const discId = 'disc-' + i;
+            const column = Math.floor(Math.random() * 7);
+
+            discMap = {
+              ...discMap,
+              [discId]: discValue,
+            };
+            grid = addDiscToGrid(grid, column, discId);
+          });
+
+          return {
+            grid,
+            discMap,
+            discCount,
+          };
         }),
         getRandomDisc: assign((context) => {
           const discId = 'disc-' + context.discCount;

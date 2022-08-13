@@ -48,26 +48,64 @@ export const Drop7Disc: React.FC<Props> = ({
   }
 
   return (
-    <motion.div
-      layout
-      layoutId={id}
-      className={[
-        'flex items-center justify-center m-1 aspect-square text-center rounded-full text-xl pointer-events-none font-semibold',
-        colourMap[value].bg,
-      ].join(' ')}
-      transition={transition}
-      style={{
-        gridRow: row + 1,
-        gridColumn: column + 1,
-      }}
-      exit={{
-        opacity: 0,
-      }}
-    >
-      {value === 'cracked' ? 'CR' : null}
-      {typeof value === 'number' ? value : null}
-      {/* {id} */}
-    </motion.div>
+    <>
+      <motion.div
+        layout
+        layoutId={id}
+        className={[
+          'flex items-center justify-center m-1 aspect-square text-center rounded-full text-xl pointer-events-none font-semibold',
+          colourMap[value].bg,
+        ].join(' ')}
+        transition={transition}
+        style={{
+          gridRow: row + 1,
+          gridColumn: column + 1,
+        }}
+        exit={{
+          opacity: 0,
+        }}
+      >
+        {value === 'cracked' ? 'CR' : null}
+        {typeof value === 'number' ? value : null}
+        {/* {id} */}
+      </motion.div>
+
+      {/* <div className="relative overflow-auto w-full aspect-square rounded-full">
+        <div
+          className="absolute w-full h-full"
+          style={{
+            // TODO: try rgba(var(--base-colour), 0.1) where base-colour is 0, 0, 0
+            background: `radial-gradient(at 80% 20%,#FFF478,#FFB02E,#F70A8D)`,
+          }}
+        ></div>
+        <div
+          className="absolute w-full h-full"
+          style={{
+            background: `radial-gradient(#FFB849, rgba(255, 184, 71, 0))`,
+          }}
+        ></div>
+        <div
+          className="absolute w-full h-full"
+          style={{
+            background: `radial-gradient(at 55% 40%, rgba(245, 150, 57, 0) 60%, rgba(255, 125, 206, 1))`,
+          }}
+        ></div>
+        <div
+          className="absolute w-full h-full"
+          style={{
+            background: `radial-gradient(at 54% 40%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 1))`,
+            opacity: 0.6,
+          }}
+        ></div>
+        <div
+          className="absolute w-full h-full"
+          style={{
+            background: `radial-gradient(at 53% 45%, rgba(179, 35, 35, 0) 50%, rgba(0, 0, 0, 0.4))`,
+            opacity: 1,
+          }}
+        ></div>
+      </div> */}
+    </>
   );
 };
 
@@ -84,43 +122,6 @@ function easeOutBounce(x: number): number {
   } else {
     return n1 * (x -= 2.625 / d1) * x + 0.984375;
   }
-}
-
-{
-  /* <div className="relative overflow-auto w-8 aspect-square rounded-full">
-<div
-  className="absolute w-full h-full"
-  style={{
-    background: `radial-gradient(at 80% 20%,#FFF478,#FFB02E,#F70A8D)`,
-  }}
-></div>
-<div
-  className="absolute w-full h-full"
-  style={{
-    background: `radial-gradient(#FFB849, rgba(255, 184, 71, 0))`,
-  }}
-></div>
-<div
-  className="absolute w-full h-full"
-  style={{
-    background: `radial-gradient(at 55% 40%, rgba(245, 150, 57, 0) 60%, rgba(255, 125, 206, 1))`,
-  }}
-></div>
-<div
-  className="absolute w-full h-full"
-  style={{
-    background: `radial-gradient(at 54% 40%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 1))`,
-    opacity: 0.6,
-  }}
-></div>
-<div
-  className="absolute w-full h-full"
-  style={{
-    background: `radial-gradient(at 53% 45%, rgba(179, 35, 35, 0) 50%, rgba(0, 0, 0, 0.4))`,
-    opacity: 1,
-  }}
-></div>
-</div> */
 }
 
 // function easeOutBounce2(t: number, b: number, c: number, d: number) {

@@ -1,4 +1,5 @@
 @tailwind base;
+@import 'windy-radix-palette/base';
 @tailwind components;
 @tailwind utilities;
 
