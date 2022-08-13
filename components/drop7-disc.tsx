@@ -41,9 +41,9 @@ export const Drop7Disc: React.FC<Props> = ({
   } else if (state === 'dropping') {
     transition = {
       type: 'tween',
-      duration: 0.8,
+      duration: 0.7,
+      // ease: (t: number) => easeOutBounce2(t, 100, 100 - t, 1000 / 60),
       ease: easeOutBounce,
-      // ease: bounceOut,
     };
   }
 
@@ -72,7 +72,7 @@ export const Drop7Disc: React.FC<Props> = ({
 };
 
 function easeOutBounce(x: number): number {
-  const n1 = 7.5625;
+  const n1 = 7.0625;
   const d1 = 2.75;
 
   if (x < 1 / d1) {
@@ -86,31 +86,63 @@ function easeOutBounce(x: number): number {
   }
 }
 
-// var b1 = 4 / 11,
-//   b2 = 6 / 11,
-//   b3 = 8 / 11,
-//   b4 = 3 / 4,
-//   b5 = 9 / 11,
-//   b6 = 10 / 11,
-//   b7 = 15 / 16,
-//   b8 = 21 / 22,
-//   b9 = 63 / 64,
-//   b0 = 1 / b1 / b1;
+{
+  /* <div className="relative overflow-auto w-8 aspect-square rounded-full">
+<div
+  className="absolute w-full h-full"
+  style={{
+    background: `radial-gradient(at 80% 20%,#FFF478,#FFB02E,#F70A8D)`,
+  }}
+></div>
+<div
+  className="absolute w-full h-full"
+  style={{
+    background: `radial-gradient(#FFB849, rgba(255, 184, 71, 0))`,
+  }}
+></div>
+<div
+  className="absolute w-full h-full"
+  style={{
+    background: `radial-gradient(at 55% 40%, rgba(245, 150, 57, 0) 60%, rgba(255, 125, 206, 1))`,
+  }}
+></div>
+<div
+  className="absolute w-full h-full"
+  style={{
+    background: `radial-gradient(at 54% 40%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 1))`,
+    opacity: 0.6,
+  }}
+></div>
+<div
+  className="absolute w-full h-full"
+  style={{
+    background: `radial-gradient(at 53% 45%, rgba(179, 35, 35, 0) 50%, rgba(0, 0, 0, 0.4))`,
+    opacity: 1,
+  }}
+></div>
+</div> */
+}
 
-// export function bounceIn(t) {
-//   return 1 - bounceOut(1 - t);
+// function easeOutBounce2(t: number, b: number, c: number, d: number) {
+//   if ((t /= d) < 1 / 2.75) {
+//     return c * (7.5625 * t * t) + b;
+//   } else if (t < 2 / 2.75) {
+//     return c * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75) + b;
+//   } else if (t < 2.5 / 2.75) {
+//     return c * (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375) + b;
+//   } else {
+//     return c * (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375) + b;
+//   }
 // }
 
-// export function bounceOut(t) {
-//   return (t = +t) < b1
-//     ? b0 * t * t
-//     : t < b3
-//     ? b0 * (t -= b2) * t + b4
-//     : t < b6
-//     ? b0 * (t -= b5) * t + b7
-//     : b0 * (t -= b8) * t + b9;
-// }
-
-// export function bounceInOut(t) {
-//   return ((t *= 2) <= 1 ? 1 - bounceOut(1 - t) : bounceOut(t - 1) + 1) / 2;
+// var start = 0;
+// var end = 300;
+// var frameRate = 60 / 1000; // f/ms
+// var duration = 1000; //ms
+// var currentStep = 0;
+// var newY = 0;
+// var ball = document.querySelector('.ball');
+// function animate() {
+//   currentStep++;
+//   // newY = easeOutElastic(currentStep, start, end - start, frameRate * duration);
 // }
