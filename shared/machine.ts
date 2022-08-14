@@ -211,22 +211,22 @@ export const drop7Machine =
             grid = addDiscToGrid(grid, column, discId);
           });
 
-          return {
-            grid,
-            discMap,
-            discCount,
-          };
+          // return {
+          //   grid,
+          //   discMap,
+          //   discCount,
+          // };
 
           // TODO: Turn this into a tutorial
-          // return {
-          //   grid: gridTallColumn,
-          //   discMap: discMapTallColumn,
-          //   discCount: 8,
-          //   nextDisc: {
-          //     id: 'disc-8',
-          //     value: 2,
-          //   },
-          // };
+          return {
+            grid: gridTallColumn,
+            discMap: discMapTallColumn,
+            discCount: 8,
+            nextDisc: {
+              id: 'disc-8',
+              value: 2,
+            },
+          };
         }),
         getRandomDisc: assign((context) => {
           // Check for next disc, if it is available, it indicates we are in tutorial mode

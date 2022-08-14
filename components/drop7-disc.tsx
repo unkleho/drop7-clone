@@ -15,13 +15,13 @@ const colourMap: {
     bg: string;
   };
 } = {
-  1: { bg: 'bg-green-800' },
-  2: { bg: 'bg-yellow-800' },
-  3: { bg: 'bg-orange-800' },
-  4: { bg: 'bg-red-800' },
-  5: { bg: 'bg-purple-800' },
-  6: { bg: 'bg-cyan-800' },
-  7: { bg: 'bg-blue-800' },
+  1: { bg: 'bg-green-700' },
+  2: { bg: 'bg-yellow-600' },
+  3: { bg: 'bg-orange-700' },
+  4: { bg: 'bg-red-700' },
+  5: { bg: 'bg-purple-700' },
+  6: { bg: 'bg-cyan-700' },
+  7: { bg: 'bg-blue-600' },
   cracked: { bg: 'bg-gray-700' },
   blank: { bg: 'bg-gray-700' },
 };
@@ -65,47 +65,66 @@ export const Drop7Disc: React.FC<Props> = ({
           opacity: 0,
         }}
       >
+        {/* <Disc3D>
+          <div className="flex justify-center items-center h-full">
+            {value === 'cracked' ? 'CR' : null}
+            {typeof value === 'number' ? value : null}
+          </div>
+
+        </Disc3D> */}
+
         {value === 'cracked' ? 'CR' : null}
         {typeof value === 'number' ? value : null}
+
         {/* {id} */}
       </motion.div>
-
-      {/* <div className="relative overflow-auto w-full aspect-square rounded-full">
-        <div
-          className="absolute w-full h-full"
-          style={{
-            // TODO: try rgba(var(--base-colour), 0.1) where base-colour is 0, 0, 0
-            background: `radial-gradient(at 80% 20%,#FFF478,#FFB02E,#F70A8D)`,
-          }}
-        ></div>
-        <div
-          className="absolute w-full h-full"
-          style={{
-            background: `radial-gradient(#FFB849, rgba(255, 184, 71, 0))`,
-          }}
-        ></div>
-        <div
-          className="absolute w-full h-full"
-          style={{
-            background: `radial-gradient(at 55% 40%, rgba(245, 150, 57, 0) 60%, rgba(255, 125, 206, 1))`,
-          }}
-        ></div>
-        <div
-          className="absolute w-full h-full"
-          style={{
-            background: `radial-gradient(at 54% 40%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 1))`,
-            opacity: 0.6,
-          }}
-        ></div>
-        <div
-          className="absolute w-full h-full"
-          style={{
-            background: `radial-gradient(at 53% 45%, rgba(179, 35, 35, 0) 50%, rgba(0, 0, 0, 0.4))`,
-            opacity: 1,
-          }}
-        ></div>
-      </div> */}
     </>
+  );
+};
+
+type Disc3DProps = {
+  children: React.ReactNode;
+};
+
+const Disc3D: React.FC<Disc3DProps> = ({ children }) => {
+  return (
+    <div className="relative overflow-auto w-full aspect-square rounded-full">
+      <div
+        className="absolute w-full h-full"
+        style={{
+          // TODO: try rgba(var(--base-colour), 0.1) where base-colour is 0, 0, 0
+          background: `radial-gradient(at 80% 20%,#FFF478,#FFB02E,#F70A8D)`,
+        }}
+      ></div>
+      <div
+        className="absolute w-full h-full"
+        style={{
+          background: `radial-gradient(#FFB849, rgba(255, 184, 71, 0))`,
+        }}
+      ></div>
+      <div
+        className="absolute w-full h-full"
+        style={{
+          background: `radial-gradient(at 55% 40%, rgba(245, 150, 57, 0) 60%, rgba(255, 125, 206, 1))`,
+        }}
+      ></div>
+      <div
+        className="absolute w-full h-full"
+        style={{
+          background: `radial-gradient(at 54% 40%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 1))`,
+          opacity: 0.6,
+        }}
+      ></div>
+      <div
+        className="absolute w-full h-full"
+        style={{
+          background: `radial-gradient(at 53% 45%, rgba(179, 35, 35, 0) 50%, rgba(0, 0, 0, 0.4))`,
+          opacity: 1,
+        }}
+      ></div>
+
+      <div className="relative w-full h-full">{children}</div>
+    </div>
   );
 };
 
