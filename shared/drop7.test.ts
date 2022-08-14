@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { addDiscToGrid, crackAdjacentDiscs, getMatchingGroups } from './drop7';
+import {
+  addDiscToGrid,
+  crackAdjacentDiscs,
+  getMatchingGroups,
+  getScore,
+} from './drop7';
 import type { DiscMap } from './drop7';
 
 describe('Add disc', () => {
@@ -49,10 +54,7 @@ describe('Disc number matching', () => {
     };
 
     const discsToRemove = getMatchingGroups(grid, discMap);
-    expect(discsToRemove).toEqual([
-      [0, 2],
-      [1, 2],
-    ]);
+    expect(discsToRemove).toEqual(['disc-1', 'disc-2']);
   });
 
   it('should check if disc numbers match group length by column', () => {
@@ -68,10 +70,7 @@ describe('Disc number matching', () => {
     };
 
     const discsToRemove = getMatchingGroups(grid, discMap);
-    expect(discsToRemove).toEqual([
-      [0, 1],
-      [0, 2],
-    ]);
+    expect(discsToRemove).toEqual(['disc-2', 'disc-1']);
   });
 
   it('should check if disc numbers match group length by row and column', () => {
@@ -90,14 +89,10 @@ describe('Disc number matching', () => {
 
     const discsToRemove = getMatchingGroups(grid, discMap);
     console.log(discsToRemove);
-    expect(discsToRemove).toEqual([
-      [0, 2],
-      [1, 2],
-      [0, 1],
-    ]);
+    expect(discsToRemove).toEqual(['disc-1', 'disc-4', 'disc-2']);
   });
 
-  it.only('should crack or break adjacent discs', () => {
+  it('should crack or break adjacent discs', () => {
     const grid = [
       [null, null, 'disc-3', null, null],
       ['cracked-1', 'disc-2', 'disc-4', null],
@@ -130,6 +125,28 @@ describe('Disc number matching', () => {
       ['disc-4']: 6,
       ['blank-1']: 'cracked',
       ['blank-2']: 'blank',
+    });
+  });
+
+  describe('Score', () => {
+    it('should get score 1 chain', () => {
+      const score = getScore(1, 1);
+      expect(score).toEqual(7);
+    });
+
+    it('should get score 2 chain', () => {
+      const score = getScore(2, 2);
+      expect(score).toEqual(78);
+    });
+
+    it('should get score 3 chain', () => {
+      const score = getScore(2, 3);
+      expect(score).toEqual(218);
+    });
+
+    it('should get score 4 chain', () => {
+      const score = getScore(3, 4);
+      expect(score).toEqual(672);
     });
   });
 });

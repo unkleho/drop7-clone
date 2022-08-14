@@ -7,11 +7,13 @@ import {
   emptyGrid,
   getMatchingGroups,
   getRandomDisc,
+  getScore,
 } from './drop7';
+import { discMapTallColumn, gridTallColumn } from './example-grids';
 
 import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
-const movesPerLevel = 30;
+const movesPerLevel = 29;
 
 export const drop7Machine =
   /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnAYdA4uDcIaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACksAEoSJ7C4ES2gy7AK5EqzW6xAG0H4LrEuGUogZJJ5FJARlE5oU0ZEPzOf8WbVlBpLCzNPmfKOYTj8WA-FjK9Xa-WA0uW22Ozgux7FBe0uQdhwLaEcCfF83xnD950XJsjlXU5DQkRpVBwaR4xeVRbVebQbTkWRE2UFlnXUMxbGFdp70gz8cQAaz9KAsQgX92x7ADuz7VRLDAkd6LrJiWLY5CKXXKNE0ydQpAzZ41DZOxvmdZxLEBPCrnUO8oSLBjmKGZ8MXxDj-0A3j+KHQS9OEgzIiMsB8XE-VJOk2QrhscQ1HUUwdDZFQfkvRMnBBLRtJFazAkGHEUDAYgBGlByTOctcqQkbRvkaaQNAFZxjUsZQbW5QLsKcY1nS0DQdK9TsIADIZoNfesACNBGREMQHJFy0qjHkZJZS41C0PIZDZbJMMeRRlP5BotGqh8cDAAQF2hEgKAADQASTVFLUMjRxcFUB5XiKJRblqVQ2WdE1iKkRQCs+HL5tWjbtt2iNUjwrk+NUGQlEqUFzTZSQQa5V0LUTbkvI8EUBDQCA4GEEcCGId7JIyHArw0HMiiwSwY1ZI8ylcH5uXyRRnQGmjRTootglCP0YjRnqFG+DSZEtAVXjeImFEyOprH45RuSUMxVGeospT9RE5SmKVmbQhAMljR58fyc9sckNk7p+IXlfyLycqwCXejhaXZWRTFUQxWCIjxQliQVyMqM5cxlGcBpbnUy6ieaCpLjw-JrDUYETclM2hhly2UCd6l+K5bCdEZTcWRtWQ+IKvHnm5PJsjDnAfT9b8cVjiR1JkrBhYTb3sLMVNhZwL5K8kd2AecOaIogotx0nacIlnT8F2L5dQxQj6TBsHBnFb371C560iaKb5+P4gUATuW1jc72nAka22B4Q4fS4QKjLCnvnNEuO7XSUq9G5sQEqLUW0eXz-TRK4CBj7qQEsN+x+pAvF5EVGSLQxb5H5C4LetFdK71sn6JK39NL2jwl8B4e4VDA3dlhbIwJbhAhkLebesCYTRVivFRKYBjJINyFPGwYt+SNFcMLfyBUsgi1NBndSyh85+Dqn6PeLU2oj06mGPaqRHAZisKpDMYUxaPDGmwyaRRgSaCBNhfOS0VoSm-i0M+OQiiVBjF7BkwNHB-xqAoEGPIdDiDDsfAaU9m75HVvPLWRMIg8iwq6dBiYW7cjItVBxZ9nTVD+qYAaQMPGJgmj4jS9RzAZBhm4IAA */
@@ -20,11 +22,12 @@ export const drop7Machine =
       context: {
         score: 0,
         level: 1,
-        grid: [],
+        grid: emptyGrid,
         discMap: {},
         nextDisc: null,
         moves: movesPerLevel,
         discCount: 0,
+        currentChain: 0,
       },
       tsTypes: {} as import('./machine.typegen').Typegen0,
       schema: {
@@ -36,6 +39,7 @@ export const drop7Machine =
           nextDisc: { value: Disc; id: string } | null;
           moves: number;
           discCount: number;
+          currentChain: number;
         },
         events: {} as
           | { type: 'NEW_GAME' }
@@ -193,7 +197,7 @@ export const drop7Machine =
         setupGrid: assign((context) => {
           let grid = cloneGrid(emptyGrid);
           let discMap = {};
-          const discCount = 9;
+          const discCount = 10;
 
           [...new Array(discCount)].forEach((_, i) => {
             const discValue = getRandomDisc();
@@ -212,11 +216,28 @@ export const drop7Machine =
             discMap,
             discCount,
           };
+
+          // TODO: Turn this into a tutorial
+          // return {
+          //   grid: gridTallColumn,
+          //   discMap: discMapTallColumn,
+          //   discCount: 8,
+          //   nextDisc: {
+          //     id: 'disc-8',
+          //     value: 2,
+          //   },
+          // };
         }),
         getRandomDisc: assign((context) => {
-          const discId = 'disc-' + context.discCount;
+          // Check for next disc, if it is available, it indicates we are in tutorial mode
+          const discId = context.nextDisc
+            ? context.nextDisc.id
+            : 'disc-' + context.discCount;
+
           // TODO: Rename type and function to DiscValue?
-          const discValue = getRandomDisc();
+          const discValue = context.nextDisc
+            ? context.nextDisc.value
+            : getRandomDisc();
           const grid = cloneGrid(context.grid);
           grid[0][3] = discId;
 
@@ -224,7 +245,6 @@ export const drop7Machine =
             nextDisc: {
               id: discId,
               value: discValue,
-              // value: 1,
             },
             discMap: {
               ...context.discMap,
@@ -233,6 +253,8 @@ export const drop7Machine =
             },
             discCount: context.discCount + 1,
             grid,
+            // Start chain again
+            currentChain: 0,
           };
         }),
         hoverColumn: assign((context, event) => {
@@ -315,16 +337,17 @@ export const drop7Machine =
             grid: collapseGrid(context.grid),
           };
         }),
-        incrementScore: assign({
-          score: (context) => {
-            const matchedIds = getMatchingGroups(context.grid, context.discMap);
-            console.log('incrementScore', matchedIds);
+        incrementScore: assign((context) => {
+          const matchedIds = getMatchingGroups(context.grid, context.discMap);
+          const currentChain = context.currentChain + 1;
 
-            // TODO: Keep track of chains and increase multiplier
-            const score = matchedIds.length * 7;
+          const score = getScore(matchedIds.length, currentChain);
+          console.log('incrementScore', matchedIds.length, currentChain);
 
-            return context.score + score;
-          },
+          return {
+            score: context.score + score,
+            currentChain,
+          };
         }),
         incrementLevel: assign((context, event) => {
           const grid = cloneGrid(context.grid);

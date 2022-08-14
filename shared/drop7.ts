@@ -229,3 +229,12 @@ export function isValidPosition(
 
   return false;
 }
+
+/**
+ * Work out score based on current chain
+ * https://www.reddit.com/r/drop7/comments/b3dg1w/drop7_scoring/
+ * 7 * (CHAIN ^ 2.5)
+ */
+export function getScore(clearedDiscs: number, currentChain: number) {
+  return clearedDiscs * Math.floor(7 * Math.pow(currentChain, 2.5));
+}
