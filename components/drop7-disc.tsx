@@ -13,6 +13,7 @@ type Props = {
 const colourMap: {
   [k in Disc]: {
     bg: string;
+    shadow?: string;
   };
 } = {
   1: { bg: 'bg-green-700' },
@@ -24,6 +25,15 @@ const colourMap: {
   7: { bg: 'bg-blue-600' },
   cracked: { bg: 'bg-gray-700' },
   blank: { bg: 'bg-gray-700' },
+  // 1: { bg: 'var(--green1)', shadow: 'var(--green2)' },
+  // 2: { bg: 'var(--amberA9)', shadow: 'hsla(40, 100%, 50.3%, 1)' },
+  // 3: { bg: 'bg-orange-700' },
+  // 4: { bg: 'bg-red-700' },
+  // 5: { bg: 'bg-purple-700' },
+  // 6: { bg: 'bg-cyan-700' },
+  // 7: { bg: 'bg-blue-600' },
+  // cracked: { bg: 'bg-gray-700' },
+  // blank: { bg: 'bg-gray-700' },
 };
 
 export const Drop7Disc: React.FC<Props> = ({
@@ -47,19 +57,22 @@ export const Drop7Disc: React.FC<Props> = ({
     };
   }
 
+  const colour = colourMap[value];
+
   return (
     <>
       <motion.div
         layout
         layoutId={id}
         className={[
-          'flex items-center justify-center m-1 aspect-square text-center rounded-full text-xl pointer-events-none font-semibold',
-          colourMap[value].bg,
+          'grid grid-cols-1 grid-rows-1 place-items-center overflow-hidden m-1 aspect-square text-center rounded-full text-3xl pointer-events-none font-semibold',
+          colour.bg,
         ].join(' ')}
         transition={transition}
         style={{
           gridRow: row + 1,
           gridColumn: column + 1,
+          backgroundColor: colour.bg,
         }}
         exit={{
           opacity: 0,
@@ -73,11 +86,25 @@ export const Drop7Disc: React.FC<Props> = ({
 
         </Disc3D> */}
 
-        {value === 'cracked' ? 'CR' : null}
-        {typeof value === 'number' ? value : null}
+        <span className="row-start-1 col-start-1 disc-value-shadow -mt-1 opacity-60">
+          {value === 'cracked' ? 'CR' : null}
+          {typeof value === 'number' ? value : null}
+        </span>
+        <span className="row-start-1 col-start-1 disc-value -mt-1">
+          {value === 'cracked' ? 'CR' : null}
+          {typeof value === 'number' ? value : null}
+        </span>
 
         {/* {id} */}
       </motion.div>
+
+      <style jsx>{`
+        .disc-value-shadow {
+          text-shadow: ${[...new Array(24)].map((_, i) => {
+            return `rgba(0, 0 ,0) -${i}px ${i}px`;
+          })};
+        }
+      `}</style>
     </>
   );
 };
