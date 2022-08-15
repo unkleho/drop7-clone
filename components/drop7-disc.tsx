@@ -73,6 +73,7 @@ export const Drop7Disc: React.FC<Props> = ({
           gridRow: row + 1,
           gridColumn: column + 1,
           backgroundColor: colour.bg,
+          willChange: 'transform',
         }}
         exit={{
           opacity: 0,
