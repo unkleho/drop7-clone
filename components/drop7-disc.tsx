@@ -53,7 +53,9 @@ export const Drop7Disc: React.FC<Props> = ({
       type: 'tween',
       duration: 0.7,
       // ease: (t: number) => easeOutBounce2(t, 100, 100 - t, 1000 / 60),
-      ease: easeOutBounce,
+      // ease: easeOutBounce,
+      // ease: bounceEaseOut,
+      ease: flashEaseOut,
     };
   }
 
@@ -169,6 +171,57 @@ function easeOutBounce(x: number): number {
   } else {
     return n1 * (x -= 2.625 / d1) * x + 0.984375;
   }
+}
+
+function flashEaseOut(t: number, b = 0, c = 1, d = 1) {
+  // if ((t /= d) < 1 / 2.75) return c * (7.5625 * t * t) + b;
+  // else if (t < 2 / 2.75) return c * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75) + b;
+  // else if (t < 2.5 / 2.75)
+  //   return c * (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375) + b;
+  // else return c * (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375) + b;
+
+  t /= d;
+  if (t < 1.4 / 2.75) {
+    return 3.858419 * t * t;
+  } else if (t < 2.1 / 2.75) {
+    t -= 1.75 / 2.75;
+    return 7.5625 * t * t + 0.8775;
+  } else if (t < 2.5 / 2.75) {
+    t -= 2.3 / 2.75;
+    return 7.5625 * t * t + 0.96;
+  }
+  t -= 2.625 / 2.75;
+  return 7.5625 * t * t + 0.984375;
+}
+
+function bounceEaseOut(gradient: number) {
+  return 1 - bounceEase(1 - gradient);
+}
+
+// https://github.com/BabylonJS/Babylon.js/blob/80c65876dbcdf005c12c37d255a1fe020b36b62b/packages/dev/core/src/Animations/easing.ts
+function bounceEase(gradient: number, bounces = 10, bounciness = 10): number {
+  const y = Math.max(0.0, bounces);
+  if (bounciness <= 1.0) {
+    bounciness = 1.001;
+  }
+  const num9 = Math.pow(bounciness, y);
+  const num5 = 1.0 - bounciness;
+  const num4 = (1.0 - num9) / num5 + num9 * 0.5;
+  const num15 = gradient * num4;
+  const num65 =
+    Math.log(-num15 * (1.0 - bounciness) + 1.0) / Math.log(bounciness);
+  const num3 = Math.floor(num65);
+  const num13 = num3 + 1.0;
+  const num8 = (1.0 - Math.pow(bounciness, num3)) / (num5 * num4);
+  const num12 = (1.0 - Math.pow(bounciness, num13)) / (num5 * num4);
+  const num7 = (num8 + num12) * 0.5;
+  const num6 = gradient - num7;
+  const num2 = num7 - num8;
+  return (
+    (-Math.pow(1.0 / bounciness, y - num3) / (num2 * num2)) *
+    (num6 - num2) *
+    (num6 + num2)
+  );
 }
 
 // function easeOutBounce2(t: number, b: number, c: number, d: number) {
