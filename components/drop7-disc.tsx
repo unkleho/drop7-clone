@@ -173,6 +173,7 @@ function easeOutBounce(x: number): number {
   }
 }
 
+// https://stackoverflow.com/questions/740308/how-do-i-modify-this-easing-function-to-bounce-less
 function flashEaseOut(t: number, b = 0, c = 1, d = 1) {
   // if ((t /= d) < 1 / 2.75) return c * (7.5625 * t * t) + b;
   // else if (t < 2 / 2.75) return c * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75) + b;

@@ -46,7 +46,7 @@ export interface Typegen0 {
     hoverColumn: "HOVER_COLUMN";
     incrementLevel: "xstate.after(500)#drop7.game.checking-level";
     incrementScore: "xstate.after(500)#drop7.game.checking-grid";
-    setupGrid: "NEW_GAME";
+    setupGame: "NEW_GAME";
   };
   eventsCausingServices: {};
   eventsCausingGuards: {

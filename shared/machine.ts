@@ -14,21 +14,22 @@ import { discMapTallColumn, gridTallColumn } from './example-grids';
 import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
 const initialMovesPerLevel = 29;
+const initialGameContext = {
+  score: 0,
+  level: 1,
+  grid: emptyGrid,
+  discMap: {},
+  nextDisc: null,
+  moves: initialMovesPerLevel,
+  discCount: 0,
+  currentChain: 0,
+};
 
 export const drop7Machine =
   /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnAYdA4uDcIaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACksAEoSJ7C4ES2gy7AK5EqzW6xAG0H4LrEuGUogZJJ5FJARlE5oU0ZEPzOf8WbVlBpLCzNPmfKOYTj8WA-FjK9Xa-WA0uW22Ozgux7FBe0uQdhwLaEcCfF83xnD950XJsjlXU5DQkRpVBwaR4xeVRbVebQbTkWRE2UFlnXUMxbGFdp70gz8cQAaz9KAsQgX92x7ADuz7VRLDAkd6LrJiWLY5CKXXKNE0ydQpAzZ41DZOxvmdZxLEBPCrnUO8oSLBjmKGZ8MXxDj-0A3j+KHQS9OEgzIiMsB8XE-VJOk2QrhscQ1HUUwdDZFQfkvRMnBBLRtJFazAkGHEUDAYgBGlByTOctcqQkbRvkaaQNAFZxjUsZQbW5QLsKcY1nS0DQdK9TsIADIZoNfesACNBGREMQHJFy0qjHkZJZS41C0PIZDZbJMMeRRlP5BotGqh8cDAAQF2hEgKAADQASTVFLUMjRxcFUB5XiKJRblqVQ2WdE1iKkRQCs+HL5tWjbtt2iNUjwrk+NUGQlEqUFzTZSQQa5V0LUTbkvI8EUBDQCA4GEEcCGId7JIyHArw0HMiiwSwY1ZI8ylcH5uXyRRnQGmjRTootglCP0YjRnqFG+DSZEtAVXjeImFEyOprH45RuSUMxVGeospT9RE5SmKVmbQhAMljR58fyc9sckNk7p+IXlfyLycqwCXejhaXZWRTFUQxWCIjxQliQVyMqM5cxlGcBpbnUy6ieaCpLjw-JrDUYETclM2hhly2UCd6l+K5bCdEZTcWRtWQ+IKvHnm5PJsjDnAfT9b8cVjiR1JkrBhYTb3sLMVNhZwL5K8kd2AecOaIogotx0nacIlnT8F2L5dQxQj6TBsHBnFb371C560iaKb5+P4gUATuW1jc72nAka22B4Q4fS4QKjLCnvnNEuO7XSUq9G5sQEqLUW0eXz-TRK4CBj7qQEsN+x+pAvF5EVGSLQxb5H5C4LetFdK71sn6JK39NL2jwl8B4e4VDA3dlhbIwJbhAhkLebesCYTRVivFRKYBjJINyFPGwYt+SNFcMLfyBUsgi1NBndSyh85+Dqn6PeLU2oj06mGPaqRHAZisKpDMYUxaPDGmwyaRRgSaCBNhfOS0VoSm-i0M+OQiiVBjF7BkwNHB-xqAoEGPIdDiDDsfAaU9m75HVvPLWRMIg8iwq6dBiYW7cjItVBxZ9nTVD+qYAaQMPGJgmj4jS9RzAZBhm4IAA */
   createMachine(
     {
-      context: {
-        score: 0,
-        level: 1,
-        grid: emptyGrid,
-        discMap: {},
-        nextDisc: null,
-        moves: initialMovesPerLevel,
-        discCount: 0,
-        currentChain: 0,
-      },
+      context: initialGameContext,
       tsTypes: {} as import('./machine.typegen').Typegen0,
       schema: {
         context: {} as {
@@ -66,7 +67,7 @@ export const drop7Machine =
           },
         },
         game: {
-          entry: 'setupGrid',
+          entry: 'setupGame',
           initial: 'setting-up',
           states: {
             'setting-up': {
@@ -194,7 +195,7 @@ export const drop7Machine =
     },
     {
       actions: {
-        setupGrid: assign((context) => {
+        setupGame: assign((context) => {
           let grid = cloneGrid(emptyGrid);
           let discMap = {};
           const discCount = 10;
@@ -211,22 +212,22 @@ export const drop7Machine =
             grid = addDiscToGrid(grid, column, discId);
           });
 
-          return {
-            grid,
-            discMap,
-            discCount,
-          };
+          // return {
+          //   grid,
+          //   discMap,
+          //   discCount,
+          // };
 
           // TODO: Turn this into a tutorial
-          // return {
-          //   grid: gridTallColumn,
-          //   discMap: discMapTallColumn,
-          //   discCount: 8,
-          //   nextDisc: {
-          //     id: 'disc-8',
-          //     value: 2,
-          //   },
-          // };
+          return {
+            grid: gridTallColumn,
+            discMap: discMapTallColumn,
+            discCount: 8,
+            nextDisc: {
+              id: 'disc-8',
+              value: 2 as Disc,
+            },
+          };
         }),
         getRandomDisc: assign((context) => {
           // Check for next disc, if it is available, it indicates we are in tutorial mode

@@ -20,8 +20,13 @@ export const emptyGrid: Grid = [
 /**
  * Get random disc
  */
-export const getRandomDisc = () => {
-  const discs: Disc[] = [1, 2, 3, 4, 5, 6, 7, 'blank'];
+export const getRandomDisc = (mode: 'numbers' | 'all' = 'all') => {
+  const allDiscs: Disc[] = [1, 2, 3, 4, 5, 6, 7, 'blank'];
+  let discs = allDiscs;
+
+  if (mode === 'numbers') {
+    discs = allDiscs.filter((disc) => disc !== 'blank');
+  }
 
   const randomInt = Math.floor(Math.random() * discs.length);
   return discs[randomInt];
@@ -194,14 +199,7 @@ export function crackAdjacentDiscs(
     if (disc === 'blank') {
       newDiscMap[id] = 'cracked';
     } else if (disc === 'cracked') {
-      delete newDiscMap[id];
-      const position = getPosition(grid, id);
-
-      if (isValidPosition(position)) {
-        const [column, row] = position;
-
-        newGrid[row][column] = null;
-      }
+      newDiscMap[id] = getRandomDisc('numbers');
     }
   });
 
