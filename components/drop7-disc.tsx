@@ -23,7 +23,7 @@ const colourMap: {
   5: { bg: 'bg-purple-700' },
   6: { bg: 'bg-cyan-700' },
   7: { bg: 'bg-blue-600' },
-  cracked: { bg: 'bg-gray-700' },
+  cracked: { bg: '' },
   blank: { bg: 'bg-gray-700' },
   // 1: { bg: 'var(--green1)', shadow: 'var(--green2)' },
   // 2: { bg: 'var(--amberA9)', shadow: 'hsla(40, 100%, 50.3%, 1)' },
@@ -90,13 +90,15 @@ export const Drop7Disc: React.FC<Props> = ({
         </Disc3D> */}
 
         <span className="row-start-1 col-start-1 disc-value-shadow -mt-1 opacity-60">
-          {value === 'cracked' ? 'CR' : null}
+          {/* {value === 'cracked' ? 'CR' : null} */}
           {typeof value === 'number' ? value : null}
         </span>
         <span className="row-start-1 col-start-1 disc-value -mt-1">
-          {value === 'cracked' ? 'CR' : null}
+          {/* {value === 'cracked' ? 'CR' : null} */}
           {typeof value === 'number' ? value : null}
         </span>
+
+        {value === 'cracked' ? <DiscCracked /> : null}
 
         {/* {id} */}
       </motion.div>
@@ -111,6 +113,42 @@ export const Drop7Disc: React.FC<Props> = ({
     </>
   );
 };
+
+const DiscCracked = () => {
+  return (
+    <svg viewBox="0 0 100 100">
+      {[...new Array(10)].map((_, i) => {
+        const angle = 360 / 10;
+        const rotate = i * angle;
+        const pad = 14;
+        return (
+          <path
+            d={`M 100 50
+          A 50 50 0 0 0 ${getCoordFromDegrees(angle - pad, 50, 100)}
+          L ${getCoordFromDegrees(angle - pad, 30, 100)}
+          A 30 30 0 0 1 80 50`}
+            key={rotate}
+            transform={`rotate(${rotate - pad / 2})`}
+            style={{
+              transformOrigin: 'center',
+            }}
+            className={'fill-gray-700'}
+          />
+        );
+      })}
+      <circle r={22} cx="50" cy="50" className="fill-gray-700" />;
+    </svg>
+  );
+};
+
+// https://dev.to/mustapha/how-to-create-an-interactive-svg-donut-chart-using-angular-19eo
+function getCoordFromDegrees(angle: number, radius: number, svgSize: number) {
+  const x = Math.cos((angle * Math.PI) / 180);
+  const y = Math.sin((angle * Math.PI) / 180);
+  const coordX = x * radius + svgSize / 2;
+  const coordY = y * -radius + svgSize / 2;
+  return [coordX, coordY];
+}
 
 type Disc3DProps = {
   children: React.ReactNode;
