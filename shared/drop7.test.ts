@@ -4,6 +4,7 @@ import {
   crackAdjacentDiscs,
   getMatchingGroups,
   getScore,
+  setupGameGrid,
 } from './drop7';
 import type { DiscMap } from './drop7';
 
@@ -88,7 +89,7 @@ describe('Disc number matching', () => {
     };
 
     const discsToRemove = getMatchingGroups(grid, discMap);
-    console.log(discsToRemove);
+    // console.log(discsToRemove);
     expect(discsToRemove).toEqual(['disc-1', 'disc-4', 'disc-2']);
   });
 
@@ -110,10 +111,10 @@ describe('Disc number matching', () => {
 
     const newDiscMap = crackAdjacentDiscs(grid, discMap, ['disc-2', 'disc-3']);
 
-    // Check new grid has cracked -> null
+    // Check new grid has cracked -> 1
     expect(newDiscMap[0]).toEqual([
       [null, null, 'disc-3', null, null],
-      [null, 'disc-2', 'disc-4', null],
+      ['cracked-1', 'disc-2', 'disc-4', null],
       ['disc-1', 'blank-1', 'blank-2', null, null],
     ]);
 
@@ -125,6 +126,7 @@ describe('Disc number matching', () => {
       ['disc-4']: 6,
       ['blank-1']: 'cracked',
       ['blank-2']: 'blank',
+      ['cracked-1']: expect.any(Number),
     });
   });
 
@@ -147,6 +149,23 @@ describe('Disc number matching', () => {
     it('should get score 4 chain', () => {
       const score = getScore(3, 4);
       expect(score).toEqual(672);
+    });
+  });
+
+  describe('Setup Game Grid', () => {
+    it('should return new grid with 10 discs', () => {
+      const [grid] = setupGameGrid(10);
+
+      let count = 0;
+      grid.forEach((row) => {
+        row.forEach((discId) => {
+          if (discId) {
+            count++;
+          }
+        });
+      });
+
+      expect(count).toBe(10);
     });
   });
 });

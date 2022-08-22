@@ -1,4 +1,11 @@
-import { cloneGrid, getAdjacentIds, getPosition, type Grid } from './grid';
+import {
+  cloneGrid,
+  collapseGrid,
+  getAdjacentIds,
+  getPosition,
+  removeByIds,
+  type Grid,
+} from './grid';
 
 export type Disc = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 'blank' | 'cracked';
 
@@ -60,7 +67,7 @@ export const addDiscToGrid = (grid: Grid, column: number, id: string) => {
 };
 
 /**
- * Check grid for disc numbers that match row or column length, then return positions.
+ * Check grid for disc numbers that match row or column length, then return ids.
  */
 export function getMatchingGroups(grid: Grid, discMap: DiscMap): string[] {
   const rowGroups = getRowGroups(grid);
@@ -235,4 +242,43 @@ export function isValidPosition(
  */
 export function getScore(clearedDiscs: number, currentChain: number) {
   return clearedDiscs * Math.floor(7 * Math.pow(currentChain, 2.5));
+}
+
+/**
+ * Set up new random game grid with at least X number of discs
+ * Recursively calls itself until initial amount of discs is available
+ */
+export function setupGameGrid(
+  discCount: number = 10,
+  count: number = 0,
+  grid = cloneGrid(emptyGrid),
+  discMap = {}
+): [Grid, DiscMap] {
+  [...new Array(discCount)].forEach((_, i) => {
+    const discValue = getRandomDisc();
+    const discId = 'disc-' + (i + count);
+    const column = Math.floor(Math.random() * 7);
+
+    discMap = {
+      ...discMap,
+      [discId]: discValue,
+    };
+    grid = addDiscToGrid(grid, column, discId);
+  });
+
+  const matchingDiscIds = getMatchingGroups(grid, discMap);
+
+  grid = removeByIds(grid, matchingDiscIds);
+  grid = collapseGrid(grid);
+
+  const totalMatchingDiscs = matchingDiscIds.length;
+  // console.log('totalMatchingDiscs', totalMatchingDiscs);
+
+  // If no more matching discs, return final result
+  if (matchingDiscIds.length === 0) {
+    return [grid, discMap];
+  }
+
+  // Otherwise, recursively call function with required amount of new discs
+  return setupGameGrid(totalMatchingDiscs, count + discCount, grid, discMap);
 }

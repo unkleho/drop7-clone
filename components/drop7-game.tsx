@@ -41,8 +41,14 @@ export const Drop7Game = () => {
     <div className="max-w-sm mx-auto">
       {/* @ts-ignore */}
       {/* <p>{state.value?.game ? state.value.game : state.value}</p> */}
-      <header className="mb-4">
-        <h1>Drop7</h1>
+      <header className="flex justify-between mb-4">
+        <h1 className="text-xl font-semibold">Drop7</h1>
+
+        {state.matches('game') && (
+          <button className="text-xl" onClick={() => send('EXIT')}>
+            Exit
+          </button>
+        )}
       </header>
 
       <div className="flex mb-4">

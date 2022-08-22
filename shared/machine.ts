@@ -8,6 +8,7 @@ import {
   getMatchingGroups,
   getRandomDisc,
   getScore,
+  setupGameGrid,
 } from './drop7';
 import { discMapTallColumn, gridTallColumn } from './example-grids';
 
@@ -196,26 +197,12 @@ export const drop7Machine =
     {
       actions: {
         setupGame: assign((context) => {
-          let grid = cloneGrid(emptyGrid);
-          let discMap = {};
-          const discCount = 10;
-
-          [...new Array(discCount)].forEach((_, i) => {
-            const discValue = getRandomDisc();
-            const discId = 'disc-' + i;
-            const column = Math.floor(Math.random() * 7);
-
-            discMap = {
-              ...discMap,
-              [discId]: discValue,
-            };
-            grid = addDiscToGrid(grid, column, discId);
-          });
+          let [grid, discMap] = setupGameGrid(10);
 
           return {
             grid,
             discMap,
-            discCount,
+            discCount: Object.keys(discMap).length,
           };
 
           // TODO: Turn this into a tutorial
