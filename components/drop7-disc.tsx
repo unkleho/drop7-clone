@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { url } from 'inspector';
 import React from 'react';
 import { Disc } from '../shared/drop7';
 
@@ -23,6 +24,7 @@ const colourMap: {
   5: { bg: 'bg-gradient-to-bl from-purple-500 to-purple-900' },
   6: { bg: 'bg-gradient-to-bl from-cyan-500 to-cyan-900' },
   7: { bg: 'bg-gradient-to-bl from-blue-500 to-blue-800' },
+  // cracked: { bg: 'bg-gradient-to-bl from-gray-600 to-gray-900' },
   cracked: { bg: '' },
   blank: { bg: 'bg-gradient-to-bl from-gray-600 to-gray-900' },
 };
@@ -67,6 +69,7 @@ export const Drop7Disc: React.FC<Props> = ({
           gridColumn: column + 1,
           backgroundColor: colour.bg,
           willChange: 'transform',
+          // clipPath: 'url(#myClip)',
         }}
         exit={{
           opacity: 0,
