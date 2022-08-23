@@ -24,16 +24,7 @@ const colourMap: {
   6: { bg: 'bg-gradient-to-bl from-cyan-500 to-cyan-900' },
   7: { bg: 'bg-gradient-to-bl from-blue-500 to-blue-800' },
   cracked: { bg: '' },
-  blank: { bg: 'bg-gray-700' },
-  // 1: { bg: 'var(--green1)', shadow: 'var(--green2)' },
-  // 2: { bg: 'var(--amberA9)', shadow: 'hsla(40, 100%, 50.3%, 1)' },
-  // 3: { bg: 'bg-orange-700' },
-  // 4: { bg: 'bg-red-700' },
-  // 5: { bg: 'bg-purple-700' },
-  // 6: { bg: 'bg-cyan-700' },
-  // 7: { bg: 'bg-blue-600' },
-  // cracked: { bg: 'bg-gray-700' },
-  // blank: { bg: 'bg-gray-700' },
+  blank: { bg: 'bg-gradient-to-bl from-gray-600 to-gray-900' },
 };
 
 export const Drop7Disc: React.FC<Props> = ({

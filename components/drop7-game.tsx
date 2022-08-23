@@ -59,7 +59,7 @@ export const Drop7Game = () => {
       {/* <p>Current chain: {context.currentChain}</p> */}
 
       <div
-        className="relative grid grid-cols-7 border-b border-cyan-800"
+        className="relative grid grid-cols-7 gap-[1px] p-[1px] bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60"
         style={{ gridTemplateRows: 'repeat(8, minmax(0, 1fr)' }}
       >
         {state.matches('home') && (
@@ -83,11 +83,12 @@ export const Drop7Game = () => {
             return (
               <div
                 className={[
-                  'border-cyan-900 aspect-square',
-                  rowIndex !== 0 ? 'border-t border-l' : '',
-                  columnIndex === row.length - 1 && rowIndex !== 0
-                    ? 'border-r'
-                    : '',
+                  'aspect-square bg-black',
+                  rowIndex === 0 ? '-m-[1px]' : '',
+                  // rowIndex !== 0 ? 'border-t border-l' : '',
+                  // columnIndex === row.length - 1 && rowIndex !== 0
+                  //   ? 'border-r'
+                  //   : '',
                   nextDiscColumn === columnIndex && rowIndex !== 0
                     ? 'bg-gray-900'
                     : '',
@@ -95,6 +96,11 @@ export const Drop7Game = () => {
                 style={{
                   gridRow: rowIndex + 1,
                   gridColumn: columnIndex + 1,
+                  ...(rowIndex === 0
+                    ? {
+                        transform: 'translate(0, -1px)',
+                      }
+                    : {}),
                 }}
                 key={rowIndex + ' ' + columnIndex}
               ></div>
