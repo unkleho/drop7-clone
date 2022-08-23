@@ -24,24 +24,29 @@ const initialGameContext = {
   moves: initialMovesPerLevel,
   discCount: 0,
   currentChain: 0,
+  matchedDiscIds: [],
 };
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnAYdA4uDcIaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACksAEoSJ7C4ES2gy7AK5EqzW6xAG0H4LrEuGUogZJJ5FJARlE5oU0ZEPzOf8WbVlBpLCzNPmfKOYTj8WA-FjK9Xa-WA0uW22Ozgux7FBe0uQdhwLaEcCfF83xnD950XJsjlXU5DQkRpVBwaR4xeVRbVebQbTkWRE2UFlnXUMxbGFdp70gz8cQAaz9KAsQgX92x7ADuz7VRLDAkd6LrJiWLY5CKXXKNE0ydQpAzZ41DZOxvmdZxLEBPCrnUO8oSLBjmKGZ8MXxDj-0A3j+KHQS9OEgzIiMsB8XE-VJOk2QrhscQ1HUUwdDZFQfkvRMnBBLRtJFazAkGHEUDAYgBGlByTOctcqQkbRvkaaQNAFZxjUsZQbW5QLsKcY1nS0DQdK9TsIADIZoNfesACNBGREMQHJFy0qjHkZJZS41C0PIZDZbJMMeRRlP5BotGqh8cDAAQF2hEgKAADQASTVFLUMjRxcFUB5XiKJRblqVQ2WdE1iKkRQCs+HL5tWjbtt2iNUjwrk+NUGQlEqUFzTZSQQa5V0LUTbkvI8EUBDQCA4GEEcCGId7JIyHArw0HMiiwSwY1ZI8ylcH5uXyRRnQGmjRTootglCP0YjRnqFG+DSZEtAVXjeImFEyOprH45RuSUMxVGeospT9RE5SmKVmbQhAMljR58fyc9sckNk7p+IXlfyLycqwCXejhaXZWRTFUQxWCIjxQliQVyMqM5cxlGcBpbnUy6ieaCpLjw-JrDUYETclM2hhly2UCd6l+K5bCdEZTcWRtWQ+IKvHnm5PJsjDnAfT9b8cVjiR1JkrBhYTb3sLMVNhZwL5K8kd2AecOaIogotx0nacIlnT8F2L5dQxQj6TBsHBnFb371C560iaKb5+P4gUATuW1jc72nAka22B4Q4fS4QKjLCnvnNEuO7XSUq9G5sQEqLUW0eXz-TRK4CBj7qQEsN+x+pAvF5EVGSLQxb5H5C4LetFdK71sn6JK39NL2jwl8B4e4VDA3dlhbIwJbhAhkLebesCYTRVivFRKYBjJINyFPGwYt+SNFcMLfyBUsgi1NBndSyh85+Dqn6PeLU2oj06mGPaqRHAZisKpDMYUxaPDGmwyaRRgSaCBNhfOS0VoSm-i0M+OQiiVBjF7BkwNHB-xqAoEGPIdDiDDsfAaU9m75HVvPLWRMIg8iwq6dBiYW7cjItVBxZ9nTVD+qYAaQMPGJgmj4jS9RzAZBhm4IAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnA4-FgPxYoaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACkulgAlCRPYXAiWyxXIlWa3WIA2g-BdYlwykJI1VDhpPGXqpba9tDa5LJE8oWc71GZbML2j4xzDa2AcQBrP1QLEQFttjs4Ls9lC9qolhDiOBbQsWdYvm+H5HCupyGuu-I-MCkgZs8ahsnY3zOs4liAnuVzqPmd7gY+UFDKWGL4l+7Y9r+3Z9kBIGjqRkGvhRYBUbBFJrlG-KyFcNjiGo6imDobIqD8yifHu2iWJo+RyMRUJFoMOIoGAxACNKlFgNR3H6rxUhfDgjTSBoArOMaljKDa3JSduTjGs6WgaMpXqdhAAZDBO5b1gARoIyIhiA5KGVSEg8pkomXGoWh5DIbLZJujyKFh-INFo7n3jgYACPO0IkBQAAaACSaoGauEVRoCPwPK8RRKLctSqGyzomseUiKDZnwWdlhUleVlXwZGe5ckBqgyEolSguabKoZIXKuhaibcsJHgigIaAQHAwijgQxDDRG1KZBolgaDmRRYOdQISa4PzcvkijOiyeT9UWwShH6MRHbxCjfPhMiWgKrxvEYJgZKZVQZjZ3JKGYqjvb0cJ+oicpTFKv3VRksaPOdim8ta4NRs4PzAcoOP5MJFlYEjkoo0MaPIpiqIYlOER4oSxJYwhCBXpy5jKM4DS3HhrXE80FSXLJQGSGowJ07CAyM7KzMoDzkbXZYXLbjojIyDNNqyExFPSXLwHbkpIosUWPp+gGQYa6kZnRVgpsNGL25mKmFOmXcQtCzNzhZdbYFFr57Mzo+84O02TsXGdOCVBkmiXF1rqYYnUgCtyfK2jyitkexkTvlwEDx1Gx64EUMhrebvJ2dFLQI-k-IuLTockeHbF+rp+IV4m0ja2oto5ICnwqPNQtbtkwK3ECMiaIrakaVpOmcXpA+qLkSc2Aj-KNK4FMSTZWRw6aTF4coit+F5foRwFQVLqGcHHRITja66k0Zlo297tISVT6pSKMCTQQJtyKzygVCUA8WjazHpNMBosGTzUcFuOwZ5XDmGBJ8OmFcq5bhwkPaMxCwalAiDyLcroeSMm3mhcQ7l8Ha2dNUKaphXpzWJhERMKVqE5gyNoSaG03BAA */
   createMachine(
     {
       context: initialGameContext,
       tsTypes: {} as import('./machine.typegen').Typegen0,
       schema: {
         context: {} as {
+          grid: Grid;
           score: number;
           level: number;
-          grid: Grid;
           discMap: DiscMap;
+          /** Next disc that is about to drop */
           nextDisc: { value: Disc; id: string } | null;
+          /** Number of moves left in current level */
           moves: number;
           discCount: number;
+          /** Current chain count during match/collapse loop */
           currentChain: number;
+          matchedDiscIds: string[];
         },
         events: {} as
           | { type: 'NEW_GAME' }
@@ -107,19 +112,11 @@ export const drop7Machine =
                 target: 'checking-grid',
               },
             },
-            'processing-matched-discs': {
-              entry: 'incrementScore',
-              after: {
-                '0': {
-                  target: 'clearing-matched-discs',
-                },
-              },
-            },
             'clearing-matched-discs': {
               exit: 'clearMatchedDiscs',
               after: {
                 '800': {
-                  actions: 'collapseDiscs',
+                  actions: ['incrementScore', 'collapseDiscs'],
                   target: 'checking-grid',
                 },
               },
@@ -137,7 +134,7 @@ export const drop7Machine =
                   },
                   {
                     cond: 'DISC_MATCHES',
-                    target: 'processing-matched-discs',
+                    target: 'clearing-matched-discs',
                   },
                 ],
               },
@@ -268,12 +265,6 @@ export const drop7Machine =
             return {};
           }
 
-          // const grid = addDiscToGrid(
-          //   context.grid,
-          //   event.column,
-          //   context.nextDisc.id
-          // );
-
           // Put disc on first row
           // TODO: Check if enough space
           const grid = cloneGrid(context.grid);
@@ -299,23 +290,29 @@ export const drop7Machine =
         }),
         clearMatchedDiscs: assign((context, event) => {
           // Get matched disc ids
-          const matchedIds = getMatchingGroups(context.grid, context.discMap);
+          const matchedDiscIds = getMatchingGroups(
+            context.grid,
+            context.discMap
+          );
 
           // Crack or destroy adjacent discs
           const [crackedGrid, discMap] = crackAdjacentDiscs(
             context.grid,
             context.discMap,
-            matchedIds
+            matchedDiscIds
           );
 
           // Clear grid of matched ids
-          const clearedGrid = removeByIds(crackedGrid, matchedIds);
+          const clearedGrid = removeByIds(crackedGrid, matchedDiscIds);
 
-          console.log('clearMatchedDiscs', clearedGrid, matchedIds);
+          console.log('clearMatchedDiscs', clearedGrid, matchedDiscIds);
 
           return {
             grid: clearedGrid,
             discMap,
+            // Pass ids for scoring
+            // TODO: Can use this for highlighting tiles
+            matchedDiscIds,
           };
         }),
         collapseDiscs: assign((context) => {
@@ -326,15 +323,21 @@ export const drop7Machine =
           };
         }),
         incrementScore: assign((context) => {
-          const matchedIds = getMatchingGroups(context.grid, context.discMap);
+          // const matchedIds = getMatchingGroups(context.grid, context.discMap);
           const currentChain = context.currentChain + 1;
 
-          const score = getScore(matchedIds.length, currentChain);
-          console.log('incrementScore', matchedIds.length, currentChain);
+          const score = getScore(context.matchedDiscIds.length, currentChain);
+
+          console.log(
+            'incrementScore',
+            context.matchedDiscIds.length,
+            currentChain
+          );
 
           return {
             score: context.score + score,
             currentChain,
+            matchedDiscIds: [],
           };
         }),
         incrementLevel: assign((context, event) => {

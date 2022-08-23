@@ -4,9 +4,6 @@ export interface Typegen0 {
   "@@xstate/typegen": true;
   internalEvents: {
     "": { type: "" };
-    "xstate.after(0)#drop7.game.processing-matched-discs": {
-      type: "xstate.after(0)#drop7.game.processing-matched-discs";
-    };
     "xstate.after(500)#drop7.game.checking-grid": {
       type: "xstate.after(500)#drop7.game.checking-grid";
     };
@@ -45,7 +42,7 @@ export interface Typegen0 {
     getRandomDisc: "" | "xstate.after(500)#drop7.game.checking-level";
     hoverColumn: "HOVER_COLUMN";
     incrementLevel: "xstate.after(500)#drop7.game.checking-level";
-    incrementScore: "xstate.after(500)#drop7.game.checking-grid";
+    incrementScore: "xstate.after(800)#drop7.game.clearing-matched-discs";
     setupGame: "NEW_GAME";
   };
   eventsCausingServices: {};
@@ -69,7 +66,6 @@ export interface Typegen0 {
     | "game.dropping-disc"
     | "game.end-game"
     | "game.incrementing-level"
-    | "game.processing-matched-discs"
     | "game.setting-up"
     | "game.waiting-for-user"
     | "game.waiting-for-user.hovering-column"
@@ -84,7 +80,6 @@ export interface Typegen0 {
           | "dropping-disc"
           | "end-game"
           | "incrementing-level"
-          | "processing-matched-discs"
           | "setting-up"
           | "waiting-for-user"
           | { "waiting-for-user"?: "hovering-column" | "wait" };

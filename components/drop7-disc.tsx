@@ -16,13 +16,13 @@ const colourMap: {
     shadow?: string;
   };
 } = {
-  1: { bg: 'bg-green-700' },
-  2: { bg: 'bg-yellow-600' },
-  3: { bg: 'bg-orange-700' },
-  4: { bg: 'bg-red-700' },
-  5: { bg: 'bg-purple-700' },
-  6: { bg: 'bg-cyan-700' },
-  7: { bg: 'bg-blue-600' },
+  1: { bg: 'bg-gradient-to-bl from-green-500 to-green-800' },
+  2: { bg: 'bg-gradient-to-bl from-yellow-500 to-yellow-800' },
+  3: { bg: 'bg-gradient-to-bl from-orange-500 to-orange-800' },
+  4: { bg: 'bg-gradient-to-bl from-red-500 to-red-900' },
+  5: { bg: 'bg-gradient-to-bl from-purple-500 to-purple-900' },
+  6: { bg: 'bg-gradient-to-bl from-cyan-500 to-cyan-900' },
+  7: { bg: 'bg-gradient-to-bl from-blue-500 to-blue-800' },
   cracked: { bg: '' },
   blank: { bg: 'bg-gray-700' },
   // 1: { bg: 'var(--green1)', shadow: 'var(--green2)' },
@@ -106,7 +106,7 @@ export const Drop7Disc: React.FC<Props> = ({
       <style jsx>{`
         .disc-value-shadow {
           text-shadow: ${[...new Array(24)].map((_, i) => {
-            return `rgba(0, 0 ,0) -${i}px ${i}px`;
+            return `rgba(0, 0 ,0, ${1 - i * 0.07}) -${i}px ${i}px`;
           })};
         }
       `}</style>
