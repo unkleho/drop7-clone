@@ -11,9 +11,15 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   @apply bg-slate-950;
+
+  height: 100%;
   /* background-color: hsl(222 47.4% 7.2%); */
   /* Radix slate1 */
   /* background-color: hsl(200% 7% 8.8%); */
+}
+
+#__next {
+  height: 100%;
 }
 
 a {

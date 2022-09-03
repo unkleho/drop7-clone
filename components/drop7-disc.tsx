@@ -26,7 +26,7 @@ const colourMap: {
   7: { bg: 'bg-gradient-to-bl from-blue-500 to-blue-800' },
   // cracked: { bg: 'bg-gradient-to-bl from-gray-600 to-gray-900' },
   cracked: { bg: '' },
-  blank: { bg: 'bg-gradient-to-bl from-gray-600 to-gray-900' },
+  blank: { bg: 'bg-gradient-to-bl from-slate-600 to-slate-900' },
 };
 
 export const Drop7Disc: React.FC<Props> = ({

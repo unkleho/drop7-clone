@@ -38,15 +38,15 @@ export const Drop7Game = () => {
   });
 
   return (
-    <div className="m-4">
+    <div className="flex flex-col p-4 sm:p-8 h-full">
       {/* @ts-ignore */}
       {/* <p>{state.value?.game ? state.value.game : state.value}</p> */}
-      <header className="flex justify-between mb-4">
+      <header className="flex justify-between w-full mb-4">
         <div className="flex flex-1">
           <h1 className="flex items-start mr-8 text-xl leading-none font-semibold uppercase opacity-80">
             Drop
             <span
-              className="text-blue-500 leading-none"
+              className="leading-none text-transparent bg-clip-text bg-gradient-to-b from-blue-500 to-blue-800"
               style={{
                 transform: 'scale(1.4) translateY(-1px)',
                 transformOrigin: 'top left',
@@ -55,14 +55,13 @@ export const Drop7Game = () => {
               7
             </span>
           </h1>
-          <p className="mt-[1px] text-sm opacity-40 leading-none">CLONE</p>
+          <p className="mt-[1px] text-sm opacity-50 leading-none">CLONE</p>
         </div>
 
-        {/* <Drop7Disc value={7} /> */}
-        <div className="flex basis-96 items-start justify-end md:justify-start">
+        <div className="flex basis-96 mt-[1px] items-start justify-end md:justify-start">
           {state.matches('game') && (
             <button
-              className="text-sm uppercase leading-none opacity-40"
+              className="text-sm uppercase leading-none opacity-50"
               onClick={() => send('EXIT')}
             >
               Exit
@@ -73,13 +72,12 @@ export const Drop7Game = () => {
         <div className="flex-1"></div>
       </header>
 
-      <div className="max-w-sm mx-auto">
+      <div className="max-w-sm mx-auto w-full">
         <div className="flex mb-4">
           <div className="flex-1 text-right">
             <p className="text-5xl opacity-80 font-light">{context.score}</p>
           </div>
         </div>
-        {/* <p>Current chain: {context.currentChain}</p> */}
 
         <div
           className="relative grid grid-cols-7 gap-[1px] p-[1px] bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60"
@@ -213,6 +211,10 @@ export const Drop7Game = () => {
               Home
             </button>
           )}
+
+          {/* <div className="relative flex col-span-7 col-start-1 row-start-1 items-center">
+            <p>Current chain: {context.currentChain}</p>
+          </div> */}
         </div>
 
         {state.matches('game') && (
@@ -227,7 +229,7 @@ export const Drop7Game = () => {
                     className={[
                       'w-full aspect-square rounded-full',
                       context.moves > i
-                        ? 'bg-slate-600'
+                        ? 'bg-gradient-to-bl from-slate-600 to-slate-800'
                         : 'border border-slate-600',
                     ].join(' ')}
                     key={i}
@@ -235,10 +237,21 @@ export const Drop7Game = () => {
                 );
               })}
             </div>
-            <p>Level {context.level}</p>
+            <p className="uppercase text-sm opacity-50">
+              Level {context.level}
+            </p>
           </div>
         )}
       </div>
+
+      <footer className="flex mt-auto">
+        <p className="ml-auto text-sm uppercase">
+          <span className="opacity-50 ">By</span>{' '}
+          <a href="https://twitter.com/unkleho" className="text-blue-500">
+            @unkleho
+          </a>
+        </p>
+      </footer>
     </div>
   );
 };
