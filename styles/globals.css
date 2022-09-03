@@ -1,5 +1,5 @@
 @tailwind base;
-@import 'windy-radix-palette/base';
+/* @import 'windy-radix-palette/base'; */
 @tailwind components;
 @tailwind utilities;
 
@@ -9,6 +9,11 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  @apply bg-slate-950;
+  /* background-color: hsl(222 47.4% 7.2%); */
+  /* Radix slate1 */
+  /* background-color: hsl(200% 7% 8.8%); */
 }
 
 a {
@@ -24,8 +29,9 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
-    background: black;
+    /* background: black; */
   }
 }

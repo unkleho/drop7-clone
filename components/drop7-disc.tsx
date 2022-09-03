@@ -60,7 +60,7 @@ export const Drop7Disc: React.FC<Props> = ({
         layout
         layoutId={id}
         className={[
-          'grid grid-cols-1 grid-rows-1 place-items-center overflow-hidden m-1 aspect-square text-center rounded-full text-3xl pointer-events-none font-semibold',
+          'grid grid-cols-1 grid-rows-1 place-items-center overflow-hidden m-1 aspect-square text-center rounded-full pointer-events-none font-semibold',
           colour.bg,
         ].join(' ')}
         transition={transition}
@@ -69,6 +69,7 @@ export const Drop7Disc: React.FC<Props> = ({
           gridColumn: column + 1,
           backgroundColor: colour.bg,
           willChange: 'transform',
+          fontSize: 'min(6vw, 1.8rem)',
           // clipPath: 'url(#myClip)',
         }}
         exit={{
@@ -100,7 +101,7 @@ export const Drop7Disc: React.FC<Props> = ({
       <style jsx>{`
         .disc-value-shadow {
           text-shadow: ${[...new Array(24)].map((_, i) => {
-            return `rgba(0, 0 ,0, ${1 - i * 0.07}) -${i}px ${i}px`;
+            return `-${i}px ${i}px ${i * 0.2}px rgba(0, 0 ,0, ${1 - i * 0.07})`;
           })};
         }
       `}</style>
