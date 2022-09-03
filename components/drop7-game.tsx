@@ -38,10 +38,10 @@ export const Drop7Game = () => {
   });
 
   return (
-    <div className="">
+    <div className="m-4">
       {/* @ts-ignore */}
       {/* <p>{state.value?.game ? state.value.game : state.value}</p> */}
-      <header className="flex justify-between mb-4 p-4">
+      <header className="flex justify-between mb-4">
         <div className="flex flex-1">
           <h1 className="flex items-start mr-8 text-xl leading-none font-semibold uppercase opacity-80">
             Drop
@@ -59,10 +59,10 @@ export const Drop7Game = () => {
         </div>
 
         {/* <Drop7Disc value={7} /> */}
-        <div className="basis-96">
+        <div className="flex basis-96 items-start justify-end md:justify-start">
           {state.matches('game') && (
             <button
-              className="uppercase leading-none opacity-40"
+              className="text-sm uppercase leading-none opacity-40"
               onClick={() => send('EXIT')}
             >
               Exit
