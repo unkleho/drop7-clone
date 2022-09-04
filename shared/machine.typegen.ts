@@ -36,7 +36,7 @@ export interface Typegen0 {
       | "EXIT"
       | "xstate.after(800)#drop7.game.clearing-matched-discs"
       | "xstate.stop";
-    collapseDiscs: "" | "xstate.after(800)#drop7.game.clearing-matched-discs";
+    collapseDiscs: "" | "EXIT" | "xstate.stop";
     consoleLogValue: "NEW_GAME";
     dropDisc: "SELECT_COLUMN";
     getRandomDisc: "" | "xstate.after(500)#drop7.game.checking-level";
@@ -66,6 +66,7 @@ export interface Typegen0 {
     | "game.dropping-disc"
     | "game.end-game"
     | "game.incrementing-level"
+    | "game.incrementing-score"
     | "game.setting-up"
     | "game.waiting-for-user"
     | "game.waiting-for-user.hovering-column"
@@ -80,6 +81,7 @@ export interface Typegen0 {
           | "dropping-disc"
           | "end-game"
           | "incrementing-level"
+          | "incrementing-score"
           | "setting-up"
           | "waiting-for-user"
           | { "waiting-for-user"?: "hovering-column" | "wait" };

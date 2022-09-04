@@ -10,7 +10,12 @@ import {
   getScore,
   setupGameGrid,
 } from './drop7';
-import { discMapTallColumn, gridTallColumn } from './example-grids';
+import {
+  discMapAllClear,
+  discMapTallColumn,
+  gridAllClear,
+  gridTallColumn,
+} from './example-grids';
 
 import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
@@ -28,7 +33,7 @@ const initialGameContext = {
 };
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnA4-FgPxYoaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACkulgAlCRPYXAiWyxXIlWa3WIA2g-BdYlwykJI1VDhpPGXqpba9tDa5LJE8oWc71GZbML2j4xzDa2AcQBrP1QLEQFttjs4Ls9lC9qolhDiOBbQsWdYvm+H5HCupyGuu-I-MCkgZs8ahsnY3zOs4liAnuVzqPmd7gY+UFDKWGL4l+7Y9r+3Z9kBIGjqRkGvhRYBUbBFJrlG-KyFcNjiGo6imDobIqD8yifHu2iWJo+RyMRUJFoMOIoGAxACNKlFgNR3H6rxUh2nctxYNULgCqoNrqPIUgComVyWu6IosUWfgQAGQwTuW9YAEaCMiIYgOShlUhI2SWFyWDZo4x54babLmbgOHmfkwl4Q8ylejCYACPO0IkBQAAaACSaoGau4VpJyQHZDkUjAdo0hJdJVgsho5TOMajzZfeRVlRVy48dVjQWMCGiWJ1ki1FolxvEYiCobIMaKOkM2uMerTggIaAQHAwijgQxCVfBkYZDgk2dVeRTmTGrKLWUrg-Ny+SKM6LJ5H14HBKEfoxKdEapAo3z4TIloCq8C2lAomR1NYwHKNyShmKo31FlKfqInKUxSoDvEZLGjxTYpvLWo9Ui4ExSMxul0kxujvRwljsrIpiqIYlOER4oSxL49VV6cuYyjOA0tx4dZj3NBUlyyUBM3qOIjOSszQzY2zKD8whCDmVFdI6IyMiVA9pSPD8iOo0oqiXJ8yjKzgPp+gGQZa5GjTSJk6RIwmEvbmYqZIzgXwxTNqEss4Wj2z5XMzo+87O02rupFeUWVBkmjzbhWCYZNQc2ICV5qLaPJR2x0FcBAScSMeuBFDI3JSC8vI2hdNTbqo+T8i4WCl0+7GRLp+JV3x-xBzy8moV8x7Amyaf2uk27Ago2Zgq5YGqQI6maXlOmcXpw+JrkOCoQy9iNK4SMSZYyhZMjppMXhdtryR7meX60f+YFS6hnBQMSE4sh-io35K6JGihJBJTqFYbcNhcjcnARoe2eUCoSgPi0KKOQ66aBcI0Bks9HBbjsGeVw5gJpK2fipE6w0wraxrluHC0gIaMK+GyCIPItyuh5DGDKlQ7DZWHs0c29VsgZmsI4VhiZNyMO5CyeS19pHCg8EAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnA4-FgPxYoaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACkulgAlCRPYXAiWyxXIlWa3WIA2g-BdYlwylEG6snUYxmBQ1qmyarJ0goVBkHq9VPmfGOYbWwDiANZ+qBYiAttsdnBdnsoXuqSxDiOBbQsWdaPs+r5HCupyGhIiaZOoUgZs8agHg0XKqM4liAqo0hXOoV5QkWd7gUMpYYvi77tj2X7dn2-6AaOIEkU+ZFgBRUEUmuUb8rIVw2OIajqKYOhsioPzKJ8uHaJYmj5HIhFejCgw4igYDEAI0rkWAlGcfq3FSHady3Fg1QuLuNrqPIUgComVyWu6IpMUWfgQAGQwTuW9YAEaCMiIYgOS+lUhI2SWFyWDZo4ch4Y8bxGOuroYVh+SCdhDyKTeOBgAI87QiQFAABoAJJqnpq4hWknL-tkORSAB2jSGykWZLJmjlM4xqPJlIEqWpGnSkGYykOVMGRl8plcrFkX2KolxNQlCBOMoOBPP+LwmfJig9RKBUlWVy5cZVjQWMCGiWBopi1FolzxaUkgyDgMaKOkkjKK4MWtOCAhoBAcDCKOBDEKNEbUpk52XWYu6mTGrKLQokg-Ny+SKM6LJ5DtgTBKEfoxCD3EKN8OEyJaAqvHdJgZDgdTWAB70PKCl5OcBRZSn6iJylMUr45VGSxo8F3yby1qLVIuAMe924NJJMaY5KcLs7KyKYqiGJThEeKEsSPOwQgUOcuYyjOA0tzYaoqbvTgFrSf+b2IXLsIDEMHPKygOuRqZ4V0jojIyJUcOlI8Px00UgJXDSX3tNeIE+n6AZBu7qSNNICGRTNye4bkFu4BNRtG-7zhaA7nnqzOd7zvHTaJ4gAvU9YJvna82jqAexpWyowII7JSgKcz0fEWBrGRC+XAQNXUYxbgRQyNyUgvLyNpU4eZiYfYLhYMXg9+tp+Lj4m-zUzyskPV8MXAmylS4GodKd5FPJgn3RGBH16k5Vp7E6Xvc0WA9DL2I0rh3piUsCtY0DMagMWwsoB2rl3K4lLF5ecvkBDIj3k4WQ-wV78ldO9RQkhmp1CsNIPIDIwF4I0A7HKeUJR7xaOFHI09NAuEaAyC+jhVp2GUAjcwZ1xAOxfgNP0Q01LjxeIjPIskAJnWNHcNCshbAPXnlDF4c05bj0nqtZ0JNox4S+GyCIPJVqugeLUHIQJbQUMflgcezRg61WyBmawjh9GJlUEY7kdgYr2CKB4DwQA */
   createMachine(
     {
       context: initialGameContext,
@@ -116,8 +121,7 @@ export const drop7Machine =
               exit: 'clearMatchedDiscs',
               after: {
                 '800': {
-                  actions: ['incrementScore', 'collapseDiscs'],
-                  target: 'checking-grid',
+                  target: 'incrementing-score',
                 },
               },
             },
@@ -182,6 +186,13 @@ export const drop7Machine =
                 },
               },
             },
+            'incrementing-score': {
+              entry: 'incrementScore',
+              exit: 'collapseDiscs',
+              always: {
+                target: 'checking-grid',
+              },
+            },
           },
           on: {
             EXIT: {
@@ -211,6 +222,18 @@ export const drop7Machine =
           //   nextDisc: {
           //     id: 'disc-8',
           //     value: 2 as Disc,
+          //   },
+          // };
+
+          // TODO: Turn this into a tutorial
+          // return {
+          //   ...initialGameContext,
+          //   grid: gridAllClear,
+          //   discMap: discMapAllClear,
+          //   discCount: 8,
+          //   nextDisc: {
+          //     id: 'disc-8',
+          //     value: 6 as Disc,
           //   },
           // };
         }),
@@ -303,10 +326,17 @@ export const drop7Machine =
             matchedDiscIds
           );
 
+          const currentChain = context.currentChain + 1;
+
           // Clear grid of matched ids
           const clearedGrid = removeByIds(crackedGrid, matchedDiscIds);
 
-          console.log('clearMatchedDiscs', clearedGrid, matchedDiscIds);
+          console.log(
+            'clearMatchedDiscs',
+            clearedGrid,
+            matchedDiscIds,
+            currentChain
+          );
 
           return {
             grid: clearedGrid,
@@ -314,6 +344,7 @@ export const drop7Machine =
             // Pass ids for scoring
             // TODO: Can use this for highlighting tiles
             matchedDiscIds,
+            currentChain,
           };
         }),
         collapseDiscs: assign((context) => {
@@ -325,19 +356,21 @@ export const drop7Machine =
         }),
         incrementScore: assign((context) => {
           // const matchedIds = getMatchingGroups(context.grid, context.discMap);
-          const currentChain = context.currentChain + 1;
+          // const currentChain = context.currentChain + 1;
 
-          const score = getScore(context.matchedDiscIds.length, currentChain);
+          const score = getScore(
+            context.matchedDiscIds.length,
+            context.currentChain
+          );
 
           console.log(
             'incrementScore',
             context.matchedDiscIds.length,
-            currentChain
+            context.currentChain
           );
 
           return {
             score: context.score + score,
-            currentChain,
             matchedDiscIds: [],
           };
         }),

@@ -12,7 +12,7 @@ export const Drop7Game = () => {
   const { state, send } = useStore();
   const { context } = state;
 
-  console.log('isMobile', isMobile);
+  // console.log('isMobile', isMobile);
 
   // Find disc in first row. This row is always for the next disc.
   const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
@@ -212,9 +212,14 @@ export const Drop7Game = () => {
             </button>
           )}
 
-          {/* <div className="relative flex col-span-7 col-start-1 row-start-1 items-center">
-            <p>Current chain: {context.currentChain}</p>
-          </div> */}
+          {state.matches('game.clearing-matched-discs') &&
+            context.currentChain > 0 && (
+              <div className="relative flex col-span-7 col-start-1 row-start-1 items-center text-sm">
+                <p className="uppercase opacity-80">
+                  Chain x {context.currentChain + 1}
+                </p>
+              </div>
+            )}
         </div>
 
         {state.matches('game') && (
