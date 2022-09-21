@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { collapseGrid, getAdjacentIds, removeByIds, type Grid } from './grid';
+import {
+  collapseGrid,
+  getAdjacentIds,
+  getContinuousIds,
+  removeByIds,
+  type Grid,
+} from './grid';
 
 describe('Grid', () => {
   it('should that gaps in grid are collapsed', () => {
@@ -17,7 +23,7 @@ describe('Grid', () => {
     ]);
   });
 
-  it('should find adjacent puyos', () => {
+  it('should find adjacent pieces', () => {
     const grid: Grid = [
       [null, null, null, null, null, null],
       [null, 'user-1', 'user-0', null, null, null],
@@ -43,5 +49,16 @@ describe('Grid', () => {
       ['disc-2', null, null, null, null],
       [null, 'disc-4', null, null, null],
     ]);
+  });
+
+  it('should get array of ids in from bottom left up. Good for animation.', () => {
+    const grid = [
+      [null, null, null, null, null],
+      ['disc-2', null, null, null, 'disc-5'],
+      ['disc-1', 'disc-4', null, null, 'disc-3'],
+    ];
+    const newGrid = getContinuousIds(grid);
+
+    expect(newGrid).toEqual(['disc-1', 'disc-4', 'disc-3', 'disc-2', 'disc-5']);
   });
 });

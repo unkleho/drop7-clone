@@ -5,7 +5,7 @@ import { getPosition } from '../shared/grid';
 import useDeviceDetect from '../shared/hooks/use-device-detect';
 import { useKeyPress } from '../shared/hooks/use-key-press';
 import { useStore } from '../shared/store';
-import { Drop7Disc } from './drop7-disc';
+import { DiscState, Drop7Disc } from './drop7-disc';
 
 export const Drop7Game = () => {
   const { isMobile } = useDeviceDetect();
@@ -157,17 +157,30 @@ export const Drop7Game = () => {
               )}
 
               {/* Discs */}
-              {Object.entries(context.discMap).map(([id, disc]) => {
+              {Object.entries(context.discMap).map(([id, disc], index) => {
                 const position = getPosition(context.grid, id);
 
                 if (isValidPosition(position)) {
                   const [column, row] = position;
-                  const discState = [
-                    'game.clearing-matched-discs',
-                    'game.waiting-for-user',
-                  ].some(state.matches)
-                    ? 'waiting' // spring
-                    : 'dropping'; // tween bounce
+
+                  let discState: DiscState;
+
+                  if (
+                    [
+                      'game.clearing-matched-discs',
+                      'game.waiting-for-user',
+                    ].some(state.matches)
+                  ) {
+                    discState = 'waiting'; // spring
+                  } else if (['game.setting-up'].some(state.matches)) {
+                    discState = 'entering';
+                  } else {
+                    discState = 'dropping'; // tween bounce
+                  }
+
+                  // const discState =
+                  //   ? 'waiting' // spring
+                  //   : 'dropping'; // tween bounce
 
                   return (
                     <Drop7Disc
@@ -176,6 +189,7 @@ export const Drop7Game = () => {
                       column={column}
                       row={row}
                       state={discState}
+                      index={index}
                       key={id}
                     />
                   );

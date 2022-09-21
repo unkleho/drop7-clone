@@ -1,14 +1,16 @@
-import { motion } from 'framer-motion';
-import { url } from 'inspector';
+import { motion, Transition } from 'framer-motion';
 import React from 'react';
 import { Disc } from '../shared/drop7';
+
+export type DiscState = 'entering' | 'dropping' | 'waiting';
 
 type Props = {
   id?: string;
   value: Disc;
   row: number;
   column: number;
-  state?: 'dropping' | 'waiting';
+  state?: DiscState;
+  index?: number;
 };
 
 const colourMap: {
@@ -35,9 +37,14 @@ export const Drop7Disc: React.FC<Props> = ({
   row,
   column,
   state = 'waiting',
+  index = 0,
 }) => {
   let transition;
-  if (state === 'waiting') {
+  if (state === 'entering') {
+    transition = {
+      type: 'tween',
+    };
+  } else if (state === 'waiting') {
     transition = {
       type: 'spring',
     };
@@ -45,9 +52,6 @@ export const Drop7Disc: React.FC<Props> = ({
     transition = {
       type: 'tween',
       duration: 0.7,
-      // ease: (t: number) => easeOutBounce2(t, 100, 100 - t, 1000 / 60),
-      // ease: easeOutBounce,
-      // ease: bounceEaseOut,
       ease: flashEaseOut,
     };
   }
@@ -64,13 +68,18 @@ export const Drop7Disc: React.FC<Props> = ({
           colour.bg,
         ].join(' ')}
         transition={transition}
+        initial={{
+          opacity: 0,
+        }}
         style={{
           gridRow: row + 1,
           gridColumn: column + 1,
           backgroundColor: colour.bg,
           willChange: 'transform',
           fontSize: 'min(6vw, 1.8rem)',
-          // clipPath: 'url(#myClip)',
+        }}
+        animate={{
+          opacity: 1,
         }}
         exit={{
           opacity: 0,

@@ -140,3 +140,19 @@ export function removeByIds(grid: Grid, ids: string[]) {
 
   return newGrid;
 }
+
+export function getContinuousIds(grid: Grid) {
+  const ids: string[] = [];
+
+  cloneGrid(grid)
+    .reverse()
+    .forEach((row) => {
+      row.forEach((cell) => {
+        if (cell) {
+          ids.push(cell);
+        }
+      });
+    });
+
+  return ids;
+}
