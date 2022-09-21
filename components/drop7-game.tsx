@@ -4,6 +4,7 @@ import { isValidPosition } from '../shared/drop7';
 import { getPosition } from '../shared/grid';
 import useDeviceDetect from '../shared/hooks/use-device-detect';
 import { useKeyPress } from '../shared/hooks/use-key-press';
+import { initialMovesPerLevel } from '../shared/machine';
 import { useStore } from '../shared/store';
 import { DiscState, Drop7Disc } from './drop7-disc';
 
@@ -17,7 +18,7 @@ export const Drop7Game = () => {
   // Find disc in first row. This row is always for the next disc.
   const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
 
-  const movesInLevel = 30 - context.level;
+  const movesInLevel = initialMovesPerLevel - context.level;
 
   useKeyPress('ArrowLeft', [nextDiscColumn], undefined, () => {
     if (nextDiscColumn > 0) {
@@ -173,6 +174,7 @@ export const Drop7Game = () => {
                   ) {
                     discState = 'waiting'; // spring
                   } else if (['game.setting-up'].some(state.matches)) {
+                    // TODO: setting-up state is too short
                     discState = 'entering';
                   } else {
                     discState = 'dropping'; // tween bounce

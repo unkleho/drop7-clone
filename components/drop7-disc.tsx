@@ -43,6 +43,7 @@ export const Drop7Disc: React.FC<Props> = ({
   if (state === 'entering') {
     transition = {
       type: 'tween',
+      delay: index * 0.02,
     };
   } else if (state === 'waiting') {
     transition = {
@@ -70,6 +71,7 @@ export const Drop7Disc: React.FC<Props> = ({
         transition={transition}
         initial={{
           opacity: 0,
+          y: state === 'entering' ? 10 : -10,
         }}
         style={{
           gridRow: row + 1,
@@ -80,9 +82,11 @@ export const Drop7Disc: React.FC<Props> = ({
         }}
         animate={{
           opacity: 1,
+          y: 0,
         }}
         exit={{
           opacity: 0,
+          y: 20,
         }}
       >
         {/* <Disc3D>
@@ -92,6 +96,8 @@ export const Drop7Disc: React.FC<Props> = ({
           </div>
 
         </Disc3D> */}
+
+        {/* {index} */}
 
         <span className="row-start-1 col-start-1 disc-value-shadow -mt-1 opacity-60">
           {/* {value === 'cracked' ? 'CR' : null} */}

@@ -10,6 +10,9 @@ export interface Typegen0 {
     "xstate.after(500)#drop7.game.checking-level": {
       type: "xstate.after(500)#drop7.game.checking-level";
     };
+    "xstate.after(500)#drop7.game.setting-up": {
+      type: "xstate.after(500)#drop7.game.setting-up";
+    };
     "xstate.after(800)#drop7.game.clearing-matched-discs": {
       type: "xstate.after(800)#drop7.game.clearing-matched-discs";
     };
@@ -39,7 +42,9 @@ export interface Typegen0 {
     collapseDiscs: "" | "EXIT" | "xstate.stop";
     consoleLogValue: "NEW_GAME";
     dropDisc: "SELECT_COLUMN";
-    getRandomDisc: "" | "xstate.after(500)#drop7.game.checking-level";
+    getRandomDisc:
+      | "xstate.after(500)#drop7.game.checking-level"
+      | "xstate.after(500)#drop7.game.setting-up";
     hoverColumn: "HOVER_COLUMN";
     incrementLevel: "xstate.after(500)#drop7.game.checking-level";
     incrementScore: "xstate.after(800)#drop7.game.clearing-matched-discs";

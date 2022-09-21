@@ -19,7 +19,8 @@ import {
 
 import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
-const initialMovesPerLevel = 29;
+// export const initialMovesPerLevel = 29; // Original game
+export const initialMovesPerLevel = 10;
 const initialGameContext = {
   score: 0,
   level: 1,
@@ -82,8 +83,10 @@ export const drop7Machine =
           initial: 'setting-up',
           states: {
             'setting-up': {
-              always: {
-                target: 'waiting-for-user',
+              after: {
+                '500': {
+                  target: 'waiting-for-user',
+                },
               },
             },
             'waiting-for-user': {
