@@ -8,6 +8,7 @@ import { initialMovesPerLevel } from '../shared/machine';
 import { useStore } from '../shared/store';
 import { ActionButton } from './action-button';
 import { DiscState, Drop7Disc } from './drop7-disc';
+import { Icon } from './icon';
 
 export const Drop7Game = () => {
   const { isMobile } = useDeviceDetect();
@@ -19,7 +20,7 @@ export const Drop7Game = () => {
   // Find disc in first row. This row is always for the next disc.
   const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
 
-  const movesInLevel = initialMovesPerLevel - context.level;
+  const movesInLevel = initialMovesPerLevel - context.level + 1;
 
   useKeyPress('ArrowLeft', [nextDiscColumn], undefined, () => {
     if (nextDiscColumn > 0) {
@@ -40,7 +41,7 @@ export const Drop7Game = () => {
   });
 
   return (
-    <div className="flex h-full flex-col p-4 sm:p-8">
+    <div className="flex h-full flex-col p-5 sm:p-8">
       <header className="mb-4 flex w-full justify-between">
         <div className="flex flex-1">
           <h1 className="mr-8 flex items-start text-xl font-medium uppercase leading-none tracking-wide opacity-80">
@@ -48,16 +49,16 @@ export const Drop7Game = () => {
             <span
               className="bg-gradient-to-b from-blue-500 to-blue-800 bg-clip-text leading-none text-transparent"
               style={{
-                transform: 'scale(1.4) translateY(-1px)',
+                transform: 'scale(1.4) translateY(-1.5px)',
                 transformOrigin: 'top left',
               }}
             >
               7
             </span>
-            <div className="-mt-4 ml-4 h-8 w-1 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-700/40 pl-[1px]">
+            <div className="ml-4 h-4 w-1 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-700/40 pl-[1px] sm:-mt-8 sm:h-12">
               <div className="h-full w-full bg-slate-950"></div>
             </div>
-            <p className="leading-noneup mt-[1px] pl-2 text-sm font-light leading-none tracking-wider opacity-50">
+            <p className="leading-noneup mt-[1px] pl-2 text-sm font-light leading-none tracking-wider opacity-80">
               Clone
             </p>
           </h1>
@@ -75,6 +76,8 @@ export const Drop7Game = () => {
               Exit
             </button>
           )}
+
+          {/* <Icon name="menu" /> */}
         </div>
       </header>
 
@@ -103,7 +106,7 @@ export const Drop7Game = () => {
           {/* Grid Lines */}
           {/* TODO: Move this to component */}
           {context.grid.map((row, rowIndex) => {
-            return row.map((_, columnIndex) => {
+            return row.map((id, columnIndex) => {
               return (
                 <div
                   className={[
@@ -236,7 +239,9 @@ export const Drop7Game = () => {
           <div className="mt-4">
             <div
               className="mb-2 grid gap-1"
-              style={{ gridTemplateColumns: 'repeat(29, 1fr)' }}
+              style={{
+                gridTemplateColumns: `repeat(${initialMovesPerLevel}, 1fr)`,
+              }}
             >
               {[...new Array(movesInLevel)].map((_, i) => {
                 return (
@@ -269,7 +274,7 @@ export const Drop7Game = () => {
         <p className="relative ml-auto text-sm uppercase">
           <a
             href="https://twitter.com/unkleho"
-            className="bg-gradient-to-bl from-blue-500 to-blue-800 bg-clip-text leading-none tracking-wider text-transparent"
+            className="bg-gradient-to-bl from-cyan-500 to-purple-800 bg-clip-text leading-none tracking-wider text-transparent"
           >
             @unkleho
           </a>

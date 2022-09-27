@@ -19,8 +19,8 @@ import {
 
 import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
 
-export const initialMovesPerLevel = 29; // Original game
-// export const initialMovesPerLevel = 10;
+// export const initialMovesPerLevel = 29; // Original game
+export const initialMovesPerLevel = 20;
 const initialGameContext = {
   score: 0,
   level: 1,

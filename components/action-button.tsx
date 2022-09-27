@@ -13,11 +13,12 @@ export const ActionButton: React.FC<Props> = ({ children, onClick }) => {
         left: '50%',
         top: '56%',
         transform: 'translate(-50%, -50%)',
+        boxShadow: '0 0 40px 5px #000',
       }}
       onClick={onClick}
     >
-      <span className="block bg-slate-950 p-6">
-        <span className="text-2xl uppercase tracking-wider opacity-70 md:text-4xl">
+      <span className="block bg-slate-950 p-5">
+        <span className="whitespace-nowrap text-3xl opacity-70 md:text-4xl">
           {children}
         </span>
       </span>
