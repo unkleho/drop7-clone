@@ -156,3 +156,39 @@ export function getContinuousIds(grid: Grid) {
 
   return ids;
 }
+
+/**
+ * Clear grid and only keep discs that are going to be dropped.
+ * Useful to work out staggered animations
+ */
+export function getDroppingGrid(grid: Grid) {
+  const totalRows = grid.length;
+  const lastRow = grid[totalRows - 1];
+
+  // Loop over each column
+  lastRow.forEach((_, column) => {
+    // Loop over each row from the bottom up
+    let row = totalRows - 1;
+    // Boolean switch, default to removing id
+    let removeId = true;
+
+    while (row >= 0) {
+      const id = grid[row][column];
+
+      // If we hit an empty cell, switch to keeping id
+      // as id has space to drop below
+      if (id === null && removeId) {
+        removeId = false;
+      }
+
+      // Remove disc
+      if (id && removeId) {
+        grid[row][column] = null;
+      }
+
+      row--;
+    }
+  });
+
+  return grid;
+}

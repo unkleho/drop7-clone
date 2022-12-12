@@ -3,6 +3,7 @@ import {
   collapseGrid,
   getAdjacentIds,
   getContinuousIds,
+  getDroppingGrid,
   removeByIds,
   type Grid,
 } from './grid';
@@ -60,5 +61,20 @@ describe('Grid', () => {
     const newGrid = getContinuousIds(grid);
 
     expect(newGrid).toEqual(['disc-1', 'disc-4', 'disc-3', 'disc-2', 'disc-5']);
+  });
+
+  it('should get grid of ids about to be dropped', () => {
+    const grid = [
+      [null, 'disc-6', null, 'disc-7', null],
+      ['disc-1', 'disc-4', null, null, 'disc-3'],
+      ['disc-2', null, null, 'disc-5', null],
+    ];
+    const newGrid = getDroppingGrid(grid);
+
+    expect(newGrid).toEqual([
+      [null, 'disc-6', null, 'disc-7', null],
+      [null, 'disc-4', null, null, 'disc-3'],
+      [null, null, null, null, null],
+    ]);
   });
 });

@@ -34,7 +34,7 @@ const initialGameContext = {
 };
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQsVAzVgEsAXLtAHZsQAD0QBGAGwAWHAGYs0uQE4ArHIBMk8VqUAaEAE9EcyQA4cABkkbVdreOmSsWSQF83B1JlxQAhsQ4sGA8fAJQALQArhgkwhzcfILCYgiqWBo4ZuJmZpLq1tLpBsYICriScpaqyuJyquLVGsrSHl7o2Dj+gQDufrxc4REAZmgo0cEoOH28JAASAPIAahQASjQAwgsAMgCqTGTxnAPJSKKIZpYWdVjirmbS0srKluIliBri4jg1L2bP0iwckacjMbRA3k63TA036YUio3GUUm+DQADcwChBpEAMZoAA2UUIAjiZwSJyEZ1SGVkimyGlyeSccjk7wQtjkOCwZhUzVUGkBlXcnghHV8ARhM3hIzGE0xJAAyhRthQNgAVTY7faHMnHJKU0DUsy4erKS7mV5aUxs6Q6HAtJ4MrDpSy3ergyHiwKQjDYiIQLiwHGk9h6-gG84IHQaXDVf5qcR2Ow2NnNb6SK45M2grRAj1iroSnA4-FgPxYoaEPw8HF4SD+wM42AkESwHjVmF+YY8TEACkulgAlCRPYXAiWyxXIlWa3WIA2g-BdYlwylEG6snUYxmBQ1qmyarJ0goVBkHq9VPmfGOYbWwDiANZ+qBYiAttsdnBdnsoXuqSxDiOBbQsWdaPs+r5HCupyGhIiaZOoUgZs8agHg0XKqM4liAqo0hXOoV5QkWd7gUMpYYvi77tj2X7dn2-6AaOIEkU+ZFgBRUEUmuUb8rIVw2OIajqKYOhsioPzKJ8uHaJYmj5HIhFejCgw4igYDEAI0rkWAlGcfq3FSHady3Fg1QuLuNrqPIUgComVyWu6IpMUWfgQAGQwTuW9YAEaCMiIYgOS+lUhI2SWFyWDZo4ch4Y8bxGOuroYVh+SCdhDyKTeOBgAI87QiQFAABoAJJqnpq4hWknL-tkORSAB2jSGykWZLJmjlM4xqPJlIEqWpGnSkGYykOVMGRl8plcrFkX2KolxNQlCBOMoOBPP+LwmfJig9RKBUlWVy5cZVjQWMCGiWBopi1FolzxaUkgyDgMaKOkkjKK4MWtOCAhoBAcDCKOBDEKNEbUpk52XWYu6mTGrKLQokg-Ny+SKM6LJ5DtgTBKEfoxCD3EKN8OEyJaAqvHdJgZDgdTWAB70PKCl5OcBRZSn6iJylMUr45VGSxo8F3yby1qLVIuAMe924NJJMaY5KcLs7KyKYqiGJThEeKEsSPOwQgUOcuYyjOA0tzYaoqbvTgFrSf+b2IXLsIDEMHPKygOuRqZ4V0jojIyJUcOlI8Px00UgJXDSX3tNeIE+n6AZBu7qSNNICGRTNye4bkFu4BNRtG-7zhaA7nnqzOd7zvHTaJ4gAvU9YJvna82jqAexpWyowII7JSgKcz0fEWBrGRC+XAQNXUYxbgRQyNyUgvLyNpU4eZiYfYLhYMXg9+tp+Lj4m-zUzyskPV8MXAmylS4GodKd5FPJgn3RGBH16k5Vp7E6Xvc0WA9DL2I0rh3piUsCtY0DMagMWwsoB2rl3K4lLF5ecvkBDIj3k4WQ-wV78ldO9RQkhmp1CsNIPIDIwF4I0A7HKeUJR7xaOFHI09NAuEaAyC+jhVp2GUAjcwZ1xAOxfgNP0Q01LjxeIjPIskAJnWNHcNCshbAPXnlDF4c05bj0nqtZ0JNox4S+GyCIPJVqugeLUHIQJbQUMflgcezRg61WyBmawjh9GJlUEY7kdgYr2CKB4DwQA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQoG0AGAXUVAzVgCWAFwFoAdjxAAPRAEYALAGYc7AGxZ5qgEyqAHFl26AnFoA0IAJ5zVOfVnZHZqgKxHdq2YoMBfb+dSYuFAAhsQ4sGBCImJQALQArhgkUrBCwUJgOMEAZhkoABTO7OwAlCQB2DghYRFRAjEJGBzcSCB8giLikjIIzlryOFpG7MZKioq6OrrmVgjy7Dh9RvOqI-NOWli+-uiV1ZkA7sHC9XHZaCgJESg4R8IkABIA8gBqFABKNADCTwAyAKpMMjNSTtE5dVo9XTOXSDdhYLCrIyqIxGGFYGaILSKGyKTZ6ewOQybLZ+EAVIKhQ7HaJnC5XMA3AgAN0Zp1iAGM0AAbeKEMQkEGtMGdCSQxBYcY4RTyTbOMZYZwuZyYhCKWQLRXqdjq7FOeTbcm7SlhO602LnS7xa4kADKFF+FC+ABVvn9AcCuKD+OCxaAehq3IsTLI3Gi3Lp5EZVVp9DgNUpVi5+rIfGSKVUqTgKhh2RABLAOYKvcKfaLunJdSphrINex5K5nCrLFi4wmJu5UcUjIaM-scBzuWBgih2YR0hy8JBYvnC7Bkql0pkcnl8rpimU+1nB8PRw1x0JJ9PZxzYELeGXRH7pIh1MpJVp2M5ZFpnAiDBiW71HDgNASjJKUY6qovbGpmYRHhyADW7JQKOEALmkGRZLkjKFBu5Rgf2kEwQ0cECBA55tJeEL+nI8iGLYMq6HiEyxs4eKqhquCaH0DaaFgJhaNxoGBOBmQ4bB8GIUuKGrkUpSYXx2FTtBQkEawsgtBeHRXhWCCpuugzaPKWi1k+OKfrMzE4Kx-TyuoXHYrxezbrJuFxPhCEpEhy6oQUEmblhdlgHJeHwawWjKcRqmkTeGkMUYpmeIihiyJGDGKKqiqwtiNFPk4igMdoNkmgJ9nskOrLciJyErmhnlSbZEEFQ0RVgNyREimprSzKoXg4GiGg0TFbgTOYAYGAM9bGG+7Xxc+uX8QOtVxPVJUuaJ5UeRhW41b5DmxPNinBc1YWDZGKgUV143QrIqowlFXUUeqXh9boU0yRthVgMVpVueJq3eetflza9DWBbtJHXgdw3HWN6pnaqejKAoWCeJomwpiB6bfZk9QcigYDEGI5rzcWQOhdesyKA4thDVlaLFPW0bhfFni2A29bPn0qYozs0lZhjWM43j-0lTt3pE+pmkDPItaKCYfWBqqmjDbdMKvpG7guI9WbBBA+YNDuI7TgARuI1oE0Lvoi3osIqymriS9RyWxtKhnuLWqhRssathGAYgQLE+wkBQAAaACSzpNcDkhtQoplNkYXiqDDL7neFempjgLs6M+oaTOx7vo2ImPY575qFhcpCh8LrWIE2AyvnHwx0cMMIDXInjKOoDb2OM-Q6jnftByHJYqab4oIHpcdHbIMKuLWaJvqqsShrgDFncMyJFKivhkmIaAQHAkgZgQxAm+Ww9BjH-Tcdx7AKEq0xfvPcZeDRyx6TKj5Kjn4SROaiRHy1ZFqoqUyj40Q6G4usROsx5iLCGCsNYV92qKA-madkloGQ3DNL-faEoJiDHFsMV8CZ3BMQMJ1JwAFboKB1FoJBNIUH0mtIyfAaBWR7jiFyXk-JMEg0QD1eMnFlbPhGIYIyiAZS4g1BqQwytJgIhoScBoqCGEoC4epPQzhpSykVAqJUTZZayE6qzPS7AphOHZkaTmYQcx5gLByFRw9awM0fOuRwxQhjuCSl+R894YZDARPCYwCgP461YbEA8R5vYnngKWcu-95BQI1C4VMj54ETw8bMdEqcbYxVWDKcYQTZo+3gnY-+CMWJKnkAYMhOoTCyywFoYMFEdF9HfPk56dV+bFLppdeM6UcQeARuqaGHVro9TujRB6qMLG53zrzF6xVOkBhhLCOO9FWbwhRCItUZN9CRkphJGmH8NZazYUOXW3sDZiGtAs8iLtbBuCbI+TiCJNDJQZiNbQwj9CIw-p7b2+xrkaWWAseKDZ2okg1LGaGkcGzW0RPHPSH9uYF1xuyYuWMAXDBsO4HUxRdT6FTBdeUgwlQoh1JMBuEyObVTAACvELFgF9G0F3Wsc9kSmSyhUlY8M06yFygCoonU8SygvlfUFt9ZixFjDYFmQjQx6GWLyjeQA */
   createMachine(
     {
       context: initialGameContext,
@@ -73,8 +73,8 @@ export const drop7Machine =
         home: {
           on: {
             NEW_GAME: {
-              actions: 'consoleLogValue',
               target: 'game',
+              actions: 'consoleLogValue',
             },
           },
         },
@@ -85,7 +85,9 @@ export const drop7Machine =
             'setting-up': {
               after: {
                 '500': {
-                  target: 'waiting-for-user',
+                  target: '#drop7.game.waiting-for-user',
+                  actions: [],
+                  internal: false,
                 },
               },
             },
@@ -96,8 +98,8 @@ export const drop7Machine =
                 wait: {
                   on: {
                     HOVER_COLUMN: {
-                      actions: 'hoverColumn',
                       target: 'hovering-column',
+                      actions: 'hoverColumn',
                     },
                   },
                 },
@@ -109,22 +111,24 @@ export const drop7Machine =
               },
               on: {
                 SELECT_COLUMN: {
-                  actions: 'dropDisc',
                   target: 'dropping-disc',
+                  actions: 'dropDisc',
                 },
               },
             },
             'dropping-disc': {
               always: {
-                actions: 'collapseDiscs',
                 target: 'checking-grid',
+                actions: 'collapseDiscs',
               },
             },
             'clearing-matched-discs': {
               exit: 'clearMatchedDiscs',
               after: {
                 '800': {
-                  target: 'incrementing-score',
+                  target: '#drop7.game.incrementing-score',
+                  actions: [],
+                  internal: false,
                 },
               },
             },
@@ -132,16 +136,22 @@ export const drop7Machine =
               after: {
                 '500': [
                   {
+                    target: '#drop7.game.adding-cleared-bonus',
                     cond: 'GRID_CLEARED',
-                    target: 'adding-cleared-bonus',
+                    actions: [],
+                    internal: false,
                   },
                   {
+                    target: '#drop7.game.checking-level',
                     cond: 'NO_DISC_MATCHES',
-                    target: 'checking-level',
+                    actions: [],
+                    internal: false,
                   },
                   {
+                    target: '#drop7.game.clearing-matched-discs',
                     cond: 'DISC_MATCHES',
-                    target: 'clearing-matched-discs',
+                    actions: [],
+                    internal: false,
                   },
                 ],
               },
@@ -150,16 +160,22 @@ export const drop7Machine =
               after: {
                 '500': [
                   {
+                    target: '#drop7.game.end-game',
                     cond: 'GRID_FULL',
-                    target: 'end-game',
+                    actions: [],
+                    internal: false,
                   },
                   {
+                    target: '#drop7.game.waiting-for-user',
                     cond: 'MOVES_LEFT_IN_LEVEL',
-                    target: 'waiting-for-user',
+                    actions: [],
+                    internal: false,
                   },
                   {
+                    target: '#drop7.game.incrementing-level',
                     cond: 'NO_MOVES_LEFT_IN_LEVEL',
-                    target: 'incrementing-level',
+                    actions: [],
+                    internal: false,
                   },
                 ],
               },
@@ -168,12 +184,12 @@ export const drop7Machine =
               entry: 'incrementLevel',
               always: [
                 {
-                  cond: 'GRID_OVER',
                   target: 'end-game',
+                  cond: 'GRID_OVER',
                 },
                 {
-                  cond: 'GRID_NOT_OVER',
                   target: 'checking-grid',
+                  cond: 'GRID_NOT_OVER',
                 },
               ],
             },

@@ -65,7 +65,7 @@ export const Drop7Disc: React.FC<Props> = ({
         layout
         layoutId={id}
         className={[
-          'pointer-events-none m-1 grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-normal',
+          'pointer-events-none m-1 grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-medium',
           colour.bg,
         ].join(' ')}
         transition={transition}
