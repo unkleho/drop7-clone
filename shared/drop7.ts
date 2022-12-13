@@ -2,15 +2,25 @@ import {
   cloneGrid,
   collapseGrid,
   getAdjacentIds,
-  getPosition,
+  GridPosition,
   removeByIds,
   type Grid,
 } from './grid';
 
-export type Disc = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 'blank' | 'cracked';
+export type DiscValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 'blank' | 'cracked';
 
 export type DiscMap = {
-  [k in string]: Disc;
+  [k in string]: DiscValue;
+};
+
+export type DiscState = 'waiting' | 'entering' | 'dropping';
+
+export type GridDisc = {
+  id: string;
+  /** DiscValue value */
+  value: DiscValue;
+  position?: GridPosition;
+  state?: DiscState;
 };
 
 export const emptyGrid: Grid = [
@@ -28,7 +38,7 @@ export const emptyGrid: Grid = [
  * Get random disc
  */
 export const getRandomDisc = (mode: 'numbers' | 'all' = 'all') => {
-  const allDiscs: Disc[] = [1, 2, 3, 4, 5, 6, 7, 'blank'];
+  const allDiscs: DiscValue[] = [1, 2, 3, 4, 5, 6, 7, 'blank'];
   let discs = allDiscs;
 
   if (mode === 'numbers') {

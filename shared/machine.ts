@@ -2,7 +2,7 @@ import { assign, createMachine } from 'xstate';
 import {
   addDiscToGrid,
   crackAdjacentDiscs,
-  Disc,
+  DiscValue,
   DiscMap,
   emptyGrid,
   getMatchingGroups,
@@ -46,7 +46,7 @@ export const drop7Machine =
           level: number;
           discMap: DiscMap;
           /** Next disc that is about to drop */
-          nextDisc: { value: Disc; id: string } | null;
+          nextDisc: { value: DiscValue; id: string } | null;
           /** Number of moves left in current level */
           moves: number;
           discCount: number;
@@ -240,7 +240,7 @@ export const drop7Machine =
           //   discCount: 8,
           //   nextDisc: {
           //     id: 'disc-8',
-          //     value: 2 as Disc,
+          //     value: 2 as DiscValue,
           //   },
           // };
 
@@ -252,7 +252,7 @@ export const drop7Machine =
           //   discCount: 8,
           //   nextDisc: {
           //     id: 'disc-8',
-          //     value: 6 as Disc,
+          //     value: 6 as DiscValue,
           //   },
           // };
         }),

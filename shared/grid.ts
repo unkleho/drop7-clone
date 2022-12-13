@@ -7,6 +7,8 @@
  */
 export type Grid = (string | null)[][];
 
+export type GridPosition = [number | null, number | null];
+
 /**
  * Make clone of grid
  */
@@ -30,10 +32,7 @@ export function isGridEqual(oldGrid: Grid, newGrid: Grid) {
  * Get column and row values of id in grid
  * @returns [column, row]
  */
-export function getPosition(
-  grid: Grid,
-  id: string
-): [number | null, number | null] {
+export function getPosition(grid: Grid, id: string): GridPosition {
   let column = null;
   let row = null;
 

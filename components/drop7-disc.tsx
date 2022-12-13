@@ -1,12 +1,12 @@
 import { motion, Transition } from 'framer-motion';
 import React from 'react';
-import { Disc } from '../shared/drop7';
+import { DiscValue } from '../shared/drop7';
 
 export type DiscState = 'entering' | 'dropping' | 'waiting';
 
 type Props = {
   id?: string;
-  value: Disc;
+  value: DiscValue;
   row: number;
   column: number;
   state?: DiscState;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const colourMap: {
-  [k in Disc]: {
+  [k in DiscValue]: {
     bg: string;
     shadow?: string;
   };

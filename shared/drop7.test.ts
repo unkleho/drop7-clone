@@ -40,7 +40,7 @@ describe('Add disc', () => {
   });
 });
 
-describe('Disc number matching', () => {
+describe('DiscValue number matching', () => {
   it('should check if disc numbers match group length by row', () => {
     const grid = [
       [null, null, null, null, null],
@@ -167,5 +167,22 @@ describe('Disc number matching', () => {
 
       expect(count).toBe(10);
     });
+  });
+
+  describe('Setup Decorated Game Grid', () => {
+    const grid = [
+      [null, null, 'disc-3', null, null],
+      ['cracked-1', 'disc-2', 'disc-4', null],
+      ['disc-1', 'blank-1', 'blank-2', null, null],
+    ];
+    const discMap = {
+      ['disc-1']: 3,
+      ['disc-2']: 3,
+      ['disc-3']: 6,
+      ['disc-4']: 6,
+      ['blank-1']: 'cracked',
+      ['blank-2']: 'blank',
+      ['cracked-1']: expect.any(Number),
+    };
   });
 });
