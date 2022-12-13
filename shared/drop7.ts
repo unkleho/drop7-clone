@@ -15,13 +15,15 @@ export type DiscMap = {
 
 export type DiscState = 'waiting' | 'entering' | 'dropping';
 
-export type GridDisc = {
+export type GameDisc = {
   id: string;
   /** DiscValue value */
   value: DiscValue;
-  position?: GridPosition;
+  position: GridPosition;
   state?: DiscState;
 };
+
+export type GameGrid = (GameDisc | null)[][];
 
 export const emptyGrid: Grid = [
   [null, null, null, null, null, null, null],
@@ -291,4 +293,23 @@ export function setupGameGrid(
 
   // Otherwise, recursively call function with required amount of new discs
   return setupGameGrid(totalMatchingDiscs, count + discCount, grid, discMap);
+}
+
+/**
+ * Build game grid from grid of ids and disc map
+ */
+export function buildGameGrid(grid: Grid, discMap: DiscMap): GameGrid {
+  return grid.map((rows, row) => {
+    return rows.map((id, column) => {
+      if (id === null) {
+        return null;
+      }
+
+      return {
+        id,
+        value: discMap[id],
+        position: [column, row],
+      };
+    });
+  });
 }

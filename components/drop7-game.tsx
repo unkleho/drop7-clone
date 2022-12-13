@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { isValidPosition } from '../shared/drop7';
+import { buildGameGrid, isValidPosition } from '../shared/drop7';
 import { getPosition } from '../shared/grid';
 import useDeviceDetect from '../shared/hooks/use-device-detect';
 import { useKeyPress } from '../shared/hooks/use-key-press';
@@ -177,7 +177,44 @@ export const Drop7Game = () => {
               )}
 
               {/* Discs */}
-              {Object.entries(context.discMap).map(([id, disc], index) => {
+              {buildGameGrid(context.grid, context.discMap).map((rows) => {
+                return rows.map((gameDisc) => {
+                  if (gameDisc) {
+                    let discState: DiscState;
+
+                    if (
+                      [
+                        'game.clearing-matched-discs',
+                        'game.waiting-for-user',
+                      ].some(state.matches)
+                    ) {
+                      discState = 'waiting'; // spring
+                    } else if (['game.setting-up'].some(state.matches)) {
+                      // TODO: setting-up state is too short
+                      discState = 'entering';
+                    } else {
+                      discState = 'dropping'; // tween bounce
+                    }
+
+                    return (
+                      <Drop7Disc
+                        id={gameDisc.id}
+                        value={gameDisc.value}
+                        column={gameDisc.position[0]}
+                        row={gameDisc.position[1]}
+                        state={discState}
+                        // index={index}
+                        key={gameDisc.id}
+                      />
+                    );
+                  }
+
+                  return null;
+                });
+              })}
+
+              {/* Discs */}
+              {/* {Object.entries(context.discMap).map(([id, disc], index) => {
                 const position = getPosition(context.grid, id);
 
                 if (isValidPosition(position)) {
@@ -211,7 +248,7 @@ export const Drop7Game = () => {
                     />
                   );
                 }
-              })}
+              })} */}
             </AnimatePresence>
           )}
 

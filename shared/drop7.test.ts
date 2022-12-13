@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
   addDiscToGrid,
+  buildGameGrid,
   crackAdjacentDiscs,
+  GameGrid,
   getMatchingGroups,
   getScore,
   setupGameGrid,
@@ -169,20 +171,40 @@ describe('DiscValue number matching', () => {
     });
   });
 
-  describe('Setup Decorated Game Grid', () => {
-    const grid = [
-      [null, null, 'disc-3', null, null],
-      ['cracked-1', 'disc-2', 'disc-4', null],
-      ['disc-1', 'blank-1', 'blank-2', null, null],
-    ];
-    const discMap = {
-      ['disc-1']: 3,
-      ['disc-2']: 3,
-      ['disc-3']: 6,
-      ['disc-4']: 6,
-      ['blank-1']: 'cracked',
-      ['blank-2']: 'blank',
-      ['cracked-1']: expect.any(Number),
-    };
+  describe('Decorated Game Grid', () => {
+    it('should return decorated game grid', () => {
+      const grid = [
+        [null, null, 'disc-3', null, null],
+        ['cracked-1', 'disc-2', 'disc-4', null],
+        ['disc-1', 'blank-1', 'blank-2', null, null],
+      ];
+      const discMap: DiscMap = {
+        ['disc-1']: 3,
+        ['disc-2']: 3,
+        ['disc-3']: 6,
+        ['disc-4']: 6,
+        ['blank-1']: 'blank',
+        ['blank-2']: 'blank',
+        ['cracked-1']: 'cracked',
+      };
+
+      const gameGrid: GameGrid = buildGameGrid(grid, discMap);
+      expect(gameGrid).toEqual<GameGrid>([
+        [null, null, { id: 'disc-3', value: 6, position: [2, 0] }, null, null],
+        [
+          { id: 'cracked-1', value: 'cracked', position: [0, 1] },
+          { id: 'disc-2', value: 3, position: [1, 1] },
+          { id: 'disc-4', value: 6, position: [2, 1] },
+          null,
+        ],
+        [
+          { id: 'disc-1', value: 3, position: [0, 2] },
+          { id: 'blank-1', value: 'blank', position: [1, 2] },
+          { id: 'blank-2', value: 'blank', position: [2, 2] },
+          null,
+          null,
+        ],
+      ]);
+    });
   });
 });
