@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { buildGameGrid, isValidPosition } from '../shared/drop7';
-import { getPosition } from '../shared/grid';
+import { getGridDiff, getPosition } from '../shared/grid';
 import useDeviceDetect from '../shared/hooks/use-device-detect';
 import { useKeyPress } from '../shared/hooks/use-key-press';
+import { usePrevious } from '../shared/hooks/use-previous';
 import { initialMovesPerLevel } from '../shared/machine';
 import { useStore } from '../shared/store';
 import { ActionButton } from './action-button';
@@ -14,6 +15,10 @@ export const Drop7Game = () => {
   const { isMobile } = useDeviceDetect();
   const { state, send } = useStore();
   const { context } = state;
+
+  const prevGrid = usePrevious(context.grid);
+  // console.log('state', state.value?.game, getGridDiff(prevGrid, context.grid));
+  console.log('diff', context.diffDiscIds);
 
   // console.log('isMobile', isMobile);
 
@@ -181,6 +186,9 @@ export const Drop7Game = () => {
                 return rows.map((gameDisc) => {
                   if (gameDisc) {
                     let discState: DiscState;
+                    const index = context.diffDiscIds.findIndex(
+                      (id) => id === gameDisc.id
+                    );
 
                     if (
                       [
@@ -203,7 +211,7 @@ export const Drop7Game = () => {
                         column={gameDisc.position[0]}
                         row={gameDisc.position[1]}
                         state={discState}
-                        // index={index}
+                        index={index}
                         key={gameDisc.id}
                       />
                     );

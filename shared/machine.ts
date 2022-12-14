@@ -17,7 +17,13 @@ import {
   gridTallColumn,
 } from './example-grids';
 
-import { cloneGrid, collapseGrid, Grid, removeByIds } from './grid';
+import {
+  cloneGrid,
+  collapseGrid,
+  getGridDiff,
+  Grid,
+  removeByIds,
+} from './grid';
 
 // export const initialMovesPerLevel = 29; // Original game
 export const initialMovesPerLevel = 20;
@@ -31,6 +37,7 @@ const initialGameContext = {
   discCount: 0,
   currentChain: 0,
   matchedDiscIds: [],
+  diffDiscIds: [],
 };
 
 export const drop7Machine =
@@ -53,6 +60,7 @@ export const drop7Machine =
           /** Current chain count during match/collapse loop */
           currentChain: number;
           matchedDiscIds: string[];
+          diffDiscIds: string[];
         },
         events: {} as
           | { type: 'NEW_GAME' }
@@ -283,6 +291,7 @@ export const drop7Machine =
             grid,
             // Start chain again
             currentChain: 0,
+            diffDiscIds: [],
           };
         }),
         hoverColumn: assign((context, event) => {
@@ -371,6 +380,7 @@ export const drop7Machine =
 
           return {
             grid: collapseGrid(context.grid),
+            diffDiscIds: getGridDiff(context.grid, collapseGrid(context.grid)),
           };
         }),
         incrementScore: assign((context) => {

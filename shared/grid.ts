@@ -191,3 +191,33 @@ export function getDroppingGrid(grid: Grid) {
 
   return grid;
 }
+
+/**
+ * Get ids of grid which are different to previous grid
+ */
+export function getGridDiff(prevGrid: Grid, nextGrid: Grid) {
+  const ids: string[] = [];
+  // Reverse the grids as we are going from bottom up
+  const reversedPrevGrid = [...prevGrid].reverse();
+  const reversedNextGrid = [...nextGrid].reverse();
+
+  // Loop over nextGrid and compare with prevGrid
+  reversedNextGrid.forEach((rows, row) => {
+    rows.forEach((id, column) => {
+      if (id) {
+        const nextRow = row;
+        const nextColumn = column;
+
+        // Get position of id in prevGrid
+        const [prevColumn, prevRow] = getPosition(reversedPrevGrid, id);
+
+        // Compare any differences in position
+        if (nextRow !== prevRow || nextColumn !== prevColumn) {
+          ids.push(id);
+        }
+      }
+    });
+  });
+
+  return ids;
+}

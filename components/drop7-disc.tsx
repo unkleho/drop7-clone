@@ -53,6 +53,7 @@ export const Drop7Disc: React.FC<Props> = ({
     transition = {
       type: 'tween',
       duration: 0.7,
+      delay: index * 0.02,
       ease: flashEaseOut,
     };
   }
