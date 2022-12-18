@@ -1,4 +1,4 @@
-import { motion, Transition } from 'framer-motion';
+import { motion, Transition, Variant, Variants } from 'framer-motion';
 import React from 'react';
 import { DiscValue } from '../shared/drop7';
 
@@ -58,22 +58,47 @@ export const Drop7Disc: React.FC<Props> = ({
     };
   }
 
+  const variants: Variants = {
+    initial: {
+      opacity: 0,
+      y: state === 'entering' ? 10 : -10,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+    },
+    hidden: (index) => {
+      console.log('hidden', index);
+
+      return {
+        opacity: 0,
+        y: 20,
+        transition: {
+          type: 'tween',
+          delay: index * 0.12,
+        },
+      };
+    },
+  };
+
   const colour = colourMap[value];
+  // console.log('id', id, index);
 
   return (
     <>
       <motion.div
-        layout
+        layout={true}
         layoutId={id}
         className={[
           'pointer-events-none m-1 grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-medium',
           colour.bg,
         ].join(' ')}
+        custom={index}
         transition={transition}
-        initial={{
-          opacity: 0,
-          y: state === 'entering' ? 10 : -10,
-        }}
+        variants={variants}
+        initial={'initial'}
+        animate={'show'}
+        exit={'hidden'}
         style={{
           gridRow: row + 1,
           gridColumn: column + 1,
@@ -81,27 +106,8 @@ export const Drop7Disc: React.FC<Props> = ({
           willChange: 'transform',
           fontSize: 'min(6vw, 1.8rem)',
         }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        exit={{
-          opacity: 0,
-          y: 20,
-        }}
       >
-        {/* <Disc3D>
-          <div className="flex justify-center items-center h-full">
-            {value === 'cracked' ? 'CR' : null}
-            {typeof value === 'number' ? value : null}
-          </div>
-
-        </Disc3D> */}
-
-        {/* {index} */}
-
         <span className="disc-value-shadow col-start-1 row-start-1 -mt-1 opacity-60">
-          {/* {value === 'cracked' ? 'CR' : null} */}
           {typeof value === 'number' ? value : null}
         </span>
         <span className="disc-value col-start-1 row-start-1 -mt-1 text-slate-300">

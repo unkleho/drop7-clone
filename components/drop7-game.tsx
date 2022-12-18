@@ -9,6 +9,7 @@ import { initialMovesPerLevel } from '../shared/machine';
 import { useStore } from '../shared/store';
 import { ActionButton } from './action-button';
 import { DiscState, Drop7Disc } from './drop7-disc';
+import { Drop7GameGrid } from './drop7-game-grid';
 import { Icon } from './icon';
 
 export const Drop7Game = () => {
@@ -44,6 +45,10 @@ export const Drop7Game = () => {
   useKeyPress('Enter', [nextDiscColumn], undefined, () => {
     send({ type: 'SELECT_COLUMN', column: nextDiscColumn });
   });
+
+  // const container = {
+
+  // }
 
   return (
     <div className="flex h-full flex-col p-5 sm:p-8">
@@ -104,7 +109,7 @@ export const Drop7Game = () => {
           </motion.div>
         </div>
 
-        <div
+        <motion.div
           className="relative grid grid-cols-7 gap-[1px] bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 p-[1px]"
           style={{ gridTemplateRows: 'repeat(8, minmax(0, 1fr)' }}
         >
@@ -141,7 +146,7 @@ export const Drop7Game = () => {
           })}
 
           {state.matches('game') && (
-            <AnimatePresence>
+            <>
               {/* Column Selector */}
               {state.matches('game.waiting-for-user') && (
                 <div className="absolute top-0 grid h-full w-full grid-cols-7">
@@ -181,45 +186,51 @@ export const Drop7Game = () => {
                 </div>
               )}
 
-              {/* Discs */}
-              {buildGameGrid(context.grid, context.discMap).map((rows) => {
-                return rows.map((gameDisc) => {
-                  if (gameDisc) {
-                    let discState: DiscState;
-                    const index = context.diffDiscIds.findIndex(
-                      (id) => id === gameDisc.id
-                    );
-
+              <AnimatePresence>
+                {/* Discs */}
+                {buildGameGrid(context.grid, context.discMap).map((rows) => {
+                  return rows.map((gameDisc) => {
                     if (
-                      [
-                        'game.clearing-matched-discs',
-                        'game.waiting-for-user',
-                      ].some(state.matches)
+                      gameDisc &&
+                      gameDisc.position[0] !== null &&
+                      gameDisc.position[1] !== null
                     ) {
-                      discState = 'waiting'; // spring
-                    } else if (['game.setting-up'].some(state.matches)) {
-                      // TODO: setting-up state is too short
-                      discState = 'entering';
-                    } else {
-                      discState = 'dropping'; // tween bounce
+                      let discState: DiscState;
+                      const index = context.diffDiscIds.findIndex(
+                        (id) => id === gameDisc.id
+                      );
+
+                      if (
+                        [
+                          'game.clearing-matched-discs',
+                          'game.waiting-for-user',
+                        ].some(state.matches)
+                      ) {
+                        discState = 'waiting'; // spring
+                      } else if (['game.setting-up'].some(state.matches)) {
+                        // TODO: setting-up state is too short
+                        discState = 'entering';
+                      } else {
+                        discState = 'dropping'; // tween bounce
+                      }
+
+                      return (
+                        <Drop7Disc
+                          id={gameDisc.id}
+                          value={gameDisc.value}
+                          column={gameDisc.position[0]}
+                          row={gameDisc.position[1]}
+                          state={discState}
+                          index={index}
+                          key={gameDisc.id}
+                        />
+                      );
                     }
 
-                    return (
-                      <Drop7Disc
-                        id={gameDisc.id}
-                        value={gameDisc.value}
-                        column={gameDisc.position[0]}
-                        row={gameDisc.position[1]}
-                        state={discState}
-                        index={index}
-                        key={gameDisc.id}
-                      />
-                    );
-                  }
-
-                  return null;
-                });
-              })}
+                    return null;
+                  });
+                })}
+              </AnimatePresence>
 
               {/* Discs */}
               {/* {Object.entries(context.discMap).map(([id, disc], index) => {
@@ -257,7 +268,7 @@ export const Drop7Game = () => {
                   );
                 }
               })} */}
-            </AnimatePresence>
+            </>
           )}
 
           {state.matches('home') && (
@@ -278,8 +289,9 @@ export const Drop7Game = () => {
                 </p>
               </div>
             )}
-        </div>
+        </motion.div>
 
+        {/* Moves per level */}
         {state.matches('game') && (
           <div className="mt-4">
             <div
