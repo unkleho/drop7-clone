@@ -173,8 +173,6 @@ export const Drop7Game = () => {
                           send({ type: 'SELECT_COLUMN', column });
                         }}
                         onMouseOver={() => {
-                          // console.log('>>> hover', column);
-                          // setNextDiscColumn(column);
                           send({ type: 'HOVER_COLUMN', column });
                         }}
                         onTouchStart={() => {
@@ -196,7 +194,7 @@ export const Drop7Game = () => {
               {buildGameGrid(context.grid, context.discMap).map((rows) => {
                 return rows.map((gameDisc) => {
                   if (gameDisc) {
-                    const index = context.diffDiscIds.findIndex(
+                    let index = context.diffDiscIds.updatedIds.findIndex(
                       (id) => id === gameDisc.id
                     );
 

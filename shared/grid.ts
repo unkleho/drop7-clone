@@ -192,11 +192,23 @@ export function getDroppingGrid(grid: Grid) {
   return grid;
 }
 
+export type GridDiff = {
+  addedIds: string[];
+  updatedIds: string[];
+  removedIds: string[];
+};
+
 /**
  * Get ids of grid which are different to previous grid
  */
-export function getGridDiff(prevGrid: Grid, nextGrid: Grid) {
-  const ids: string[] = [];
+export function getGridDiff(
+  prevGrid: Grid = [],
+  nextGrid: Grid = []
+): GridDiff {
+  const addedIds: string[] = [];
+  const updatedIds: string[] = [];
+  const removedIds: string[] = [];
+
   // Reverse the grids as we are going from bottom up
   const reversedPrevGrid = [...prevGrid].reverse();
   const reversedNextGrid = [...nextGrid].reverse();
@@ -213,11 +225,30 @@ export function getGridDiff(prevGrid: Grid, nextGrid: Grid) {
 
         // Compare any differences in position
         if (nextRow !== prevRow || nextColumn !== prevColumn) {
-          ids.push(id);
+          updatedIds.push(id);
         }
       }
     });
   });
 
-  return ids;
+  // Loop over prevGrid and check if any ids not in nextGrid
+  reversedPrevGrid.forEach((rows, row) => {
+    rows.forEach((id, column) => {
+      if (id) {
+        // Get position of id in nextGrid
+        const [nextColumn, nextRow] = getPosition(reversedNextGrid, id);
+
+        // Compare any differences in position
+        if (nextRow === null && nextColumn === null) {
+          removedIds.push(id);
+        }
+      }
+    });
+  });
+
+  return {
+    addedIds,
+    updatedIds,
+    removedIds,
+  };
 }

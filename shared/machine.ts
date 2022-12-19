@@ -22,6 +22,7 @@ import {
   collapseGrid,
   getGridDiff,
   Grid,
+  GridDiff,
   removeByIds,
 } from './grid';
 
@@ -37,7 +38,11 @@ const initialGameContext = {
   discCount: 0,
   currentChain: 0,
   matchedDiscIds: [],
-  diffDiscIds: [],
+  diffDiscIds: {
+    addedIds: [],
+    updatedIds: [],
+    removedIds: [],
+  },
 };
 
 export const drop7Machine =
@@ -60,7 +65,7 @@ export const drop7Machine =
           /** Current chain count during match/collapse loop */
           currentChain: number;
           matchedDiscIds: string[];
-          diffDiscIds: string[];
+          diffDiscIds: GridDiff;
         },
         events: {} as
           | { type: 'NEW_GAME' }
@@ -291,7 +296,7 @@ export const drop7Machine =
             grid,
             // Start chain again
             currentChain: 0,
-            diffDiscIds: [],
+            diffDiscIds: initialGameContext.diffDiscIds,
           };
         }),
         hoverColumn: assign((context, event) => {

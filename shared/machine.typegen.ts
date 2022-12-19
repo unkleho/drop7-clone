@@ -22,17 +22,17 @@ export interface Typegen0 {
   invokeSrcNameMap: {};
   missingImplementations: {
     actions: never;
-    services: never;
-    guards:
-      | 'GRID_CLEARED'
-      | 'NO_DISC_MATCHES'
-      | 'DISC_MATCHES'
-      | 'GRID_FULL'
-      | 'MOVES_LEFT_IN_LEVEL'
-      | 'NO_MOVES_LEFT_IN_LEVEL'
-      | 'GRID_OVER'
-      | 'GRID_NOT_OVER';
     delays: never;
+    guards:
+      | 'DISC_MATCHES'
+      | 'GRID_CLEARED'
+      | 'GRID_FULL'
+      | 'GRID_NOT_OVER'
+      | 'GRID_OVER'
+      | 'MOVES_LEFT_IN_LEVEL'
+      | 'NO_DISC_MATCHES'
+      | 'NO_MOVES_LEFT_IN_LEVEL';
+    services: never;
   };
   eventsCausingActions: {
     clearMatchedDiscs:
@@ -50,7 +50,7 @@ export interface Typegen0 {
     incrementScore: 'xstate.after(800)#drop7.game.clearing-matched-discs';
     setupGame: 'NEW_GAME';
   };
-  eventsCausingServices: {};
+  eventsCausingDelays: {};
   eventsCausingGuards: {
     DISC_MATCHES: 'xstate.after(500)#drop7.game.checking-grid';
     GRID_CLEARED: 'xstate.after(500)#drop7.game.checking-grid';
@@ -61,7 +61,7 @@ export interface Typegen0 {
     NO_DISC_MATCHES: 'xstate.after(500)#drop7.game.checking-grid';
     NO_MOVES_LEFT_IN_LEVEL: 'xstate.after(500)#drop7.game.checking-level';
   };
-  eventsCausingDelays: {};
+  eventsCausingServices: {};
   matchesStates:
     | 'game'
     | 'game.adding-cleared-bonus'
