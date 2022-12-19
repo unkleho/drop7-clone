@@ -33,7 +33,7 @@ export const gridCleared: Grid = [
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
-  [null, 'disc-1', 'disc-6', null, null, null, null],
+  [null, 'disc-1', null, null, null, null, null],
 ];
 
 export const discMapTallColumn: DiscMap = {
@@ -58,7 +58,12 @@ const Drop7GameGridPage = () => {
         <button onClick={() => setGrid(gridTallColumn)}>Reset</button>
       </div>
 
-      <Drop7GameGrid grid={grid} discMap={discMap} discState="entering" />
+      <Drop7GameGrid
+        grid={grid}
+        discMap={discMap}
+        discState="entering"
+        send={({ type, column }) => console.log(type, column)}
+      />
     </div>
   );
 };

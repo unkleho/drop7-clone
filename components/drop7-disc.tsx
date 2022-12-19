@@ -1,14 +1,14 @@
 import { motion, Transition, Variant, Variants } from 'framer-motion';
-import React from 'react';
+import React, { useRef } from 'react';
 import { DiscValue } from '../shared/drop7';
 
-export type DiscState = 'entering' | 'dropping' | 'waiting';
+export type DiscState = 'entering' | 'dropping' | 'waiting' | 'exiting';
 
 type Props = {
   id?: string;
   value: DiscValue;
-  row: number;
-  column: number;
+  row: number | null;
+  column: number | null;
   state?: DiscState;
   index?: number;
 };
@@ -39,6 +39,10 @@ export const Drop7Disc: React.FC<Props> = ({
   state = 'waiting',
   index = 0,
 }) => {
+  if (row === null || column === null) {
+    return null;
+  }
+
   let transition;
   if (state === 'entering') {
     transition = {
@@ -56,6 +60,7 @@ export const Drop7Disc: React.FC<Props> = ({
       delay: index * 0.02,
       ease: flashEaseOut,
     };
+  } else if (state === 'exiting') {
   }
 
   const variants: Variants = {
@@ -67,57 +72,62 @@ export const Drop7Disc: React.FC<Props> = ({
       opacity: 1,
       y: 0,
     },
-    hidden: (index) => {
-      console.log('hidden', index);
-
+    hidden: (index = 0) => {
       return {
         opacity: 0,
-        y: 20,
         transition: {
-          type: 'tween',
-          delay: index * 0.12,
+          duration: 0,
+          // NOTE: This doesn't work when game grid is updated, need to resort
+          // to `exiting` state
+          // delay: index * 0.03,
         },
       };
+    },
+    exiting: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        type: 'tween',
+        duration: 0.3,
+        delay: index * 0.53,
+      },
     },
   };
 
   const colour = colourMap[value];
-  // console.log('id', id, index);
 
   return (
-    <>
-      <motion.div
-        layout={true}
-        layoutId={id}
-        className={[
-          'pointer-events-none m-1 grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-medium',
-          colour.bg,
-        ].join(' ')}
-        custom={index}
-        transition={transition}
-        variants={variants}
-        initial={'initial'}
-        animate={'show'}
-        exit={'hidden'}
-        style={{
-          gridRow: row + 1,
-          gridColumn: column + 1,
-          backgroundColor: colour.bg,
-          willChange: 'transform',
-          fontSize: 'min(6vw, 1.8rem)',
-        }}
-      >
-        <span className="disc-value-shadow col-start-1 row-start-1 -mt-1 opacity-60">
-          {typeof value === 'number' ? value : null}
-        </span>
-        <span className="disc-value col-start-1 row-start-1 -mt-1 text-slate-300">
-          {typeof value === 'number' ? value : null}
-        </span>
+    <motion.div
+      layout={true}
+      layoutId={id}
+      className={[
+        'pointer-events-none m-1 grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-medium',
+        colour.bg,
+      ].join(' ')}
+      custom={index}
+      transition={transition}
+      variants={variants}
+      initial={'initial'}
+      animate={state === 'exiting' ? 'exiting' : 'show'}
+      exit={'hidden'}
+      style={{
+        gridRow: row + 1,
+        gridColumn: column + 1,
+        backgroundColor: colour.bg,
+        willChange: 'transform',
+        fontSize: 'min(6vw, 1.8rem)',
+      }}
+    >
+      <span className="disc-value-shadow col-start-1 row-start-1 -mt-1 opacity-60">
+        {typeof value === 'number' ? value : null}
+      </span>
+      <span className="disc-value col-start-1 row-start-1 -mt-1 text-slate-300">
+        {typeof value === 'number' ? value : null}
+      </span>
 
-        {value === 'cracked' ? <DiscCracked /> : null}
+      {value === 'cracked' ? <DiscCracked /> : null}
 
-        {/* {id} */}
-      </motion.div>
+      {/* {id} */}
 
       <style jsx>{`
         .disc-value-shadow {
@@ -126,7 +136,7 @@ export const Drop7Disc: React.FC<Props> = ({
           })};
         }
       `}</style>
-    </>
+    </motion.div>
   );
 };
 

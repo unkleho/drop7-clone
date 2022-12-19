@@ -3,25 +3,33 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { buildGameGrid, DiscMap, GameGrid } from '../shared/drop7';
 import { DiscState, Drop7Disc } from './drop7-disc';
 import { usePrevious } from '../shared/hooks/use-previous';
-import { getGridDiff, Grid } from '../shared/grid';
+import { getGridDiff, getPosition, Grid } from '../shared/grid';
+import useDeviceDetect from '../shared/hooks/use-device-detect';
 
 type Props = {
   grid: Grid;
   discMap: DiscMap;
-  // gameGrid: GameGrid;
   discState?: DiscState;
+  send: (params: {
+    type: 'SELECT_COLUMN' | 'HOVER_COLUMN';
+    column: number;
+  }) => void;
 };
 
 export const Drop7GameGrid: React.FC<Props> = ({
   grid,
   discMap,
-  // gameGrid,
   discState = 'waiting',
+  send,
 }) => {
+  const { isMobile } = useDeviceDetect();
+
   const nextDiscColumn = grid[0]?.findIndex((value) => value);
   const prevGrid = usePrevious(grid);
-  const diffDiscIds = getGridDiff(prevGrid, grid);
-  console.log(diffDiscIds);
+  const prevDiscMap = usePrevious(discMap);
+  const { addedIds, updatedIds, removedIds } = getGridDiff(prevGrid, grid);
+  // console.log('----------------');
+  // console.log('diffDiscIds', addedIds, updatedIds, removedIds, prevDiscMap);
 
   const gameGrid = buildGameGrid(grid, discMap);
 
@@ -57,17 +65,58 @@ export const Drop7GameGrid: React.FC<Props> = ({
         });
       })}
 
+      <div className="absolute top-0 grid h-full w-full grid-cols-7">
+        {grid[0].map((_, column) => {
+          return (
+            <button
+              // className="aspect-square"
+              style={{
+                gridRow: 1,
+                gridColumn: column + 1,
+              }}
+              key={column}
+              onClick={() => {
+                if (isMobile) {
+                  return;
+                }
+
+                send({ type: 'SELECT_COLUMN', column });
+              }}
+              onMouseOver={() => {
+                send({ type: 'HOVER_COLUMN', column });
+              }}
+              onTouchStart={() => {
+                send({ type: 'HOVER_COLUMN', column });
+
+                setTimeout(() => {
+                  send({ type: 'SELECT_COLUMN', column });
+                }, 300);
+              }}
+            >
+              {/* {column} */}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Discs */}
       <AnimatePresence>
-        {/* Discs */}
         {gameGrid.map((rows) => {
-          return rows.map((gameDisc) => {
+          return rows.map((gameDisc, i) => {
             if (
               gameDisc &&
               gameDisc.position[0] !== null &&
               gameDisc.position[1] !== null
             ) {
-              const index =
-                diffDiscIds.findIndex((id) => id === gameDisc.id) || 0;
+              const index = updatedIds.findIndex((id) => id === gameDisc.id);
+
+              // if (removedIds.includes(gameDisc.id)) {
+              //   console.log('removed', gameDisc.id);
+
+              //   return null;
+              // }
+
+              // console.log('loop', gameDisc.id, index);
 
               // if (
               //   ['game.clearing-matched-discs', 'game.waiting-for-user'].some(
@@ -89,7 +138,8 @@ export const Drop7GameGrid: React.FC<Props> = ({
                   column={gameDisc.position[0]}
                   row={gameDisc.position[1]}
                   state={discState}
-                  index={index}
+                  index={index >= 0 ? index : undefined}
+                  // index={i}
                   key={gameDisc.id}
                 />
               );
@@ -97,6 +147,23 @@ export const Drop7GameGrid: React.FC<Props> = ({
 
             return null;
           });
+        })}
+
+        {removedIds.map((id, index) => {
+          const value = prevDiscMap[id];
+          const [column, row] = getPosition(prevGrid, id);
+
+          return (
+            <Drop7Disc
+              id={id}
+              value={value}
+              column={column}
+              row={row}
+              index={index}
+              key={id}
+              state="exiting"
+            />
+          );
         })}
       </AnimatePresence>
     </motion.div>

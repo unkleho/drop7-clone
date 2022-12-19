@@ -92,6 +92,10 @@ describe('Grid', () => {
     ];
 
     const diffIds = getGridDiff(prevGrid, nextGrid);
-    expect(diffIds).toEqual(['disc-4', 'disc-3', 'disc-6', 'disc-7', 'disc-1']);
+    expect(diffIds).toEqual({
+      addedIds: [],
+      updatedIds: ['disc-4', 'disc-3', 'disc-6', 'disc-7'],
+      removedIds: ['disc-1'],
+    });
   });
 });

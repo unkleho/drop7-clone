@@ -19,9 +19,7 @@ export const Drop7Game = () => {
 
   const prevGrid = usePrevious(context.grid);
   // console.log('state', state.value?.game, getGridDiff(prevGrid, context.grid));
-  console.log('diff', context.diffDiscIds);
-
-  // console.log('isMobile', isMobile);
+  // console.log('diff', context.diffDiscIds);
 
   // Find disc in first row. This row is always for the next disc.
   const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
@@ -46,9 +44,18 @@ export const Drop7Game = () => {
     send({ type: 'SELECT_COLUMN', column: nextDiscColumn });
   });
 
-  // const container = {
-
-  // }
+  let discState: DiscState;
+  if (
+    ['game.clearing-matched-discs', 'game.waiting-for-user'].some(state.matches)
+  ) {
+    discState = 'waiting'; // spring
+  } else if (['game.setting-up'].some(state.matches)) {
+    // TODO: setting-up state is too short
+    discState = 'entering';
+  } else {
+    discState = 'dropping'; // tween bounce
+  }
+  console.log('discState', discState);
 
   return (
     <div className="flex h-full flex-col p-5 sm:p-8">
@@ -92,6 +99,7 @@ export const Drop7Game = () => {
       </header>
 
       <div className="mx-auto w-full max-w-md">
+        {/* Score */}
         <div className="mb-3 flex justify-between">
           <motion.div
             className="flex-1 text-right"
@@ -109,187 +117,29 @@ export const Drop7Game = () => {
           </motion.div>
         </div>
 
-        <motion.div
-          className="relative grid grid-cols-7 gap-[1px] bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 p-[1px]"
-          style={{ gridTemplateRows: 'repeat(8, minmax(0, 1fr)' }}
-        >
-          {/* Grid Lines */}
-          {/* TODO: Move this to component */}
-          {context.grid.map((row, rowIndex) => {
-            return row.map((id, columnIndex) => {
-              return (
-                <div
-                  className={[
-                    'aspect-square bg-slate-950',
-                    rowIndex === 0 ? '-m-[1px]' : '',
-                    // rowIndex !== 0 ? 'border-t border-l' : '',
-                    // columnIndex === row.length - 1 && rowIndex !== 0
-                    //   ? 'border-r'
-                    //   : '',
-                    nextDiscColumn === columnIndex && rowIndex !== 0
-                      ? 'opacity-80'
-                      : '',
-                  ].join(' ')}
-                  style={{
-                    gridRow: rowIndex + 1,
-                    gridColumn: columnIndex + 1,
-                    ...(rowIndex === 0
-                      ? {
-                          transform: 'translate(0, -1px)',
-                        }
-                      : {}),
-                  }}
-                  key={rowIndex + ' ' + columnIndex}
-                ></div>
-              );
-            });
-          })}
+        <Drop7GameGrid
+          grid={context.grid}
+          discMap={context.discMap}
+          discState={discState}
+          send={send}
+        />
 
-          {state.matches('game') && (
-            <>
-              {/* Column Selector */}
-              {state.matches('game.waiting-for-user') && (
-                <div className="absolute top-0 grid h-full w-full grid-cols-7">
-                  {context.grid[0].map((_, column) => {
-                    return (
-                      <button
-                        // className="aspect-square"
-                        style={{
-                          gridRow: 1,
-                          gridColumn: column + 1,
-                        }}
-                        key={column}
-                        onClick={() => {
-                          if (isMobile) {
-                            return;
-                          }
+        {state.matches('home') && (
+          <ActionButton onClick={() => send('NEW_GAME')}>New Game</ActionButton>
+        )}
 
-                          send({ type: 'SELECT_COLUMN', column });
-                        }}
-                        onMouseOver={() => {
-                          // console.log('>>> hover', column);
-                          // setNextDiscColumn(column);
-                          send({ type: 'HOVER_COLUMN', column });
-                        }}
-                        onTouchStart={() => {
-                          send({ type: 'HOVER_COLUMN', column });
+        {state.matches('game.end-game') && (
+          <ActionButton onClick={() => send('EXIT')}>Home</ActionButton>
+        )}
 
-                          setTimeout(() => {
-                            send({ type: 'SELECT_COLUMN', column });
-                          }, 300);
-                        }}
-                      >
-                        {/* {column} */}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              <AnimatePresence>
-                {/* Discs */}
-                {buildGameGrid(context.grid, context.discMap).map((rows) => {
-                  return rows.map((gameDisc) => {
-                    if (
-                      gameDisc &&
-                      gameDisc.position[0] !== null &&
-                      gameDisc.position[1] !== null
-                    ) {
-                      let discState: DiscState;
-                      const index = context.diffDiscIds.findIndex(
-                        (id) => id === gameDisc.id
-                      );
-
-                      if (
-                        [
-                          'game.clearing-matched-discs',
-                          'game.waiting-for-user',
-                        ].some(state.matches)
-                      ) {
-                        discState = 'waiting'; // spring
-                      } else if (['game.setting-up'].some(state.matches)) {
-                        // TODO: setting-up state is too short
-                        discState = 'entering';
-                      } else {
-                        discState = 'dropping'; // tween bounce
-                      }
-
-                      return (
-                        <Drop7Disc
-                          id={gameDisc.id}
-                          value={gameDisc.value}
-                          column={gameDisc.position[0]}
-                          row={gameDisc.position[1]}
-                          state={discState}
-                          index={index}
-                          key={gameDisc.id}
-                        />
-                      );
-                    }
-
-                    return null;
-                  });
-                })}
-              </AnimatePresence>
-
-              {/* Discs */}
-              {/* {Object.entries(context.discMap).map(([id, disc], index) => {
-                const position = getPosition(context.grid, id);
-
-                if (isValidPosition(position)) {
-                  const [column, row] = position;
-
-                  let discState: DiscState;
-
-                  if (
-                    [
-                      'game.clearing-matched-discs',
-                      'game.waiting-for-user',
-                    ].some(state.matches)
-                  ) {
-                    discState = 'waiting'; // spring
-                  } else if (['game.setting-up'].some(state.matches)) {
-                    // TODO: setting-up state is too short
-                    discState = 'entering';
-                  } else {
-                    discState = 'dropping'; // tween bounce
-                  }
-
-                  return (
-                    <Drop7Disc
-                      id={id}
-                      value={disc}
-                      column={column}
-                      row={row}
-                      state={discState}
-                      index={index}
-                      key={id}
-                    />
-                  );
-                }
-              })} */}
-            </>
+        {state.matches('game.clearing-matched-discs') &&
+          context.currentChain > 0 && (
+            <div className="relative col-span-7 col-start-1 row-start-1 flex items-center text-sm">
+              <p className="uppercase opacity-80">
+                Chain x {context.currentChain + 1}
+              </p>
+            </div>
           )}
-
-          {state.matches('home') && (
-            <ActionButton onClick={() => send('NEW_GAME')}>
-              New Game
-            </ActionButton>
-          )}
-
-          {state.matches('game.end-game') && (
-            <ActionButton onClick={() => send('EXIT')}>Home</ActionButton>
-          )}
-
-          {state.matches('game.clearing-matched-discs') &&
-            context.currentChain > 0 && (
-              <div className="relative col-span-7 col-start-1 row-start-1 flex items-center text-sm">
-                <p className="uppercase opacity-80">
-                  Chain x {context.currentChain + 1}
-                </p>
-              </div>
-            )}
-        </motion.div>
 
         {/* Moves per level */}
         {state.matches('game') && (
