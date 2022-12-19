@@ -45,6 +45,18 @@ export const Drop7Game = () => {
     send({ type: 'SELECT_COLUMN', column: nextDiscColumn });
   });
 
+  let discState: DiscState;
+  if (
+    ['game.clearing-matched-discs', 'game.waiting-for-user'].some(state.matches)
+  ) {
+    discState = 'waiting'; // spring
+  } else if (['game.setting-up'].some(state.matches)) {
+    // TODO: setting-up state is too short
+    discState = 'entering';
+  } else {
+    discState = 'dropping'; // tween bounce
+  }
+
   return (
     <div className="flex h-full flex-col p-5 sm:p-8">
       <header className="mb-4 flex w-full justify-between">
@@ -148,7 +160,6 @@ export const Drop7Game = () => {
                   {context.grid[0].map((_, column) => {
                     return (
                       <button
-                        // className="aspect-square"
                         style={{
                           gridRow: 1,
                           gridColumn: column + 1,
@@ -185,24 +196,9 @@ export const Drop7Game = () => {
               {buildGameGrid(context.grid, context.discMap).map((rows) => {
                 return rows.map((gameDisc) => {
                   if (gameDisc) {
-                    let discState: DiscState;
                     const index = context.diffDiscIds.findIndex(
                       (id) => id === gameDisc.id
                     );
-
-                    if (
-                      [
-                        'game.clearing-matched-discs',
-                        'game.waiting-for-user',
-                      ].some(state.matches)
-                    ) {
-                      discState = 'waiting'; // spring
-                    } else if (['game.setting-up'].some(state.matches)) {
-                      // TODO: setting-up state is too short
-                      discState = 'entering';
-                    } else {
-                      discState = 'dropping'; // tween bounce
-                    }
 
                     return (
                       <Drop7Disc

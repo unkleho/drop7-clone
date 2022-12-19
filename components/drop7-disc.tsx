@@ -7,8 +7,8 @@ export type DiscState = 'entering' | 'dropping' | 'waiting';
 type Props = {
   id?: string;
   value: DiscValue;
-  row: number;
-  column: number;
+  row: number | null;
+  column: number | null;
   state?: DiscState;
   index?: number;
 };
@@ -39,6 +39,10 @@ export const Drop7Disc: React.FC<Props> = ({
   state = 'waiting',
   index = 0,
 }) => {
+  if (row === null || column === null) {
+    return null;
+  }
+
   let transition;
   if (state === 'entering') {
     transition = {
