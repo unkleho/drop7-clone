@@ -270,7 +270,6 @@ export const drop7Machine =
             ? context.nextDisc.id
             : 'disc-' + context.discCount;
 
-          // TODO: Rename type and function to DiscValue?
           const discValue = context.nextDisc
             ? context.nextDisc.value
             : getRandomDisc();
@@ -380,7 +379,7 @@ export const drop7Machine =
 
           return {
             grid: collapseGrid(context.grid),
-            diffDiscIds: getGridDiff(context.grid, collapseGrid(context.grid)),
+            // diffDiscIds: getGridDiff(context.grid, collapseGrid(context.grid)),
           };
         }),
         incrementScore: assign((context) => {

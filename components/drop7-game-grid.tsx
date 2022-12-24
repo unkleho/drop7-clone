@@ -10,6 +10,7 @@ type Props = {
   grid: Grid;
   discMap: DiscMap;
   discState?: DiscState;
+  children?: React.ReactNode;
   send: (params: {
     type: 'SELECT_COLUMN' | 'HOVER_COLUMN';
     column: number;
@@ -20,6 +21,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
   grid,
   discMap,
   discState = 'waiting',
+  children,
   send,
 }) => {
   const { isMobile } = useDeviceDetect();
@@ -29,7 +31,18 @@ export const Drop7GameGrid: React.FC<Props> = ({
   const prevDiscMap = usePrevious(discMap);
   const { addedIds, updatedIds, removedIds } = getGridDiff(prevGrid, grid);
   // console.log('----------------');
-  // console.log('diffDiscIds', addedIds, updatedIds, removedIds, prevDiscMap);
+  console.log('removedIds', removedIds);
+  // console.log(
+  //   'grid ids',
+  //   grid
+  //     .filter((row) => row)
+  //     .map((row) =>
+  //       row
+  //         .map((id) => id)
+  //         .filter((id) => id)
+  //         .join(',')
+  //     )
+  // );
 
   const gameGrid = buildGameGrid(grid, discMap);
 
@@ -65,39 +78,39 @@ export const Drop7GameGrid: React.FC<Props> = ({
         });
       })}
 
-      <div className="absolute top-0 grid h-full w-full grid-cols-7">
-        {grid[0].map((_, column) => {
-          return (
-            <button
-              // className="aspect-square"
-              style={{
-                gridRow: 1,
-                gridColumn: column + 1,
-              }}
-              key={column}
-              onClick={() => {
-                if (isMobile) {
-                  return;
-                }
-
-                send({ type: 'SELECT_COLUMN', column });
-              }}
-              onMouseOver={() => {
-                send({ type: 'HOVER_COLUMN', column });
-              }}
-              onTouchStart={() => {
-                send({ type: 'HOVER_COLUMN', column });
-
-                setTimeout(() => {
+      {discState === 'waiting' && (
+        <div className="absolute top-0 grid h-full w-full grid-cols-7">
+          {grid[0].map((_, column) => {
+            return (
+              <button
+                style={{
+                  gridRow: 1,
+                  gridColumn: column + 1,
+                }}
+                key={column}
+                onClick={() => {
+                  if (isMobile) {
+                    return;
+                  }
                   send({ type: 'SELECT_COLUMN', column });
-                }, 300);
-              }}
-            >
-              {/* {column} */}
-            </button>
-          );
-        })}
-      </div>
+                }}
+                onMouseOver={() => {
+                  send({ type: 'HOVER_COLUMN', column });
+                }}
+                onTouchStart={() => {
+                  send({ type: 'HOVER_COLUMN', column });
+
+                  setTimeout(() => {
+                    send({ type: 'SELECT_COLUMN', column });
+                  }, 300);
+                }}
+              >
+                {/* {column} */}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Discs */}
       <AnimatePresence>
@@ -149,7 +162,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
           });
         })}
 
-        {removedIds.map((id, index) => {
+        {/* {removedIds.map((id, index) => {
           const value = prevDiscMap[id];
           const [column, row] = getPosition(prevGrid, id);
 
@@ -164,8 +177,10 @@ export const Drop7GameGrid: React.FC<Props> = ({
               state="exiting"
             />
           );
-        })}
+        })} */}
       </AnimatePresence>
+
+      {children}
     </motion.div>
   );
 };

@@ -122,24 +122,26 @@ export const Drop7Game = () => {
           discMap={context.discMap}
           discState={discState}
           send={send}
-        />
-
-        {state.matches('home') && (
-          <ActionButton onClick={() => send('NEW_GAME')}>New Game</ActionButton>
-        )}
-
-        {state.matches('game.end-game') && (
-          <ActionButton onClick={() => send('EXIT')}>Home</ActionButton>
-        )}
-
-        {state.matches('game.clearing-matched-discs') &&
-          context.currentChain > 0 && (
-            <div className="relative col-span-7 col-start-1 row-start-1 flex items-center text-sm">
-              <p className="uppercase opacity-80">
-                Chain x {context.currentChain + 1}
-              </p>
-            </div>
+        >
+          {state.matches('home') && (
+            <ActionButton onClick={() => send('NEW_GAME')}>
+              New Game
+            </ActionButton>
           )}
+
+          {state.matches('game.end-game') && (
+            <ActionButton onClick={() => send('EXIT')}>Home</ActionButton>
+          )}
+
+          {state.matches('game.clearing-matched-discs') &&
+            context.currentChain > 0 && (
+              <div className="relative col-span-7 col-start-1 row-start-1 flex items-center text-sm">
+                <p className="uppercase opacity-80">
+                  Chain x {context.currentChain + 1}
+                </p>
+              </div>
+            )}
+        </Drop7GameGrid>
 
         {/* Moves per level */}
         {state.matches('game') && (

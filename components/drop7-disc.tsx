@@ -76,10 +76,12 @@ export const Drop7Disc: React.FC<Props> = ({
       return {
         opacity: 0,
         transition: {
-          duration: 0,
+          // duration: 0,
           // NOTE: This doesn't work when game grid is updated, need to resort
           // to `exiting` state
           // delay: index * 0.03,
+          type: 'tween',
+          duration: 0.3,
         },
       };
     },
@@ -127,7 +129,7 @@ export const Drop7Disc: React.FC<Props> = ({
 
       {value === 'cracked' ? <DiscCracked /> : null}
 
-      {/* {id} */}
+      {/* <span className="text-xs">{id}</span> */}
 
       <style jsx>{`
         .disc-value-shadow {
