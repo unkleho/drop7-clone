@@ -54,9 +54,9 @@ export const ParentBox = () => {
                   key={d.id}
                   data={d}
                   onRemove={(item) => {
-                    const newList = items.filter((i) => i.id !== item.id);
-                    console.log(newList);
-                    setItems(newList);
+                    // const newList = items.filter((i) => i.id !== item.id);
+                    // console.log(newList);
+                    // setItems(newList);
                   }}
                 />
               ))

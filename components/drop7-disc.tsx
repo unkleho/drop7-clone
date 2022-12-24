@@ -75,6 +75,7 @@ export const Drop7Disc: React.FC<Props> = ({
     hidden: (index = 0) => {
       return {
         opacity: 0,
+        y: 20,
         transition: {
           // duration: 0,
           // NOTE: This doesn't work when game grid is updated, need to resort

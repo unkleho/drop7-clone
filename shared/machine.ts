@@ -379,13 +379,9 @@ export const drop7Machine =
 
           return {
             grid: collapseGrid(context.grid),
-            // diffDiscIds: getGridDiff(context.grid, collapseGrid(context.grid)),
           };
         }),
         incrementScore: assign((context) => {
-          // const matchedIds = getMatchingGroups(context.grid, context.discMap);
-          // const currentChain = context.currentChain + 1;
-
           const score = getScore(
             context.matchedDiscIds.length,
             context.currentChain

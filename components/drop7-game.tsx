@@ -1,8 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import { buildGameGrid, isValidPosition } from '../shared/drop7';
-import { getGridDiff, getPosition } from '../shared/grid';
-import useDeviceDetect from '../shared/hooks/use-device-detect';
+import { motion } from 'framer-motion';
 import { useKeyPress } from '../shared/hooks/use-key-press';
 import { usePrevious } from '../shared/hooks/use-previous';
 import { initialMovesPerLevel } from '../shared/machine';
@@ -13,13 +9,8 @@ import { Drop7GameGrid } from './drop7-game-grid';
 import { Icon } from './icon';
 
 export const Drop7Game = () => {
-  const { isMobile } = useDeviceDetect();
   const { state, send } = useStore();
   const { context } = state;
-
-  const prevGrid = usePrevious(context.grid);
-  // console.log('state', state.value?.game, getGridDiff(prevGrid, context.grid));
-  // console.log('diff', context.diffDiscIds);
 
   // Find disc in first row. This row is always for the next disc.
   const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
@@ -28,14 +19,12 @@ export const Drop7Game = () => {
 
   useKeyPress('ArrowLeft', [nextDiscColumn], undefined, () => {
     if (nextDiscColumn > 0) {
-      // setNextDiscColumn(nextDiscColumn - 1);
       send({ type: 'HOVER_COLUMN', column: nextDiscColumn - 1 });
     }
   });
 
   useKeyPress('ArrowRight', [nextDiscColumn], undefined, () => {
     if (nextDiscColumn < 6) {
-      // setNextDiscColumn(nextDiscColumn + 1);
       send({ type: 'HOVER_COLUMN', column: nextDiscColumn + 1 });
     }
   });
