@@ -44,7 +44,7 @@ export const Drop7Game = () => {
   } else {
     discState = 'dropping'; // tween bounce
   }
-  console.log('discState', discState);
+  // console.log('discState', discState);
 
   return (
     <div className="flex h-full flex-col p-5 sm:p-8">
@@ -61,7 +61,7 @@ export const Drop7Game = () => {
             >
               7
             </span>
-            <div className="ml-4 h-4 w-1 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-700/40 pl-[1px] sm:-mt-8 sm:h-12">
+            <div className="ml-4 h-4 w-1 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-700/40 pl-[1px] sm:h-4">
               <div className="h-full w-full bg-slate-950"></div>
             </div>
             <p className="leading-noneup mt-[1px] pl-2 text-sm font-light leading-none tracking-wider opacity-80">
@@ -163,7 +163,7 @@ export const Drop7Game = () => {
       </div>
 
       <footer className="relative mt-auto flex items-end sm:p-2">
-        <div className="absolute left-0 bottom-0 h-4 w-8 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 pl-[1px] pb-[1px]">
+        <div className="absolute left-0 bottom-0 h-8 w-8 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 pl-[1px] pb-[1px]">
           <div className="h-full w-full bg-slate-950"></div>
         </div>
         <div className="absolute right-0 bottom-0 hidden h-12 w-4 bg-gradient-to-bl from-cyan-800/80 via-indigo-700/75 to-purple-800/60 pr-[1px] pb-[1px]">
