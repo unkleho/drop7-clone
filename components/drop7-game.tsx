@@ -50,8 +50,8 @@ export const Drop7Game = () => {
     <div className="flex h-full flex-col p-5 sm:p-8">
       <header className="mb-4 flex w-full justify-between">
         <div className="flex flex-1">
-          <h1 className="mr-8 flex items-start text-xl font-medium uppercase leading-none tracking-wide opacity-80">
-            Drop
+          <h1 className="mr-8 flex items-start text-xl font-medium uppercase leading-none tracking-wide opacity-100">
+            <span className="opacity-80">Drop</span>
             <span
               className="bg-gradient-to-b from-blue-500 to-blue-800 bg-clip-text leading-none text-transparent"
               style={{
@@ -64,22 +64,22 @@ export const Drop7Game = () => {
             <div className="ml-4 h-4 w-1 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-700/40 pl-[1px] sm:h-4">
               <div className="h-full w-full bg-slate-950"></div>
             </div>
-            <p className="leading-noneup mt-[1px] pl-2 text-sm font-light leading-none tracking-wider opacity-80">
+            <p className="mt-[1px] pl-2 text-sm font-light leading-none tracking-wider opacity-80">
               Clone
             </p>
           </h1>
         </div>
 
-        <div className="ml-auto mt-[1px] flex">
+        <div className="ml-auto flex">
           {state.matches('game') && (
             <button
-              className="-mt-4 -mr-4 pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-50"
+              className="-mt-5 -mr-4 pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
               onClick={() => send('EXIT')}
             >
               <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
-                {'< '}
+                {'◀ '}
               </span>
-              Exit
+              <span className="opacity-80">Exit</span>
             </button>
           )}
 
@@ -163,7 +163,7 @@ export const Drop7Game = () => {
       </div>
 
       <footer className="relative mt-auto flex items-end sm:p-2">
-        <div className="absolute left-0 bottom-0 h-8 w-8 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 pl-[1px] pb-[1px]">
+        <div className="absolute left-0 bottom-0 h-4 w-4 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 pl-[1px] pb-[1px]">
           <div className="h-full w-full bg-slate-950"></div>
         </div>
         <div className="absolute right-0 bottom-0 hidden h-12 w-4 bg-gradient-to-bl from-cyan-800/80 via-indigo-700/75 to-purple-800/60 pr-[1px] pb-[1px]">
