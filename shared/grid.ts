@@ -192,10 +192,19 @@ export function getDroppingGrid(grid: Grid) {
   return grid;
 }
 
+export type GridDiff = {
+  addedIds: string[];
+  updatedIds: string[];
+  removedIds: string[];
+};
+
 /**
  * Get ids of grid which are different to previous grid
  */
-export function getGridDiff(prevGrid: Grid = [], nextGrid: Grid = []) {
+export function getGridDiff(
+  prevGrid: Grid = [],
+  nextGrid: Grid = []
+): GridDiff {
   const addedIds: string[] = [];
   const updatedIds: string[] = [];
   const removedIds: string[] = [];
