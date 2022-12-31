@@ -22,8 +22,8 @@ export const ActionButton: React.FC<Props> = ({
       style={style}
       onClick={onClick}
     >
-      <span className="block bg-slate-950 p-5">
-        <span className="whitespace-nowrap text-3xl opacity-70 md:text-4xl">
+      <span className="block bg-slate-950 p-7">
+        <span className="whitespace-nowrap text-2xl font-light uppercase tracking-widest opacity-80">
           {children}
         </span>
       </span>

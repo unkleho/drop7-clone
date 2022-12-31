@@ -20,6 +20,11 @@ export const Dialog: React.FC<Props> = ({
         <>
           <motion.div
             className={['fixed inset-0 bg-black', className || ''].join(' ')}
+            transition={{
+              type: 'tween',
+              duration: 0.2,
+              // duration: 1,
+            }}
             initial={{
               opacity: 0,
             }}
@@ -31,9 +36,28 @@ export const Dialog: React.FC<Props> = ({
             }}
             onClick={() => onClose()}
           />
-          <motion.article className="fixed inset-4 m-auto max-w-lg bg-gradient-to-bl from-cyan-500 via-indigo-700 to-purple-800">
+          <motion.article
+            className="fixed inset-4 m-auto max-w-lg bg-gradient-to-bl from-cyan-500 via-indigo-700 to-purple-800"
+            transition={{
+              type: 'tween',
+              duration: 0.2,
+            }}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+          >
             <motion.div
-              className="absolute inset-[1px] overflow-auto bg-slate-950 p-4"
+              className="absolute inset-[1px] overflow-auto bg-slate-950 p-4 pt-20"
+              transition={{
+                type: 'tween',
+                duration: 0.3,
+              }}
               initial={{
                 opacity: 0,
               }}
