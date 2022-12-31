@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { useKeyPress } from '../shared/hooks/use-key-press';
 import { usePrevious } from '../shared/hooks/use-previous';
 import { initialMovesPerLevel } from '../shared/machine';
 import { useStore } from '../shared/store';
 import { ActionButton } from './action-button';
+import { Dialog } from './dialog';
 import { DiscState, Drop7Disc } from './drop7-disc';
 import { Drop7GameGrid } from './drop7-game-grid';
 import { Icon } from './icon';
@@ -11,6 +13,7 @@ import { Icon } from './icon';
 export const Drop7Game = () => {
   const { state, send } = useStore();
   const { context } = state;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Find disc in first row. This row is always for the next disc.
   const nextDiscColumn = context.grid[0]?.findIndex((value) => value);
@@ -55,7 +58,7 @@ export const Drop7Game = () => {
             <span
               className="bg-gradient-to-b from-blue-500 to-blue-800 bg-clip-text leading-none text-transparent"
               style={{
-                transform: 'scale(1.4) translateY(-1.5px)',
+                transform: 'scale(1.4) translateY(-1px)',
                 transformOrigin: 'top left',
               }}
             >
@@ -71,17 +74,15 @@ export const Drop7Game = () => {
         </div>
 
         <div className="ml-auto flex">
-          {state.matches('game') && (
-            <button
-              className="-mt-5 -mr-4 pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
-              onClick={() => send('EXIT')}
-            >
-              <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
-                {'◀ '}
-              </span>
-              <span className="opacity-80">Exit</span>
-            </button>
-          )}
+          <button
+            className="-mt-5 -mr-4 pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
+            onClick={() => setIsMenuOpen(true)}
+          >
+            {/* <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
+              {'◀ '}
+            </span> */}
+            <span className="opacity-80">Menu</span>
+          </button>
 
           {/* <Icon name="menu" /> */}
         </div>
@@ -113,7 +114,16 @@ export const Drop7Game = () => {
           send={send}
         >
           {state.matches('home') && (
-            <ActionButton onClick={() => send('NEW_GAME')}>
+            <ActionButton
+              className="absolute"
+              style={{
+                left: '50%',
+                top: '56%',
+                transform: 'translate(-50%, -50%)',
+                boxShadow: '0 0 40px 5px #000',
+              }}
+              onClick={() => send('NEW_GAME')}
+            >
               New Game
             </ActionButton>
           )}
@@ -178,6 +188,17 @@ export const Drop7Game = () => {
           </a>
         </p>
       </footer>
+
+      <Dialog isActive={isMenuOpen} onClose={() => setIsMenuOpen(false)}>
+        <ActionButton
+          onClick={() => {
+            send('EXIT');
+            setIsMenuOpen(false);
+          }}
+        >
+          Restart
+        </ActionButton>
+      </Dialog>
     </div>
   );
 };
