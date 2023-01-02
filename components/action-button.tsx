@@ -16,7 +16,7 @@ export const ActionButton: React.FC<Props> = ({
   return (
     <button
       className={[
-        'bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 p-[1px] shadow-md',
+        'bg-gradient-to-bl from-cyan-500 via-indigo-700 to-purple-800 p-[2px] shadow-md',
         className || '',
       ].join(' ')}
       style={style}

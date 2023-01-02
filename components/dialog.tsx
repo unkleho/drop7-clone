@@ -72,7 +72,7 @@ export const Dialog: React.FC<Props> = ({
             </motion.div>
 
             <button
-              className="absolute right-4 top-1 bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text text-5xl font-light leading-none text-transparent"
+              className="absolute right-0 top-0 bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text pt-1 pr-4 text-5xl font-light leading-none text-transparent"
               onClick={onClose}
             >
               ×

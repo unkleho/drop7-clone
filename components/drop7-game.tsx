@@ -6,6 +6,7 @@ import { initialMovesPerLevel } from '../shared/machine';
 import { useStore } from '../shared/store';
 import { ActionButton } from './action-button';
 import { Dialog } from './dialog';
+import Drop7Dialog from './drop7-dialog';
 import { DiscState, Drop7Disc } from './drop7-disc';
 import { Drop7GameGrid } from './drop7-game-grid';
 import { Icon } from './icon';
@@ -78,9 +79,9 @@ export const Drop7Game = () => {
             className="-mt-5 -mr-4 pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
             onClick={() => setIsMenuOpen(true)}
           >
-            {/* <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
+            <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
               {'◀ '}
-            </span> */}
+            </span>
             <span className="opacity-80">Menu</span>
           </button>
 
@@ -189,44 +190,15 @@ export const Drop7Game = () => {
         </p>
       </footer>
 
-      <Dialog isActive={isMenuOpen} onClose={() => setIsMenuOpen(false)}>
-        {state.matches('game') && (
-          <ActionButton
-            className="mb-8 w-full"
-            onClick={() => {
-              send('EXIT');
-              setIsMenuOpen(false);
-            }}
-          >
-            End game
-          </ActionButton>
-        )}
-
-        <div className="opacity-70">
-          <h1 className="mb-4 text-center uppercase tracking-widest">Info</h1>
-          <p className="mb-6 bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text text-center text-transparent">
-            ⦿
-          </p>
-          <p className="mb-8 text-lg">
-            Drop 7 is one of my all time favourite mobile puzzle games. For some
-            reason, it is no longer available on the App Store.
-          </p>
-          <p className="text-lg">
-            What does an intrepid programmer do? Create a web-based clone!
-          </p>
-
-          <h2 className="mt-8 mb-4 text-center uppercase tracking-widest">
-            How to play
-          </h2>
-          <p className="mb-6 bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text text-center text-transparent">
-            ⦿
-          </p>
-          <p className="mb-8 text-lg">
-            Drop 7 is one of my all time favourite mobile puzzle games. For some
-            reason, it is no longer available on the App Store.
-          </p>
-        </div>
-      </Dialog>
+      <Drop7Dialog
+        status={state.matches('game') ? 'game' : 'home'}
+        isMenuOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onEndGameClick={() => {
+          send('EXIT');
+          setIsMenuOpen(false);
+        }}
+      />
     </div>
   );
 };
