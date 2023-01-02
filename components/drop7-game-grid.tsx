@@ -31,7 +31,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
   const prevDiscMap = usePrevious(discMap);
   const { addedIds, updatedIds, removedIds } = getGridDiff(prevGrid, grid);
   // console.log('----------------');
-  console.log('removedIds', removedIds);
+  // console.log('removedIds', removedIds);
   // console.log(
   //   'grid ids',
   //   grid

@@ -9,7 +9,6 @@ import { Dialog } from './dialog';
 import Drop7Dialog from './drop7-dialog';
 import { DiscState, Drop7Disc } from './drop7-disc';
 import { Drop7GameGrid } from './drop7-game-grid';
-import { Icon } from './icon';
 
 export const Drop7Game = () => {
   const { state, send } = useStore();
@@ -114,7 +113,7 @@ export const Drop7Game = () => {
           discState={discState}
           send={send}
         >
-          {state.matches('home') && (
+          {['home', 'game.end-game'].some(state.matches) && (
             <ActionButton
               className="absolute"
               style={{
@@ -123,14 +122,16 @@ export const Drop7Game = () => {
                 transform: 'translate(-50%, -50%)',
                 boxShadow: '0 0 40px 5px #000',
               }}
-              onClick={() => send('NEW_GAME')}
-            >
-              New Game
-            </ActionButton>
-          )}
+              onClick={() => {
+                if (state.matches('game.end-game')) {
+                  send('EXIT');
+                }
 
-          {state.matches('game.end-game') && (
-            <ActionButton onClick={() => send('EXIT')}>Home</ActionButton>
+                send('NEW_GAME');
+              }}
+            >
+              {state.matches('game.end-game') ? 'Play again' : 'New Game'}
+            </ActionButton>
           )}
 
           {state.matches('game.clearing-matched-discs') &&

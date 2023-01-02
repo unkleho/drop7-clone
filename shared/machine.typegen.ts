@@ -24,6 +24,7 @@ export interface Typegen0 {
     actions: never;
     delays: never;
     guards:
+      | 'CAN_DROP_DISC'
       | 'DISC_MATCHES'
       | 'GRID_CLEARED'
       | 'GRID_FULL'
@@ -52,6 +53,7 @@ export interface Typegen0 {
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {
+    CAN_DROP_DISC: 'SELECT_COLUMN';
     DISC_MATCHES: 'xstate.after(500)#drop7.game.checking-grid';
     GRID_CLEARED: 'xstate.after(500)#drop7.game.checking-grid';
     GRID_FULL: 'xstate.after(500)#drop7.game.checking-level';

@@ -12,11 +12,12 @@ import {
 } from './drop7';
 import {
   discMapAllClear,
+  discMapEndGame,
   discMapTallColumn,
   gridAllClear,
+  gridEndGame,
   gridTallColumn,
 } from './example-grids';
-
 import {
   cloneGrid,
   collapseGrid,
@@ -46,7 +47,7 @@ const initialGameContext = {
 };
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQoG0AGAXUVAzVgCWAFwFoAdjxAAPRAEYALAGYc7AGxZ5qgEyqAHFl26AnFoA0IAJ5zVOfVnZHZqgKxHdq2YoMBfb+dSYuFAAhsQkFAAaAJIAKhzcSCB8giLikjIIWk427PKyzrqusrJGzs5Y5lYIALQluM6KhSUOLg5Gvv7o2DghxDiwYEIiYlDVAK4YJFKwQsFCYDjBAGbzKAAUzuzsAJQkAd29CwNDAiPjGPGSycKiEokZXs44nvKaRi4aikbyFZZy+Th5O8Sup5LoHEpnB0QPsgqEFgB3YI3M5LNAocYDFAkADKFAAMhQAMIxGhEgDy+IAqkwyJdEtdUndQBldJ4VF8tK5FKpFFosI5KnIDDgylouap5OwsAZdFp5NDYT14TgkSjRmiMWMsarkUISAAJckANQoACUyZSaXSuFd+Dc0vdEM4fjhVLzZFgsoZGg4hQg8rI3exFIoHOKFF7XoqunC+mrhhr0ZiwCh8GgAG6p06jADGaAANmNCGISPTePamelEPJxTgBWyXGVXHZ-WCcny+Q1FD8GlgY4FlX19hgc9UIAJYLmy7aGZXbtWELItk9dF4DG91yH-bJwSpnFpjI1D0Z2HKoX4YbGhwtcwWwMEUGPCHNc3hIOPJ7nYFMZnMFssqxrOCOx7Nehw4HeD5PmcL5CG+H4TlOsDlkk86OiycjsJ69bfE4Pzuqo7xGP67rKGGuT6I0Gj5AOBwqghuYANZjlAT4QL+szzIsKyphsWy7EqEGMSxZxsQIECoYyC5OkuobsLYWC7pouS8qeqg7tKgIuPKLrqCY4paHRca3u+zGsexnH-jxQGbKBQkMWZomjOJkmyAkFYpDJmFLqoDgcp6WAeAeeRYM4mm4JoIV6QKhmKMZN6QU5FkSVZ3GAXxdmCeBjlgOZYnsawWgeWhXkYdIcjfLgaiep6YI-BF2kNAoh4GFooaqAlwnJWc95ZgWaUAbx6xZWBg7dXlznVH1YAFlJ6HMhVckmG6SkNC6YYuEobZhs8XKuIZ5T6NGl4OX0IljjNA3TFxQ22QJY30edPWjFdrDuXaZWLRkniOG6dg6C4vLYb8VRgso9g9i47wNooF6dONuX5a9YD9YNNmZQ9Z2mZNl2o7NRUldJ5U-V8QbyrWRjUXK7DhX8CANLozxKTKmgRnKnWnTlfSnLmKBgMQYiJtN+MDfNX2Lrucq2B4iglPI5ScnTVTyvUfI6JTHPfF1Kq8-zgvC1dZYfXOEuybuzhBgrnqbMekJmPTctaM8wOvO4SlNAqXOI30wQQBOZxQY+H4AEbiNqM5Ewtks8kGXzAlgXzsFobi6P6-I2Aojg8tKXqlJ6Ot9GAYgQNUhzhNEcSzp5DrfYgWR+W6RE6G4QKGTuQUu7ytYyvkmheIXCx6wLxfC1O6KkOLteSyGTNy3Kuht7IquyG2-l5KelsK6CJi+JeYhoBAcCSLCn3T7Jmw4FT8qGVo2Hb2n9PVIeTzJ3k7iHkD4oJQQxBn1Wsk3BXz5LWQy99nB6H9LUfQOAvBrm+FkHsd8IGD3-t5JafIbANicM2FsMooFUyvvVVwegOp5E5gjJ6RxBjCwmGgkmiBHiAjvqUHQ4opTFDXqKFOUo-KL2wryeK3sqG6nVNUTUKYUD0LrggLw8hcKNlwW4fB9MshGHrJGDQJg2RyjcIPURwsJHalTAY6Ri4e5uiMInTwXpjBnkUP6OG8iShclKEgowJh2jCJMgYscRidQECzDBPMhZiyLWJjIg8CleQHlcHnOWq96YHiDAURWy53g-HlPokcY4kK5jMbJOU5EgQUVeLWKG-ogGtTslkL0BgnD6KDsE6ocEEKlzyfAU258fIwyvn5T0TRijSkflUDQ8jgoRkPGeHujSXpl3YgUnyy45aAmMGCEMu5N6OJ7PWJSDgQF6BhrM3GvVRaLKWgoXkopDBEUXms7C6cNBujBBAuw29Nhe0oT44eBs8b9XOT9bQuABS002IvIioZlaMOKDgfkmxXH5DsXDfRfsA55nvMHUuYcxDagBXIHkTwFb6BDB4dQ4IHZVHlrCn4HVCjHXfvo4updDh4syMUJmxQxlemXM1BxqiFawoFC6QyJRyj6J+aPMc49+asqsUGd0BgnZqBTn6JJJRrlfHsC6dwHi97eCAA */
+  /** @xstate-layout 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 */
   createMachine(
     {
       context: initialGameContext,
@@ -126,6 +127,7 @@ export const drop7Machine =
                 SELECT_COLUMN: {
                   target: 'dropping-disc',
                   actions: 'dropDisc',
+                  cond: 'CAN_DROP_DISC',
                 },
               },
             },
@@ -239,12 +241,12 @@ export const drop7Machine =
         setupGame: assign((context) => {
           let [grid, discMap] = setupGameGrid(10);
 
-          return {
-            ...initialGameContext,
-            grid,
-            discMap,
-            discCount: Object.keys(discMap).length,
-          };
+          // return {
+          //   ...initialGameContext,
+          //   grid,
+          //   discMap,
+          //   discCount: Object.keys(discMap).length,
+          // };
 
           // TODO: Turn this into a tutorial
           // return {
@@ -268,6 +270,19 @@ export const drop7Machine =
           //     value: 6 as DiscValue,
           //   },
           // };
+
+          // TODO: Turn this into a tutorial
+          return {
+            ...initialGameContext,
+            moves: 2,
+            grid: gridEndGame,
+            discMap: discMapEndGame,
+            discCount: 9,
+            nextDisc: {
+              id: 'disc-9',
+              value: 6 as DiscValue,
+            },
+          };
         }),
         getRandomDisc: assign((context) => {
           // Check for next disc, if it is available, it indicates we are in tutorial mode
@@ -322,17 +337,10 @@ export const drop7Machine =
           }
 
           // Put disc on first row
-          // TODO: Check if enough space
           const grid = cloneGrid(context.grid);
           grid[0][event.column] = context.nextDisc.id;
 
-          console.log(
-            '--- dropDisc',
-            event.column,
-            context.discMap,
-            // discId,
-            grid
-          );
+          console.log('--- dropDisc', event.column, context.discMap, grid);
 
           if (context.nextDisc) {
             return {
@@ -476,6 +484,10 @@ export const drop7Machine =
         console.log('GRID_FULL', gameGridTopRow, isFull);
 
         return isFull;
+      },
+      CAN_DROP_DISC: (context, event) => {
+        const canDropDisc: boolean = context.grid[1][event.column] === null;
+        return canDropDisc;
       },
       NO_DISC_MATCHES: (context) => {
         const groups = getMatchingGroups(context.grid, context.discMap);
