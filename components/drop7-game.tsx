@@ -175,7 +175,7 @@ export const Drop7Game = () => {
       </div>
 
       <footer className="relative mt-auto flex items-end sm:p-2">
-        <div className="absolute left-0 bottom-0 h-4 w-4 bg-gradient-to-bl from-cyan-500/80 via-indigo-700/75 to-purple-800/60 pl-[1px] pb-[1px]">
+        <div className="absolute left-0 bottom-0 h-4 w-4 bg-gradient-to-bl from-cyan-500 via-indigo-700 to-purple-800 pl-[1px] pb-[1px]">
           <div className="h-full w-full bg-slate-950"></div>
         </div>
         <div className="absolute right-0 bottom-0 hidden h-12 w-4 bg-gradient-to-bl from-cyan-800/80 via-indigo-700/75 to-purple-800/60 pr-[1px] pb-[1px]">

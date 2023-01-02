@@ -241,12 +241,12 @@ export const drop7Machine =
         setupGame: assign((context) => {
           let [grid, discMap] = setupGameGrid(10);
 
-          // return {
-          //   ...initialGameContext,
-          //   grid,
-          //   discMap,
-          //   discCount: Object.keys(discMap).length,
-          // };
+          return {
+            ...initialGameContext,
+            grid,
+            discMap,
+            discCount: Object.keys(discMap).length,
+          };
 
           // TODO: Turn this into a tutorial
           // return {
@@ -272,17 +272,17 @@ export const drop7Machine =
           // };
 
           // TODO: Turn this into a tutorial
-          return {
-            ...initialGameContext,
-            moves: 2,
-            grid: gridEndGame,
-            discMap: discMapEndGame,
-            discCount: 9,
-            nextDisc: {
-              id: 'disc-9',
-              value: 6 as DiscValue,
-            },
-          };
+          // return {
+          //   ...initialGameContext,
+          //   moves: 2,
+          //   grid: gridEndGame,
+          //   discMap: discMapEndGame,
+          //   discCount: 9,
+          //   nextDisc: {
+          //     id: 'disc-9',
+          //     value: 6 as DiscValue,
+          //   },
+          // };
         }),
         getRandomDisc: assign((context) => {
           // Check for next disc, if it is available, it indicates we are in tutorial mode
