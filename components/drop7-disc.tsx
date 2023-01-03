@@ -2,7 +2,12 @@ import { motion, Transition, Variant, Variants } from 'framer-motion';
 import React, { useRef } from 'react';
 import { DiscValue } from '../shared/drop7';
 
-export type DiscState = 'entering' | 'dropping' | 'waiting' | 'exiting';
+export type DiscState =
+  | 'level-entering'
+  | 'entering'
+  | 'dropping'
+  | 'waiting'
+  | 'exiting';
 
 type Props = {
   id?: string;
@@ -50,6 +55,12 @@ export const Drop7Disc: React.FC<Props> = ({
       duration: 0.3,
       delay: index * 0.03,
     };
+  } else if (state === 'level-entering') {
+    transition = {
+      type: 'tween',
+      duration: 0.3,
+      delay: index * 0.03 + 0.3,
+    };
   } else if (state === 'waiting') {
     transition = {
       type: 'spring',
@@ -66,7 +77,7 @@ export const Drop7Disc: React.FC<Props> = ({
   const variants: Variants = {
     initial: {
       opacity: 0,
-      y: state === 'entering' ? 10 : -10,
+      y: state === 'level-entering' ? 10 : -10,
     },
     show: {
       opacity: 1,
@@ -98,6 +109,7 @@ export const Drop7Disc: React.FC<Props> = ({
   };
 
   const colour = colourMap[value];
+  console.log(state);
 
   return (
     <motion.div
@@ -111,6 +123,7 @@ export const Drop7Disc: React.FC<Props> = ({
       transition={transition}
       variants={variants}
       initial={'initial'}
+      // animate={state}
       animate={state === 'exiting' ? 'exiting' : 'show'}
       exit={'hidden'}
       style={{

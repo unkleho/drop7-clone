@@ -39,15 +39,17 @@ const initialGameContext = {
   discCount: 0,
   currentChain: 0,
   matchedDiscIds: [],
-  diffDiscIds: {
-    addedIds: [],
-    updatedIds: [],
-    removedIds: [],
-  },
+  /* Discs ids added in new level */
+  nextLevelDiscIds: [],
+  // diffDiscIds: {
+  //   addedIds: [],
+  //   updatedIds: [],
+  //   removedIds: [],
+  // },
 };
 
 export const drop7Machine =
-  /** @xstate-layout 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 */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQoG0AGAXUVAzVgCWAFwFoAdjxAAPRAEYALAGYc7AGxZ5qgEyqAHFl26AnFoA0IAJ5zVOfVnZHZqgKxHdq2YoMBfb+dSYuFAAhsQkFAAaAJIAKhzcSCB8giLikjIIWk427PKyzrqusrJGzs5Y5lYIALQluM6KhSUOLg5Gvv7o2DghxDiwYEIiYlDVAK4YJFKwQsFCYDjBAGbzKAAUzuzsAJQkAd29CwNDAiPjGPGSycKiEokZXs44nvKaRi4aikbyFZZy+Th5O8Sup5LoHEpnB0QPsgqEFgB3YI3M5LNAocYDFAkADKFAAMhQAMIxGhEgDy+IAqkwyJdEtdUndQBlnFpdDhFOxFGV5Dp2M4wUZKohHDgsAosOz3sZDOwsNDYT14TgkSjRmiMWMsarkUISAAJckANQoACUyZSaXSuFd+Dc0vdEILcKpVIpZFLZIZGg4RQg8rIcKpuVyTFkflpXoqunC+mrhhr0ZiwCh8GgAG6p06jADGaAANmNCGISPTePamelEHytOK3E4ymU3FhflUwTlFFouw1FD8Ggq-DDY8q+vsMDnqhABLBc2XbQzK7dqwh9Moux7ZLlVHygW25GL+Q5u4VXFgvDHAqOFrmC2BgihJ4Q5rm8JApzPc7ApjM5gtlqsazgjsewjocOC3vej5nM+Qivu+06zrA5ZJEujosnIApPK8xiuK8npuvI-rlEGqiOF2SjvEY3K6JeBwqvBuYANaTlAj4QD+szzIsKyphsWy7Eq4GMSxZxsQIEAoYyy5OggW5ig4gp5FgZSFLoZh-HJAJAh47waOC3yKIodFxjeb7Max7GcX+PGAZsIFCQx5miaM4mSbICQVikMkYXJXjsMG3aeFoRgaFGej+sUORZF4npdu4igeCZ14Qc5lkSdZ3EAXx9mCWBTlgBZYnsawWieah3nodIcjNjg7zsu63znt6kVkcG7pbAY4W5M4qjJcJaVnHeWYFpl-68esuWgVeA2FS51TDWABZSWhzLVX5Hi2AKkLfOwWQmMRhTPN2jiaHy4L5P1BVFaMi2jdMXHjXZAnTfRfQiZOd2sB5dqVWtGSeCGthZNoEouO4br+u6HL2J6Pq6ECoV9UOjnvYNt1gCNY22TlL2o2Zc2fZjS2leV0lVQDiUBV4uglEodj7ggZHKJ6Wyhdyjh6VdfSnLmKBgMQYiJgtxOjStf0rs08jBrTJjus4ngK-64WcjoKkeN2MUFNzCy8-zgvC3dZY-YuEuyXFuDGPk7B1B4On+kZuB7f5YKvKU4JQij+V9MEEDTmckEPu+ABG4javOZOrZL3o5AUfYSj8WDfERmlaCpgXyHtNv6Hkgo6zgYBiBA1SHOE0RxAuXkOv9iBZAKtiJee2g8loSuacUyjfPLLqbEYJiyPnesC4XwuzuipDi9XK7qbgfJbj8PIqa2sgO1KwZfDoshRoKrg8r4Q5iGgEBwJIsK-VPsmbHVFFaLfWg2-IvW6P61Tsk8e18hz+jvArg6dFeBBiDnyrLJNw18ox33vgoJ+L9vS4Bpl8OefZ769R1sAny60uw2CTrTFwTYWyM2qEYTurt7BZwRsUdoXsZoqmOMLCY6CKaIEeICe+pQdC30zsUf0mccBsl2iGBGNt3TGWoW9REepJyahTCgRhNcEBeGljgxs+C7DKxKOKSU+EXCtwUPnBMUjkzalTLqYQciVx8ldKFD0XhpTsF0IoB2gpngmFcA0PkfcQr6MkaiIxOoCBZmgnmQsxY1rk3kWyAK8tW6hRCpuYiWQ+GFGai0SM8h87jknIhXM5jZL6DrA0dwEC3YhUZsUaWkSNC9jZK8XI+dA5BOqLBeCxdsnwFNhfXyUUAq5B0BdN4SgeGvD4Y-ewvV6pOHqejEu7FcldO5EGIUYIFnGAFA7Ps4oJQOAonoLmYjTKpUJkNUWcz1oKAcM8LhHpzyP3lMrDQwYwRP1bI-Vo6T9kpSHgbImI1TkAwMEYdqXwDIKwUN8IZFTXmPyMsQxKZR86+39nmO8Qdi6hzENqP5-xuzr2-l4Uo5RHHtxMO1IKag+57TdPnQuxdDhYsyPYoMuR5SZx3NA1QyslCAgSipEEfIjKDzEHzYeQtJxj35vS4hAVAyCIVvfVuKd2wej4b3LeS83B733kAA */
   createMachine(
     {
       context: initialGameContext,
@@ -66,7 +68,8 @@ export const drop7Machine =
           /** Current chain count during match/collapse loop */
           currentChain: number;
           matchedDiscIds: string[];
-          diffDiscIds: GridDiff;
+          nextLevelDiscIds: string[];
+          // diffDiscIds: GridDiff;
         },
         events: {} as
           | { type: 'NEW_GAME' }
@@ -197,6 +200,7 @@ export const drop7Machine =
             },
             'incrementing-level': {
               entry: 'incrementLevel',
+
               always: [
                 {
                   target: 'end-game',
@@ -274,7 +278,7 @@ export const drop7Machine =
           // TODO: Turn this into a tutorial
           // return {
           //   ...initialGameContext,
-          //   moves: 2,
+          //   moves: 3,
           //   grid: gridEndGame,
           //   discMap: discMapEndGame,
           //   discCount: 9,
@@ -310,7 +314,7 @@ export const drop7Machine =
             grid,
             // Start chain again
             currentChain: 0,
-            diffDiscIds: initialGameContext.diffDiscIds,
+            // diffDiscIds: initialGameContext.diffDiscIds,
           };
         }),
         hoverColumn: assign((context, event) => {
@@ -347,6 +351,7 @@ export const drop7Machine =
               grid,
               moves: context.moves - 1,
               nextDisc: null,
+              nextLevelDiscIds: [],
             };
           }
 
@@ -419,6 +424,7 @@ export const drop7Machine =
               ? 1
               : initialMovesPerLevel - context.level;
           let discMap = context.discMap;
+          const nextLevelDiscIds: string[] = [];
 
           // Remove top row of grid
           grid.shift();
@@ -432,6 +438,7 @@ export const drop7Machine =
             [...new Array(7)].forEach((_, column) => {
               const discId = 'disc-' + context.discCount + column;
               grid[lastRow][column] = discId;
+              nextLevelDiscIds.push(discId);
 
               discMap = {
                 ...discMap,
@@ -449,6 +456,7 @@ export const drop7Machine =
             discMap,
             // Increment count by 7 as we added 7 new discs
             discCount: context.discCount + 7,
+            nextLevelDiscIds,
           };
         }),
         consoleLogValue: (context, event) => {

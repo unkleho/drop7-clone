@@ -10,6 +10,8 @@ type Props = {
   grid: Grid;
   discMap: DiscMap;
   discState?: DiscState;
+  /* TODO: Bit messy to have separate state, but need this for new discs on new level */
+  nextLevelDiscIds?: string[];
   children?: React.ReactNode;
   send: (params: {
     type: 'SELECT_COLUMN' | 'HOVER_COLUMN';
@@ -21,6 +23,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
   grid,
   discMap,
   discState = 'waiting',
+  nextLevelDiscIds = [],
   children,
   send,
 }) => {
@@ -123,26 +126,10 @@ export const Drop7GameGrid: React.FC<Props> = ({
             ) {
               const index = updatedIds.findIndex((id) => id === gameDisc.id);
 
-              // if (removedIds.includes(gameDisc.id)) {
-              //   console.log('removed', gameDisc.id);
-
-              //   return null;
-              // }
-
-              // console.log('loop', gameDisc.id, index);
-
-              // if (
-              //   ['game.clearing-matched-discs', 'game.waiting-for-user'].some(
-              //     state.matches
-              //   )
-              // ) {
-              //   discState = 'waiting'; // spring
-              // } else if (['game.setting-up'].some(state.matches)) {
-              //   // TODO: setting-up state is too short
-              //   discState = 'entering';
-              // } else {
-              //   discState = 'dropping'; // tween bounce
-              // }
+              // TODO: Move to gameGrid()?
+              const isNextLevelEntering = nextLevelDiscIds.includes(
+                gameDisc.id
+              );
 
               return (
                 <Drop7Disc
@@ -150,7 +137,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
                   value={gameDisc.value}
                   column={gameDisc.position[0]}
                   row={gameDisc.position[1]}
-                  state={discState}
+                  state={isNextLevelEntering ? 'level-entering' : discState}
                   index={index >= 0 ? index : undefined}
                   // index={i}
                   key={gameDisc.id}
@@ -161,23 +148,6 @@ export const Drop7GameGrid: React.FC<Props> = ({
             return null;
           });
         })}
-
-        {/* {removedIds.map((id, index) => {
-          const value = prevDiscMap[id];
-          const [column, row] = getPosition(prevGrid, id);
-
-          return (
-            <Drop7Disc
-              id={id}
-              value={value}
-              column={column}
-              row={row}
-              index={index}
-              key={id}
-              state="exiting"
-            />
-          );
-        })} */}
       </AnimatePresence>
 
       {children}

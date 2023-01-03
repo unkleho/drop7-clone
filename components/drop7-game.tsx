@@ -47,7 +47,7 @@ export const Drop7Game = () => {
   } else {
     discState = 'dropping'; // tween bounce
   }
-  // console.log('discState', discState);
+  console.log(state.value, 'discState', discState);
 
   return (
     <div className="flex h-full flex-col p-5 sm:p-8">
@@ -103,7 +103,9 @@ export const Drop7Game = () => {
             }}
             animate={state.matches('game') ? 'visible' : 'hidden'}
           >
-            <p className="text-5xl font-light opacity-70">{context.score}</p>
+            <p className="text-5xl font-light tabular-nums opacity-70">
+              {context.score}
+            </p>
           </motion.div>
         </div>
 
@@ -111,6 +113,7 @@ export const Drop7Game = () => {
           grid={context.grid}
           discMap={context.discMap}
           discState={discState}
+          nextLevelDiscIds={context.nextLevelDiscIds}
           send={send}
         >
           {['home', 'game.end-game'].some(state.matches) && (
