@@ -53,7 +53,7 @@ export const Dialog: React.FC<Props> = ({
             }}
           >
             <motion.div
-              className="absolute inset-[1px] overflow-auto bg-slate-950 p-4 pt-20"
+              className="absolute inset-[1px] overflow-auto bg-slate-950 p-4 pt-16"
               transition={{
                 type: 'tween',
                 duration: 0.3,

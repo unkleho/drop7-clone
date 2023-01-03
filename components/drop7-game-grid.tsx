@@ -115,9 +115,11 @@ export const Drop7GameGrid: React.FC<Props> = ({
                 onTouchStart={() => {
                   send({ type: 'HOVER_COLUMN', column });
 
+                  const timeout = column == 3 ? 1 : 300;
+
                   setTimeout(() => {
                     send({ type: 'SELECT_COLUMN', column });
-                  }, 300);
+                  }, timeout);
                 }}
               ></button>
             );

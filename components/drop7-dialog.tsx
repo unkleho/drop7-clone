@@ -18,18 +18,30 @@ const Drop7Dialog: React.FC<Props> = ({
   return (
     <Dialog isActive={isMenuOpen} onClose={onClose}>
       {status === 'game' && (
-        <ActionButton className="mb-8 w-full" onClick={onEndGameClick}>
-          End game
-        </ActionButton>
+        <>
+          <h2 className="mb-4 font-semibold uppercase tracking-widest opacity-80">
+            Options
+          </h2>
+          <ActionButton className="mb-8 w-full" onClick={onEndGameClick}>
+            End game
+          </ActionButton>
+        </>
       )}
 
       <div>
+        <p className="mb-6 bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text text-center text-transparent">
+          ⦿
+        </p>
         <h2 className="mb-4 font-semibold uppercase tracking-widest opacity-80">
           How to play
         </h2>
         <p className="mb-6 text-lg opacity-70">
           Select a column to drop the disc on. Get points by matching the number
           on the disc to the amount of discs in its row or column.
+        </p>
+        <p className="mb-6 text-lg opacity-70">
+          Matching disc(s) will disappear, cracking any adjacent discs without
+          numbers.
         </p>
 
         <p className="mb-6 bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text text-center text-transparent">
