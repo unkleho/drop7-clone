@@ -109,7 +109,7 @@ export const Drop7Disc: React.FC<Props> = ({
   };
 
   const colour = colourMap[value];
-  console.log(state);
+  // console.log(state);
 
   return (
     <motion.div

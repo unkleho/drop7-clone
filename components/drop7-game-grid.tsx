@@ -33,21 +33,32 @@ export const Drop7GameGrid: React.FC<Props> = ({
   const prevGrid = usePrevious(grid);
   const prevDiscMap = usePrevious(discMap);
   const { addedIds, updatedIds, removedIds } = getGridDiff(prevGrid, grid);
-  // console.log('----------------');
-  // console.log('removedIds', removedIds);
-  // console.log(
-  //   'grid ids',
-  //   grid
-  //     .filter((row) => row)
-  //     .map((row) =>
-  //       row
-  //         .map((id) => id)
-  //         .filter((id) => id)
-  //         .join(',')
-  //     )
-  // );
-
   const gameGrid = buildGameGrid(grid, discMap);
+
+  const handleColumnHover = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const x =
+      event.nativeEvent.x - event.currentTarget.getBoundingClientRect().left;
+    const width = event.currentTarget.getBoundingClientRect().width;
+    const columnWidth = width / 7;
+    const column = Math.floor(x / columnWidth);
+    // console.log(x, column);
+    send({ type: 'HOVER_COLUMN', column });
+  };
+
+  const handleColumnSelect = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const x =
+      event.nativeEvent.x - event.currentTarget.getBoundingClientRect().left;
+    const width = event.currentTarget.getBoundingClientRect().width;
+    const columnWidth = width / 7;
+    const column = Math.floor(x / columnWidth);
+    // console.log(x, column);
+    send({ type: 'HOVER_COLUMN', column });
+    send({ type: 'SELECT_COLUMN', column });
+  };
 
   return (
     <motion.div
@@ -81,6 +92,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
         });
       })}
 
+      {/* Select column button */}
       {discState === 'waiting' && (
         <div className="absolute top-0 grid h-full w-full grid-cols-7">
           {grid[0].map((_, column) => {
@@ -107,13 +119,20 @@ export const Drop7GameGrid: React.FC<Props> = ({
                     send({ type: 'SELECT_COLUMN', column });
                   }, 300);
                 }}
-              >
-                {/* {column} */}
-              </button>
+              ></button>
             );
           })}
         </div>
       )}
+
+      {/* TODO: In progress */}
+      {/* {discState === 'waiting' && (
+        <button
+          className="absolute h-full w-full"
+          onPointerMove={(event) => handleColumnHover(event)}
+          onPointerUp={(event) => handleColumnSelect(event)}
+        ></button>
+      )} */}
 
       {/* Discs */}
       <AnimatePresence>
