@@ -48,6 +48,7 @@ export const Drop7Game = () => {
     discState = 'dropping'; // tween bounce
   }
   console.log(state.value, 'discState', discState);
+  console.log('movesInLevel', movesInLevel);
 
   return (
     <div className="flex h-full flex-col p-5 sm:p-8">
@@ -156,19 +157,21 @@ export const Drop7Game = () => {
                 gridTemplateColumns: `repeat(${initialMovesPerLevel}, 1fr)`,
               }}
             >
-              {[...new Array(movesInLevel)].map((_, i) => {
-                return (
-                  <div
-                    className={[
-                      'aspect-square w-full rounded-full',
-                      context.moves > i
-                        ? 'bg-gradient-to-bl from-slate-600 to-slate-800'
-                        : 'border border-slate-600',
-                    ].join(' ')}
-                    key={i}
-                  ></div>
-                );
-              })}
+              {[...new Array(movesInLevel < 1 ? 1 : movesInLevel)].map(
+                (_, i) => {
+                  return (
+                    <div
+                      className={[
+                        'aspect-square w-full rounded-full',
+                        context.moves > i
+                          ? 'bg-gradient-to-bl from-slate-600 to-slate-800'
+                          : 'border border-slate-600',
+                      ].join(' ')}
+                      key={i}
+                    ></div>
+                  );
+                }
+              )}
             </div>
             <p className="text-sm uppercase tracking-wider opacity-50">
               Level {context.level}

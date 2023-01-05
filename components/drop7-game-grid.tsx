@@ -145,12 +145,12 @@ export const Drop7GameGrid: React.FC<Props> = ({
               gameDisc.position[0] !== null &&
               gameDisc.position[1] !== null
             ) {
-              const index = updatedIds.findIndex((id) => id === gameDisc.id);
-
               // TODO: Move to gameGrid()?
               const isNextLevelEntering = nextLevelDiscIds.includes(
                 gameDisc.id
               );
+
+              let index = updatedIds.findIndex((id) => id === gameDisc.id);
 
               return (
                 <Drop7Disc

@@ -69,6 +69,7 @@ export const drop7Machine =
           currentChain: number;
           matchedDiscIds: string[];
           nextLevelDiscIds: string[];
+
           // diffDiscIds: GridDiff;
         },
         events: {} as

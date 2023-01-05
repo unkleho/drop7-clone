@@ -59,7 +59,7 @@ export const Drop7Disc: React.FC<Props> = ({
     transition = {
       type: 'tween',
       duration: 0.3,
-      delay: index * 0.03 + 0.3,
+      delay: index * 0.03 + 0.4,
     };
   } else if (state === 'waiting') {
     transition = {
@@ -77,7 +77,7 @@ export const Drop7Disc: React.FC<Props> = ({
   const variants: Variants = {
     initial: {
       opacity: 0,
-      y: state === 'level-entering' ? 10 : -10,
+      y: state === 'level-entering' ? 20 : -10,
     },
     show: {
       opacity: 1,
