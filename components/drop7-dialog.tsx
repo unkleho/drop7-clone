@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStore } from '../shared/store';
 import { ActionButton } from './action-button';
 import { Dialog } from './dialog';
 
@@ -15,6 +16,9 @@ const Drop7Dialog: React.FC<Props> = ({
   onClose,
   onEndGameClick,
 }) => {
+  const { state } = useStore();
+  const { context } = state;
+
   return (
     <Dialog isActive={isMenuOpen} onClose={onClose}>
       {status === 'game' && (
@@ -22,13 +26,20 @@ const Drop7Dialog: React.FC<Props> = ({
           <h2 className="mb-4 font-semibold uppercase tracking-widest opacity-80">
             Options
           </h2>
-          <ActionButton className="mb-8 w-full" onClick={onEndGameClick}>
+          <ActionButton className="mt-4 mb-8 w-full" onClick={onEndGameClick}>
             End game
           </ActionButton>
         </>
       )}
 
       <div>
+        <div className="flex gap-3">
+          <h2 className="mb-4 font-semibold uppercase tracking-widest opacity-80">
+            High score:
+          </h2>
+          <p className="mb-6 opacity-70">{context.highScore}</p>
+        </div>
+
         <p className="mb-6 bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text text-center text-transparent">
           ⦿
         </p>

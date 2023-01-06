@@ -27,10 +27,28 @@ import {
   removeByIds,
 } from './grid';
 
+function getHighScore() {
+  if (typeof window === 'undefined') {
+    return 0;
+  }
+
+  const highScoreString = localStorage.getItem('highScore');
+  const highScore = highScoreString !== null ? parseInt(highScoreString) : 0;
+
+  return highScore;
+}
+
+function setHighScore(score: number) {
+  localStorage.setItem('highScore', score.toString());
+}
+
+const highScore = getHighScore();
+
 // export const initialMovesPerLevel = 29; // Original game
 export const initialMovesPerLevel = 20;
 const initialGameContext = {
   score: 0,
+  highScore,
   level: 1,
   grid: emptyGrid,
   discMap: {},
@@ -58,6 +76,7 @@ export const drop7Machine =
         context: {} as {
           grid: Grid;
           score: number;
+          highScore: number;
           level: number;
           discMap: DiscMap;
           /** Next disc that is about to drop */
@@ -69,7 +88,6 @@ export const drop7Machine =
           currentChain: number;
           matchedDiscIds: string[];
           nextLevelDiscIds: string[];
-
           // diffDiscIds: GridDiff;
         },
         events: {} as
@@ -401,19 +419,27 @@ export const drop7Machine =
           };
         }),
         incrementScore: assign((context) => {
-          const score = getScore(
+          const currentScore = getScore(
             context.matchedDiscIds.length,
             context.currentChain
           );
+          const score = context.score + currentScore;
+          const highScore = getHighScore();
+
+          if (score > highScore) {
+            setHighScore(score);
+          }
 
           console.log(
             'incrementScore',
             context.matchedDiscIds.length,
-            context.currentChain
+            context.currentChain,
+            getHighScore()
           );
 
           return {
-            score: context.score + score,
+            score,
+            ...(score > highScore ? { highScore: getHighScore() } : {}),
             matchedDiscIds: [],
           };
         }),
