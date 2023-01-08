@@ -48,7 +48,7 @@ export const Drop7Game = () => {
     discState = 'dropping'; // tween bounce
   }
   console.log(state.value, 'discState', discState);
-  console.log('movesInLevel', movesInLevel);
+  // console.log('movesInLevel', movesInLevel);
 
   return (
     <div className="flex h-full flex-col p-5 sm:p-8">
@@ -104,7 +104,7 @@ export const Drop7Game = () => {
             }}
             animate={state.matches('game') ? 'visible' : 'hidden'}
           >
-            <p className="text-5xl font-light tabular-nums opacity-70">
+            <p className="-mr-1 text-5xl font-light tabular-nums opacity-70 sm:mb-4">
               {context.score}
             </p>
           </motion.div>
@@ -138,11 +138,21 @@ export const Drop7Game = () => {
             </ActionButton>
           )}
 
-          {state.matches('game.clearing-matched-discs') &&
+          {['game.clearing-matched-discs', 'game.adding-cleared-bonus'].some(
+            state.matches
+          ) &&
             context.currentChain > 0 && (
-              <div className="relative col-span-7 col-start-1 row-start-1 flex items-center text-sm">
+              <div className="relative col-span-7 col-start-1 row-start-1 flex items-center text-sm tracking-widest">
                 <p className="uppercase opacity-80">
-                  Chain x {context.currentChain + 1}
+                  {state.matches('game.clearing-matched-discs') && (
+                    <>Chain x {context.currentChain + 1}</>
+                  )}
+
+                  {state.matches('game.adding-cleared-bonus') && (
+                    <>
+                      All clear! <strong>+70,000</strong>
+                    </>
+                  )}
                 </p>
               </div>
             )}

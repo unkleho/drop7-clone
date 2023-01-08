@@ -4,8 +4,11 @@ export interface Typegen0 {
   '@@xstate/typegen': true;
   internalEvents: {
     '': { type: '' };
-    'xstate.after(500)#drop7.game.checking-grid': {
-      type: 'xstate.after(500)#drop7.game.checking-grid';
+    'xstate.after(1000)#drop7.game.adding-cleared-bonus': {
+      type: 'xstate.after(1000)#drop7.game.adding-cleared-bonus';
+    };
+    'xstate.after(1000)#drop7.game.checking-grid': {
+      type: 'xstate.after(1000)#drop7.game.checking-grid';
     };
     'xstate.after(500)#drop7.game.checking-level': {
       type: 'xstate.after(500)#drop7.game.checking-level';
@@ -36,6 +39,7 @@ export interface Typegen0 {
     services: never;
   };
   eventsCausingActions: {
+    addClearedBonus: 'xstate.after(1000)#drop7.game.checking-grid';
     clearMatchedDiscs:
       | 'EXIT'
       | 'xstate.after(800)#drop7.game.clearing-matched-discs'
@@ -54,13 +58,13 @@ export interface Typegen0 {
   eventsCausingDelays: {};
   eventsCausingGuards: {
     CAN_DROP_DISC: 'SELECT_COLUMN';
-    DISC_MATCHES: 'xstate.after(500)#drop7.game.checking-grid';
-    GRID_CLEARED: 'xstate.after(500)#drop7.game.checking-grid';
+    DISC_MATCHES: 'xstate.after(1000)#drop7.game.checking-grid';
+    GRID_CLEARED: 'xstate.after(1000)#drop7.game.checking-grid';
     GRID_FULL: 'xstate.after(500)#drop7.game.checking-level';
     GRID_NOT_OVER: '';
     GRID_OVER: '';
     MOVES_LEFT_IN_LEVEL: 'xstate.after(500)#drop7.game.checking-level';
-    NO_DISC_MATCHES: 'xstate.after(500)#drop7.game.checking-grid';
+    NO_DISC_MATCHES: 'xstate.after(1000)#drop7.game.checking-grid';
     NO_MOVES_LEFT_IN_LEVEL: 'xstate.after(500)#drop7.game.checking-level';
   };
   eventsCausingServices: {};

@@ -67,7 +67,7 @@ const initialGameContext = {
 };
 
 export const drop7Machine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQoG0AGAXUVAzVgCWAFwFoAdjxAAPRAEYALAGYc7AGxZ5qgEyqAHFl26AnFoA0IAJ5zVOfVnZHZqgKxHdq2YoMBfb+dSYuFAAhsQkFAAaAJIAKhzcSCB8giLikjIIWk427PKyzrqusrJGzs5Y5lYIALQluM6KhSUOLg5Gvv7o2DghxDiwYEIiYlDVAK4YJFKwQsFCYDjBAGbzKAAUzuzsAJQkAd29CwNDAiPjGPGSycKiEokZXs44nvKaRi4aikbyFZZy+Th5O8Sup5LoHEpnB0QPsgqEFgB3YI3M5LNAocYDFAkADKFAAMhQAMIxGhEgDy+IAqkwyJdEtdUndQBlnFpdDhFOxFGV5Dp2M4wUZKohHDgsAosOz3sZDOwsNDYT14TgkSjRmiMWMsarkUISAAJckANQoACUyZSaXSuFd+Dc0vdEILcKpVIpZFLZIZGg4RQg8rIcKpuVyTFkflpXoqunC+mrhhr0ZiwCh8GgAG6p06jADGaAANmNCGISPTePamelEHytOK3E4ymU3FhflUwTlFFouw1FD8Ggq-DDY8q+vsMDnqhABLBc2XbQzK7dqwh9Moux7ZLlVHygW25GL+Q5u4VXFgvDHAqOFrmC2BgihJ4Q5rm8JApzPc7ApjM5gtlqsazgjsewjocOC3vej5nM+Qivu+06zrA5ZJEujosnIApPK8xiuK8npuvI-rlEGqiOF2SjvEY3K6JeBwqvBuYANaTlAj4QD+szzIsKyphsWy7Eq4GMSxZxsQIEAoYyy5OggW5ig4gp5FgZSFLoZh-HJAJAh47waOC3yKIodFxjeb7Max7GcX+PGAZsIFCQx5miaM4mSbICQVikMkYXJXjsMG3aeFoRgaFGej+sUORZF4npdu4igeCZ14Qc5lkSdZ3EAXx9mCWBTlgBZYnsawWieah3nodIcjNjg7zsu63znt6kVkcG7pbAY4W5M4qjJcJaVnHeWYFpl-68esuWgVeA2FS51TDWABZSWhzLVX5Hi2AKkLfOwWQmMRhTPN2jiaHy4L5P1BVFaMi2jdMXHjXZAnTfRfQiZOd2sB5dqVWtGSeCGthZNoEouO4br+u6HL2J6Pq6ECoV9UOjnvYNt1gCNY22TlL2o2Zc2fZjS2leV0lVQDiUBV4uglEodj7ggZHKJ6Wyhdyjh6VdfSnLmKBgMQYiJgtxOjStf0rs08jBrTJjus4ngK-64WcjoKkeN2MUFNzCy8-zgvC3dZY-YuEuyXFuDGPk7B1B4On+kZuB7f5YKvKU4JQij+V9MEEDTmckEPu+ABG4javOZOrZL3o5AUfYSj8WDfERmlaCpgXyHtNv6Hkgo6zgYBiBA1SHOE0RxAuXkOv9iBZAKtiJee2g8loSuacUyjfPLLqbEYJiyPnesC4XwuzuipDi9XK7qbgfJbj8PIqa2sgO1KwZfDoshRoKrg8r4Q5iGgEBwJIsK-VPsmbHVFFaLfWg2-IvW6P61Tsk8e18hz+jvArg6dFeBBiDnyrLJNw18ox33vgoJ+L9vS4Bpl8OefZ769R1sAny60uw2CTrTFwTYWyM2qEYTurt7BZwRsUdoXsZoqmOMLCY6CKaIEeICe+pQdC30zsUf0mccBsl2iGBGNt3TGWoW9REepJyahTCgRhNcEBeGljgxs+C7DKxKOKSU+EXCtwUPnBMUjkzalTLqYQciVx8ldKFD0XhpTsF0IoB2gpngmFcA0PkfcQr6MkaiIxOoCBZmgnmQsxY1rk3kWyAK8tW6hRCpuYiWQ+GFGai0SM8h87jknIhXM5jZL6DrA0dwEC3YhUZsUaWkSNC9jZK8XI+dA5BOqLBeCxdsnwFNhfXyUUAq5B0BdN4SgeGvD4Y-ewvV6pOHqejEu7FcldO5EGIUYIFnGAFA7Ps4oJQOAonoLmYjTKpUJkNUWcz1oKAcM8LhHpzyP3lMrDQwYwRP1bI-Vo6T9kpSHgbImI1TkAwMEYdqXwDIKwUN8IZFTXmPyMsQxKZR86+39nmO8Qdi6hzENqP5-xuzr2-l4Uo5RHHtxMO1IKag+57TdPnQuxdDhYsyPYoMuR5SZx3NA1QyslCAgSipEEfIjKDzEHzYeQtJxj35vS4hAVAyCIVvfVuKd2wej4b3LeS83B733kAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QQE4HsAOB2AdACzQFswBiAOQFEB1AfQHEBBAWQoG0AGAXUVAzVgCWAFwFoAdjxAAPRAEYALAGYc7AGxZ5qgEyqAHFl26AnFoA0IAJ5zVOfVnZHZqgKxHdq2YoMBfb+dSYuFAAhsQkFAAaAJIAKhzcSCB8giLikjIIWk427PKyzrqusrJGzs5Y5lYIALQluM6KhSUOLg5Gvv7o2DghxDiwYEIiYlDVAK4YJFKwQsFCYDjBAGbzKAAUzuzsAJQkAd29CwNDAiPjGPGSycKiEokZXs44nvKaRi4aikbyFZZy+Th5O8Sup5LoHEpnB0QPsgqEFgB3YI3M5LNAocYDFAkADKFAAMhQAMIxGhEgDy+IAqkwyJdEtdUndQBlnFpdDhFOxFGV5Dp2M4wUZKohHDgsAosOz3sZDOwsNDYT14TgkSjRmiMWMsarkUISAAJckANQoACUyZSaXSuFd+Dc0vdEILcKpVIpZFLZIZGg4RQg8rIcKpuVyTFkflpXoqunC+mrhhr0ZiwCh8GgAG6p06jADGaAANmNCGISPTePamelEHytOK3E4ymU3FhflUwTlFFouw1FD8Ggq-DDY8q+vsMDnqhABLBc2XbQzK7dqwh9Moux7ZLlVHygW25GL+Q5u4VXFgvDHAqOFrmC2BgihJ4Q5rm8JApzPc7ApjM5gtlqsazgjsewjocOC3vej5nM+Qivu+06zrA5ZJEujosnIApPK8xiuK8npuvI-rlEGqiOF2SjvEY3K6JeBwqvBuYANaTlAj4QD+szzIsKypmsW5bLsSrgYxLFnGxAgQChjLLk6CBbmKDiCnkWBlIUuhmH88kAkCHjvBo4LfIoih0XGN5vsxrHsZxf48YBAkgcJDEWWJowSVJsgJBWKSyRh8leOwwbdp4WhGBoUZ6P6xQ5FkXiel27iKB4pnXhBLlWZJNncQBfEOUJYHOWAlniexrBaF5qE+eh0hyM2ODvOy7rfOe3pRWRwbulsBgRbkziqClInpWcd5ZgWWX-rx6ybI5BV9KJk4jWABbSWhzI1f5Hi2AKkLfOwWQmMRhTPN2jiaHy4L5ANhXFaMi1jdMXETYB035Veg1Fa51R3awnl2lVa0ZJ4Ia2Fk2gSi47huv67ocvYno+roQJhf1Q5OXNQ23WAo3jXZfEvaBb3XZ933lX9DoA3ISWBV4uglEodj7ggZHKJ6Wxhdyjj6VdfSnLmKBgMQYiJl9WNLfOFUydVgPUfIwa0yY7rOJ4Sv+hFnI6KpHjdrFBTcwsvP84Lwt3WWv2Lv9K7xbgxj5OwdQeLp-rGbge0BWCrylOCUKo7N-4QNOZyQQ+74AEbiNqOM5eseUE-RfTBP7k5B-zEDVGHYjaitFtybIWgCpyiN9W4iPFBKqvvJyZTsLKXjyHbO56zgYBiKnhzhNEcQLt55Mrlk+e6El57aDyWgq1pxTKN8isupsRgmLIjcGwLzfC7O6KkFnPdyRpuB8luPw8qprayE7UrBl8Oi5-IgquDyvhDmIaAQHAkiwmTVZyZs9UUVov95wofVdD+mqOyJ4e08j6ERntLYJkfZXgIMQd+vl1puG-lGP+-9r6RS0rUfQnIDBfD3n2POfU9ZIKlogLsNgsANhcE2FsjNqhGEnu7Vw3w3Ahmro3Y4wsJjkIpggR4gI86lB0L-OuxR-R1xwGyXaIYoFOGMo3BMk5NQphQPwlctd6y0zoc2OwqsSjiklKFMM0Vr7KL1Ko5M2pUy6mEJouSfJXRhQ9F4aU1dFBO0FM8EwrgGh8jnqFSx6pqhqNsWmAgWZoJ5kLMWNaksBFskCorUeYVTGSK0myIMBRygehaJGeQjdxyTkQrmRxfl9B1gaO4dBHtQqM2KLLZJGhexsleLkRuycnwvjfKnMp8BzZbz8tFQKuQdAXTeEoKRrwZHX3sEXbQTgukY2qO5Cp60twekBMYME3JvTUWcE7Ps4oJQOAonoLmcC47mQ+gtUWBYNmAzrkYZ4EiPTnmvvKVWGhgxgkAa2LBmwinXLMjgJeRt7mjSeXIAwry3RfEMkrBQ3wZnNKwdfYyzCkplEbgnAOeY7zB1TunbUMLtLdnPvoZhNCyjniiiYDqwU1Bzz2m6RuzdW7wnJXnWmKg64aDUHkLBqslA7PdKpEEfIlGgtShClek41783JcwwKgZ5FKzzqPIiWklA5NnrnI+bg773yAA */
   createMachine(
     {
       context: initialGameContext,
@@ -171,7 +171,7 @@ export const drop7Machine =
             },
             'checking-grid': {
               after: {
-                '500': [
+                '1000': [
                   {
                     target: '#drop7.game.adding-cleared-bonus',
                     cond: 'GRID_CLEARED',
@@ -219,7 +219,6 @@ export const drop7Machine =
             },
             'incrementing-level': {
               entry: 'incrementLevel',
-
               always: [
                 {
                   target: 'end-game',
@@ -232,8 +231,11 @@ export const drop7Machine =
               ],
             },
             'adding-cleared-bonus': {
-              always: {
-                target: 'checking-level',
+              entry: 'addClearedBonus',
+              after: {
+                '1000': {
+                  target: 'checking-level',
+                },
               },
             },
             'end-game': {
@@ -486,6 +488,13 @@ export const drop7Machine =
             nextLevelDiscIds,
           };
         }),
+        addClearedBonus: assign((context) => {
+          console.log('addClearedBonus', context.score);
+
+          return {
+            score: context.score + 70000,
+          };
+        }),
         consoleLogValue: (context, event) => {
           // Wow! event is typed to { type: 'FOO' }
           // console.log(event);
@@ -496,8 +505,24 @@ export const drop7Machine =
   ).withConfig({
     actions: {},
     guards: {
-      GRID_CLEARED: () => {
-        return false;
+      GRID_CLEARED: (context) => {
+        const grid = context.grid;
+        let gridCleared = true;
+
+        loop: for (const row of grid) {
+          for (const cell of row) {
+            if (cell) {
+              gridCleared = false;
+              break loop;
+            }
+          }
+        }
+
+        if (gridCleared) {
+          console.log('GRID_CLEARED', gridCleared);
+        }
+
+        return gridCleared;
       },
       GRID_OVER: (context) => {
         // Get top row where next disc starts. This should be empty during the check states.
