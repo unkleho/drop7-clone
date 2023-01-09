@@ -144,7 +144,7 @@ export const Drop7Disc: React.FC<Props> = ({
         {typeof value === 'number' ? value : null}
       </span>
 
-      {value === 'cracked' ? <DiscCracked id={id} /> : null}
+      {value === 'cracked' ? <DiscCracked /> : null}
 
       {/* <span className="text-xs">{id}</span> */}
 
@@ -159,41 +159,14 @@ export const Drop7Disc: React.FC<Props> = ({
   );
 };
 
-const DiscCracked = ({ id }: { id: string | undefined }) => {
+const DiscCracked = () => {
   const colour = colourMap['blank'];
-  const maskId = `disc-cracked-${id}`;
 
   return (
-    <>
-      <div
-        className={['aspect-square w-full', colour.bg].join(' ')}
-        style={{ clipPath: `url(#${maskId})` }}
-      ></div>
-
-      {/* Cracked disc mask */}
-      <svg viewBox="0 0 100 100" className="col-start-1 row-start-1">
-        <clipPath id={maskId} clipPathUnits="objectBoundingBox">
-          {[...new Array(10)].map((_, i) => {
-            const angle = 360 / 10;
-            const rotate = i * angle;
-            // const pad = 14;
-            const d = getSliceCommands(
-              { id: 1, percent: 6.5 },
-              0.5,
-              1,
-              0.2,
-              rotate + 5.5
-            );
-
-            return (
-              <motion.path d={d} key={rotate} className={'fill-gray-700'} />
-            );
-          })}
-
-          <motion.circle r={0.22} cx="0.5" cy="0.5" />
-        </clipPath>
-      </svg>
-    </>
+    <div
+      className={['aspect-square w-full', colour.bg].join(' ')}
+      style={{ clipPath: 'url(#disc-cracked)' }}
+    ></div>
   );
 };
 
