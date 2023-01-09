@@ -1,6 +1,7 @@
 import { motion, Transition, Variant, Variants } from 'framer-motion';
 import { url } from 'inspector';
 import React, { useRef } from 'react';
+import { getSliceCommands } from '../shared/donut-utils';
 import { DiscValue } from '../shared/drop7';
 
 export type DiscState =
@@ -165,20 +166,27 @@ const DiscCracked = () => {
     <>
       <svg viewBox="0 0 100 100" className="col-start-1 row-start-1">
         <clipPath id="disc-cracked" clipPathUnits="objectBoundingBox">
-          {[...new Array(2)].map((_, i) => {
+          {[...new Array(10)].map((_, i) => {
             const angle = 360 / 10;
             const rotate = i * angle;
-            const pad = 14;
-            console.log(getCoordFromDegrees(angle - pad, 0.5, 1));
+            // const pad = 14;
+            const d = getSliceCommands(
+              { id: 1, percent: 6.5, color: 'red' },
+              0.5,
+              1,
+              0.2,
+              rotate + 5.5
+            );
 
             return (
               <path
-                d={`M 1 0.50
-            A 0.50 0.50 0 0 0 ${getCoordFromDegrees(angle - pad, 0.5, 1).join(
-              ' '
-            )}
-            L ${getCoordFromDegrees(angle - pad, 0.3, 1).join(' ')}
-            A 0.30 0.30 0 0 1 0.80 0.50`}
+                //     d={`M 1 0.50
+                // A 0.50 0.50 0 0 0 ${getCoordFromDegrees(angle - pad, 0.5, 1).join(
+                //   ' '
+                // )}
+                // L ${getCoordFromDegrees(angle - pad, 0.3, 1).join(' ')}
+                // A 0.30 0.30 0 0 1 0.80 0.50`}
+                d={d}
                 key={rotate}
                 transform={`rotate(0)`}
                 // transform={`rotate(${rotate - pad / 2})`}
