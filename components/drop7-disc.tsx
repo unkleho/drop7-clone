@@ -163,59 +163,10 @@ const DiscCracked = () => {
   const colour = colourMap['blank'];
 
   return (
-    <>
-      <svg viewBox="0 0 100 100" className="col-start-1 row-start-1">
-        <clipPath id="disc-cracked" clipPathUnits="objectBoundingBox">
-          {[...new Array(10)].map((_, i) => {
-            const angle = 360 / 10;
-            const rotate = i * angle;
-            // const pad = 14;
-            const d = getSliceCommands(
-              { id: 1, percent: 6.5, color: 'red' },
-              0.5,
-              1,
-              0.2,
-              rotate + 5.5
-            );
-
-            return (
-              <path
-                //     d={`M 1 0.50
-                // A 0.50 0.50 0 0 0 ${getCoordFromDegrees(angle - pad, 0.5, 1).join(
-                //   ' '
-                // )}
-                // L ${getCoordFromDegrees(angle - pad, 0.3, 1).join(' ')}
-                // A 0.30 0.30 0 0 1 0.80 0.50`}
-                d={d}
-                key={rotate}
-                transform={`rotate(0)`}
-                // transform={`rotate(${rotate - pad / 2})`}
-                style={{
-                  transformOrigin: 'center',
-                }}
-                className={'fill-gray-700'}
-              />
-            );
-          })}
-
-          <circle r={0.22} cx="0.5" cy="0.5" />
-          {/* <circle r={22} cx="50" cy="50" className={'fill-gray-700'} /> */}
-        </clipPath>
-
-        {/* <circle
-        r={50}
-        cx="50"
-        cy="50"
-        className="bg-gradient-to-bl from-slate-600 to-slate-900"
-        // className={[colour.bg].join(' ')}
-        clipPath="url(#disc-cracked)"
-      /> */}
-      </svg>
-      <div
-        className={['aspect-square w-full', colour.bg].join(' ')}
-        style={{ clipPath: 'url(#disc-cracked)' }}
-      ></div>
-    </>
+    <div
+      className={['aspect-square w-full', colour.bg].join(' ')}
+      style={{ clipPath: 'url(#disc-cracked)' }}
+    ></div>
   );
 };
 

@@ -5,6 +5,7 @@ import { DiscState, Drop7Disc } from './drop7-disc';
 import { usePrevious } from '../shared/hooks/use-previous';
 import { getGridDiff, getPosition, Grid } from '../shared/grid';
 import useDeviceDetect from '../shared/hooks/use-device-detect';
+import { getSliceCommands } from '../shared/donut-utils';
 
 type Props = {
   grid: Grid;
@@ -172,6 +173,28 @@ export const Drop7GameGrid: React.FC<Props> = ({
       </AnimatePresence>
 
       {children}
+
+      {/* Cracked disc mask */}
+      <svg viewBox="0 0 100 100" className="col-start-1 row-start-1">
+        <clipPath id="disc-cracked" clipPathUnits="objectBoundingBox">
+          {[...new Array(10)].map((_, i) => {
+            const angle = 360 / 10;
+            const rotate = i * angle;
+            // const pad = 14;
+            const d = getSliceCommands(
+              { id: 1, percent: 6.5, color: 'red' },
+              0.5,
+              1,
+              0.2,
+              rotate + 5.5
+            );
+
+            return <path d={d} key={rotate} className={'fill-gray-700'} />;
+          })}
+
+          <circle r={0.22} cx="0.5" cy="0.5" />
+        </clipPath>
+      </svg>
     </motion.div>
   );
 };
