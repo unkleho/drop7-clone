@@ -1,7 +1,7 @@
 export interface DonutSlice {
   id: number;
   percent: number;
-  color?: string;
+  color: string;
   label?: string;
   onClickCb?: () => void;
 }
