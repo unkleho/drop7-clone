@@ -175,7 +175,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
       {children}
 
       {/* Cracked disc mask */}
-      <svg viewBox="0 0 100 100" className="col-start-1 row-start-1">
+      {/* <svg viewBox="0 0 100 100" className="col-start-1 row-start-1">
         <clipPath id="disc-cracked" clipPathUnits="objectBoundingBox">
           {[...new Array(10)].map((_, i) => {
             const angle = 360 / 10;
@@ -194,7 +194,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
 
           <circle r={0.22} cx="0.5" cy="0.5" />
         </clipPath>
-      </svg>
+      </svg> */}
     </motion.div>
   );
 };
