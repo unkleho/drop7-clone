@@ -1,4 +1,5 @@
 import React from 'react';
+import { DiscValue } from '../shared/drop7';
 import { useStore } from '../shared/store';
 import { ActionButton } from './action-button';
 import { Dialog } from './dialog';
@@ -59,8 +60,8 @@ const Drop7Dialog: React.FC<Props> = ({
         <Drop7Disc value={'blank'} className="m-auto mb-6 w-12" />
 
         <p className="mb-6 text-lg opacity-70">
-          They can look like this. Although after cracking once, you'll have to
-          crack it again.
+          They can look like this. Although after cracking once, you&apos;ll
+          have to crack it again.
         </p>
 
         <Drop7Disc value={'cracked'} className="m-auto mb-6 w-12" />
@@ -70,7 +71,7 @@ const Drop7Dialog: React.FC<Props> = ({
         </p>
 
         <Drop7Disc
-          value={Math.ceil(Math.random() * 7)}
+          value={Math.ceil(Math.random() * 7) as DiscValue}
           className="m-auto mb-6 w-12"
         />
 
@@ -81,8 +82,8 @@ const Drop7Dialog: React.FC<Props> = ({
         </h1>
 
         <p className="mb-6 text-lg opacity-70">
-          Drop 7 is one of my all time favourite mobile puzzle games. I've been
-          wanting to play it lately, but for some reason, it is no longer
+          Drop 7 is one of my all time favourite mobile puzzle games. I&apos;ve
+          been wanting to play it lately, but for some reason, it is no longer
           available on the App Store.
         </p>
 
