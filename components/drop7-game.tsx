@@ -105,7 +105,7 @@ export const Drop7Game = () => {
             animate={state.matches('game') ? 'visible' : 'hidden'}
           >
             <p className="-mr-1 text-5xl font-light tabular-nums opacity-70 sm:mb-4">
-              {context.score}
+              {context.score.toLocaleString()}
             </p>
           </motion.div>
         </div>

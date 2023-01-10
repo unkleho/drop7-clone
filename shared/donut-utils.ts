@@ -1,3 +1,5 @@
+// https://medium.com/@theAngularGuy/how-to-create-an-interactive-donut-chart-using-svg-107cbf0b5b6
+
 export interface DonutSlice {
   id: number;
   percent: number;

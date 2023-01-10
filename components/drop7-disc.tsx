@@ -14,10 +14,11 @@ export type DiscState =
 type Props = {
   id?: string;
   value: DiscValue;
-  row: number | null;
-  column: number | null;
+  row?: number | null;
+  column?: number | null;
   state?: DiscState;
   index?: number;
+  className?: string;
 };
 
 const colourMap: {
@@ -45,6 +46,7 @@ export const Drop7Disc: React.FC<Props> = ({
   column,
   state = 'waiting',
   index = 0,
+  className,
 }) => {
   if (row === null || column === null) {
     return null;
@@ -120,6 +122,7 @@ export const Drop7Disc: React.FC<Props> = ({
       className={[
         'pointer-events-none m-1 grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-medium',
         colour.bg,
+        className || '',
       ].join(' ')}
       custom={index}
       transition={transition}
@@ -129,12 +132,10 @@ export const Drop7Disc: React.FC<Props> = ({
       animate={state === 'exiting' ? 'exiting' : 'show'}
       exit={'hidden'}
       style={{
-        gridRow: row + 1,
-        gridColumn: column + 1,
-        // backgroundColor: colour.bg,
+        ...(typeof row === 'number' ? { gridRow: row + 1 } : {}),
+        ...(typeof column === 'number' ? { gridColumn: column + 1 } : {}),
         willChange: 'transform',
         fontSize: 'min(6vw, 1.8rem)',
-        // clipPath: 'url(#disc-cracked)',
       }}
     >
       <span className="disc-value-shadow col-start-1 row-start-1 -mt-1 opacity-60">
