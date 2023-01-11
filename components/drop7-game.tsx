@@ -9,6 +9,7 @@ import { Dialog } from './dialog';
 import Drop7Dialog from './drop7-dialog';
 import { DiscState, Drop7Disc } from './drop7-disc';
 import { Drop7GameGrid } from './drop7-game-grid';
+import { MenuIcon } from './menu-icon';
 
 export const Drop7Game = () => {
   const { state, send } = useStore();
@@ -76,12 +77,15 @@ export const Drop7Game = () => {
 
         <div className="ml-auto flex">
           <button
-            className="-mt-5 -mr-4 pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
+            className="align-center -mt-5 -mr-4 flex pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
             onClick={() => setIsMenuOpen(true)}
           >
-            <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
+            {/* <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
               {'◀ '}
-            </span>
+            </span> */}
+
+            <MenuIcon className="mr-3 mt-[2px]" />
+
             <span className="opacity-80">Menu</span>
           </button>
 
