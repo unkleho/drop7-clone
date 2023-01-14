@@ -77,7 +77,7 @@ export const Drop7Game = () => {
 
         <div className="ml-auto flex">
           <button
-            className="align-center -mt-5 -mr-4 flex pt-4 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
+            className="align-center -mt-5 -mr-4 flex pt-5 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
             onClick={() => setIsMenuOpen(true)}
           >
             {/* <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
@@ -88,8 +88,6 @@ export const Drop7Game = () => {
 
             <span className="opacity-80">Menu</span>
           </button>
-
-          {/* <Icon name="menu" /> */}
         </div>
       </header>
 
