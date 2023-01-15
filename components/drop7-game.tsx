@@ -80,10 +80,6 @@ export const Drop7Game = () => {
             className="align-center -mt-5 -mr-4 flex pt-5 pr-4 text-sm font-light uppercase leading-none tracking-wider opacity-100"
             onClick={() => setIsMenuOpen(true)}
           >
-            {/* <span className="bg-gradient-to-bl from-cyan-500 to-blue-800 bg-clip-text font-light leading-none text-transparent">
-              {'◀ '}
-            </span> */}
-
             <MenuIcon className="mr-3 mt-[2px]" />
 
             <span className="opacity-80">Menu</span>
