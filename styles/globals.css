@@ -37,6 +37,16 @@ a {
   text-decoration: none;
 }
 
+a:link,
+a:visited {
+  @apply text-blue-500;
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -53,27 +53,31 @@ const Drop7Dialog: React.FC<Props> = ({
           on the disc to the amount of discs in its row or column.
         </p>
         <p className="mb-6 text-lg opacity-70">
-          Matching disc(s) will disappear, cracking any adjacent discs without
-          numbers (see below).
+          Matching disc(s) will disappear, <q>cracking</q> any adjacent discs
+          without numbers like the one below.
         </p>
 
         <Drop7Disc value={'blank'} className="m-auto mb-6 w-12" />
 
         <p className="mb-6 text-lg opacity-70">
-          They can look like this. Although after cracking once, you&apos;ll
-          have to crack it again.
+          After cracking once, you&apos;ll have to crack it again:
         </p>
 
         <Drop7Disc value={'cracked'} className="m-auto mb-6 w-12" />
 
         <p className="mb-6 text-lg opacity-70">
-          Once you crack the one above, it will reveal a number. eg.
+          One more crack and it will reveal a number. eg.
         </p>
 
         <Drop7Disc
           value={Math.ceil(Math.random() * 7) as DiscValue}
           className="m-auto mb-6 w-12"
         />
+
+        <p className="mb-6 text-lg opacity-70">
+          If you are clever and manage to clear the whole board of discs, you
+          will get a bonus <strong>70,000</strong> points!
+        </p>
 
         <div className="mb-6 h-[1px] bg-gradient-to-bl from-purple-500 to-blue-800"></div>
 
@@ -93,12 +97,22 @@ const Drop7Dialog: React.FC<Props> = ({
 
         <p className="text-lg opacity-70">This game is built with:</p>
 
-        <ul className="mb-6 list-disc pl-4 text-lg opacity-70">
-          <li>React</li>
-          <li>Next JS</li>
-          <li>XState</li>
-          <li>Framer Motion</li>
-          <li>Tailwind CSS</li>
+        <ul className="mb-6 list-disc pl-5 text-lg opacity-70">
+          <li>
+            <a href="https://reactjs.org/">React</a>
+          </li>
+          <li>
+            <a href="https://nextjs.org/">Next JS</a>
+          </li>
+          <li>
+            <a href="https://xstate.js.org/">XState</a>
+          </li>
+          <li>
+            <a href="https://www.framer.com/motion/">Framer Motion</a>
+          </li>
+          <li>
+            <a href="https://tailwindcss.com/">Tailwind CSS</a>
+          </li>
         </ul>
 
         <p className="mb-6 text-lg opacity-70">

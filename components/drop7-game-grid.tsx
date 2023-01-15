@@ -161,7 +161,7 @@ export const Drop7GameGrid: React.FC<Props> = ({
                   row={gameDisc.position[1]}
                   state={isNextLevelEntering ? 'level-entering' : discState}
                   index={index >= 0 ? index : undefined}
-                  // index={i}
+                  className="m-1"
                   key={gameDisc.id}
                 />
               );

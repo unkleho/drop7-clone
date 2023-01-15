@@ -120,7 +120,7 @@ export const Drop7Disc: React.FC<Props> = ({
       layout={true}
       layoutId={id}
       className={[
-        'pointer-events-none m-1 grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-medium',
+        'pointer-events-none grid aspect-square grid-cols-1 grid-rows-1 place-items-center overflow-hidden rounded-full text-center font-medium',
         colour.bg,
         className || '',
       ].join(' ')}
