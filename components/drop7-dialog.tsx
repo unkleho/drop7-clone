@@ -99,36 +99,43 @@ const Drop7Dialog: React.FC<Props> = ({
 
         <ul className="mb-6 list-disc pl-5 text-lg opacity-70">
           <li>
-            <a href="https://reactjs.org/">React</a>
+            <a className="link" href="https://reactjs.org/">
+              React
+            </a>
           </li>
           <li>
-            <a href="https://nextjs.org/">Next JS</a>
+            <a className="link" href="https://nextjs.org/">
+              Next JS
+            </a>
           </li>
           <li>
-            <a href="https://xstate.js.org/">XState</a>
+            <a className="link" href="https://xstate.js.org/">
+              XState
+            </a>
           </li>
           <li>
-            <a href="https://www.framer.com/motion/">Framer Motion</a>
+            <a className="link" href="https://www.framer.com/motion/">
+              Framer Motion
+            </a>
           </li>
           <li>
-            <a href="https://tailwindcss.com/">Tailwind CSS</a>
+            <a className="link" href="https://tailwindcss.com/">
+              Tailwind CSS
+            </a>
           </li>
         </ul>
 
         <p className="mb-6 text-lg opacity-70">
           Open sourced repo here:
           <br />{' '}
-          <a
-            className="text-blue-500"
-            href="https://github.com/unkleho/drop7-clone"
-          >
+          <a className="link" href="https://github.com/unkleho/drop7-clone">
             github.com/unkleho/drop7-clone
           </a>
         </p>
 
         <p className="text-lg opacity-70">
           By{' '}
-          <a className="text-blue-500" href="https://twitter.com/unkleho">
+          <a className="link" href="https://twitter.com/unkleho">
             @unkleho
           </a>
         </p>

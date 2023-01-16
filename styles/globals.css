@@ -37,13 +37,13 @@ a {
   text-decoration: none;
 }
 
-a:link,
-a:visited {
+a.link:link,
+a.link:visited {
   @apply text-blue-500;
 }
 
-a:hover,
-a:active {
+a.link:hover,
+a.link:active {
   text-decoration: underline;
 }
 
